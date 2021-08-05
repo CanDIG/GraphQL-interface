@@ -1,7 +1,9 @@
+from api.schemas.utils import generic_filter, set_extra_properties, set_field
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
-from api.schemas.json_formats.ontology import Ontology, OntologyInputType, filter_ontology
+import uuid
+from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 
 @strawberry.input
 class ProcedureInputType:
@@ -16,25 +18,17 @@ class Procedure:
     created: str
     updated: str
 
-    @strawberry.field
-    def code(self, info) -> Ontology:
-        return self.code
+    @staticmethod
+    def deserialize(json):
+        ret = Procedure(**json)
+        
+        for (field_name, type) in [("code", Ontology), ("body_site", Ontology)]:
+            set_field(json, ret, field_name, type)
 
-    @strawberry.field
-    def body_site(self, info) -> Ontology:
-        return self.body_site
+        set_extra_properties(json, ret)
 
-    @strawberry.field
-    def extra_properties(self, info) -> JSONScalar:
-        return self.extra_properties
+        return ret
 
-def filter_procedure(instance, input):
-    code = input.get("code")
-    body_site = input.get("body_site")
-    if code != None and body_site != None:
-        return filter_ontology(code) and filter_ontology(body_site)
-    if code == None:
-        return filter_ontology(body_site)
-    if body_site == None:
-        return filter_ontology(code)
-    return True
+    @staticmethod
+    def filter(instance, input: ProcedureInputType):
+        return generic_filter(instance, input)

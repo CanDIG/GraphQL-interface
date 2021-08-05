@@ -1,16 +1,23 @@
-from typing import Union, Any
-from strawberry.asgi import GraphQL, WebSocketHandler
+from api.query import Query
+from starlette.responses import Response
+from starlette.websockets import WebSocket
+import strawberry
+from api.schemas.phenopacket import get_phenopackets
+from typing import Optional, Union, Any
+from strawberry.asgi import GraphQL as BaseGraphQL
 from strawberry.dataloader import DataLoader
-
 from starlette.requests import Request
 from api.schema import schema
-# from api.schemas.phenopacket import get_phenopackets
+from fastapi import FastAPI
+class MyGraphQL(BaseGraphQL):
+    async def get_context(
+        self,
+        request: Union[Request, WebSocket],
+        response: Optional[Response] = None,
+    ):
+        return {"request": request, "response": response, "phenopacket_loader": DataLoader(load_fn=get_phenopackets)}
 
-class MyGraphQL(GraphQL):
-    async def get_context(self, request: Union[Request, WebSocketHandler]) -> Any:
-        return {
-            # "phenopacket_loader": DataLoader(load_fn=get_phenopackets)
-        }
-
-
-app = MyGraphQL(schema)
+schema = strawberry.Schema(query=Query)
+graphql_app = MyGraphQL(schema)
+app = FastAPI()
+app.add_route("/graphql", graphql_app)

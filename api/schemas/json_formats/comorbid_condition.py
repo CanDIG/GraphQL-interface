@@ -1,22 +1,32 @@
+from api.schemas.utils import generic_filter
+from typing import Optional
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 import strawberry
 
 @strawberry.input
 class ComorbidConditionInputType:
-    first_typeof: OntologyInputType
-    second_typeof_id: OntologyInputType
-    second_typeof_label: str
-    first_property: str
-    schema_id: str
-    title: str
-    description: str
+    first_typeof: Optional[OntologyInputType] = None
+    second_typeof_id: Optional[OntologyInputType] = None
+    second_typeof_label: Optional[str] = None
+    first_property: Optional[str] = None
+    schema_id: Optional[str] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
 
 @strawberry.type
 class ComorbidCondition:
-    first_typeof: Ontology
-    second_typeof: Ontology
-    first_property: str
-    second_property: str
-    schema_id: str
-    title: str
-    description: str
+    first_typeof: Optional[Ontology] = None
+    second_typeof: Optional[Ontology] = None
+    first_property: Optional[str] = None
+    second_property: Optional[str] = None
+    schema_id: Optional[str] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+
+    @staticmethod
+    def deserialize(json):
+        return ComorbidCondition(**json)
+
+    @staticmethod
+    def filter(instance, input: ComorbidConditionInputType):
+        return generic_filter(instance, input)

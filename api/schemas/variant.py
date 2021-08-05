@@ -1,18 +1,20 @@
+from api.schemas.utils import generic_filter, set_extra_properties, set_field
+from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
-from api.schemas.json_formats.allele import Allele, AlleleInputObject
+from api.schemas.json_formats.allele import Allele, AlleleInputType
 
 @strawberry.input
 class VariantInputType:
-    id: id
-    allele_type: str
-    allele: AlleleInputObject
-    zygosity: OntologyInputType
+    id: Optional[strawberry.ID] = None
+    allele_type: Optional[str] = None
+    allele: Optional[AlleleInputType] = None
+    zygosity: Optional[OntologyInputType] = None
 
 @strawberry.type
 class Variant:
-    id: id
+    id: str
     allele_type: str
     allele: Allele
     zygosity: Ontology
@@ -20,14 +22,17 @@ class Variant:
     created: str
     updated: str
 
-    @strawberry.field
-    def allele(self, info) -> Allele:
-        return self.allele
+    @staticmethod
+    def deserialize(json):
+        ret = Variant(**json)
 
-    @strawberry.field
-    def zygosity(self, info) -> Ontology:
-        return self.zygosity
+        for (field_name, type) in [("allele", Allele), ("zygosity", Ontology)]:
+            set_field(json, ret, field_name, type)
 
-    @strawberry.field
-    def extra_properties(self, info) -> JSONScalar:
-        return self.extra_properties
+        set_extra_properties(json, ret)
+
+        return ret
+
+    @staticmethod
+    def filter(instance, input: VariantInputType):
+        return generic_filter(instance, input)

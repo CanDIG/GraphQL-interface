@@ -1,18 +1,21 @@
+from api.schemas.utils import generic_filter, set_extra_properties
+from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
+import uuid
 
 @strawberry.input
 class ResourceInputType:
-    id: id
-    name: str
-    namespace_prefix: str
-    url: str
-    version: str
-    iri_prefix: str
+    id: Optional[strawberry.ID] = None
+    name: Optional[str] = None
+    namespace_prefix: Optional[str] = None
+    url: Optional[str] = None
+    version: Optional[str] = None
+    iri_prefix: Optional[str] = None
 
 @strawberry.type
 class Resource:
-    id: id
+    id: strawberry.ID
     name: str
     namespace_prefix: str
     url: str
@@ -22,6 +25,14 @@ class Resource:
     created: str
     updated: str
 
-    @strawberry.field
-    def extra_properties(self, info):
-        return self.extra_properties
+    @staticmethod
+    def deserialize(json):
+        ret = Resource(**json)
+
+        set_extra_properties(json, ret)
+        
+        return ret
+
+    @staticmethod
+    def filter(instance, input: ResourceInputType):
+        return generic_filter(instance, input)

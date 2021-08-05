@@ -1,28 +1,36 @@
 
+from api.schemas.utils import generic_filter, set_extra_properties
 from api.schemas.scalars.json_scalar import JSONScalar
-from typing import List
+from typing import List, Optional
 import strawberry
-
 
 @strawberry.input
 class InterpretationInputType:
-    id: id
-    resolution_status: str
-    phenopacket: str
-    diagnosis: str
-    meta_data: str
+    id: Optional[strawberry.ID] = None
+    resolution_status: Optional[str] = None
+    phenopacket: Optional[str] = None
+    diagnosis: Optional[str] = None
+    meta_data: Optional[str] = None
 
-@strawberry.field
+@strawberry.type
 class Interpretation:
-    id: id
-    resolution_status: str
-    phenopacket: str
-    diagnosis: List(str)
-    meta_data: str
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    id: Optional[strawberry.ID] = None
+    resolution_status: Optional[str] = None
+    phenopacket: Optional[str] = None
+    diagnosis: Optional[List[str]] = None
+    meta_data: Optional[str] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
 
-    @strawberry.field
-    def extra_properties(self, info) -> JSONScalar:
-        return self.extra_properties
+    @staticmethod
+    def deserialize(json):
+        ret = Interpretation(**json)
+        
+        set_extra_properties(json, ret)
+
+        return ret
+
+    @staticmethod
+    def filter(instance, input: InterpretationInputType):
+        return generic_filter(instance, input)

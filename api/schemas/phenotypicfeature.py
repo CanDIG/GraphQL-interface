@@ -1,58 +1,54 @@
-from typing import List
+from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
+from typing import List, Optional
 import strawberry
+import uuid
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.scalars.json_scalar import JSONScalar
 
 @strawberry.input
 class PhenotypicFeatureInputType:
-    id: id
-    description: str
-    type: OntologyInputType
-    negated: bool
-    severity: OntologyInputType
-    modifier: List(OntologyInputType)
-    onset: OntologyInputType
-    evidence: OntologyInputType
-    biosample: str
-    phenopacket: str
+    id: Optional[strawberry.ID] = None
+    description: Optional[str] = None
+    type: Optional[OntologyInputType] = None
+    negated: Optional[bool] = None
+    severity: Optional[OntologyInputType] = None
+    modifier: Optional[List[OntologyInputType]] = None
+    onset: Optional[OntologyInputType] = None
+    evidence: Optional[OntologyInputType] = None
+    biosample: Optional[str] = None
+    phenopacket: Optional[str] = None
     
 
 @strawberry.type
 class PhenotypicFeature:
-    id: id
-    description: str
-    type: Ontology
-    negated: bool
-    severity: Ontology
-    modifier: List(Ontology)
-    onset: Ontology
-    evidence: Ontology
-    biosample: str
-    phenopacket: str
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    id: Optional[strawberry.ID] = None
+    description: Optional[str] = None
+    type: Optional[Ontology] = None
+    negated: Optional[bool] = None
+    severity: Optional[Ontology] = None
+    modifier: Optional[List[Ontology]] = None
+    onset: Optional[Ontology] = None
+    evidence: Optional[Ontology] = None
+    biosample: Optional[str] = None
+    phenopacket: Optional[str] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
 
-    @strawberry.field
-    def type(self, info) -> Ontology:
-        return self.type
+    @staticmethod
+    def deserialize(json):
+        ret = PhenotypicFeature(**json)
 
-    @strawberry.field
-    def severity(self, info) -> Ontology:
-        return self.severity
+        for (field_name ,type) in [("type", Ontology), ("severity", Ontology), \
+                                ("onset", Ontology), ("evidence", Ontology)]:
+            set_field(json, ret, field_name, type)
 
-    @strawberry.field
-    def modifier(self, info) -> List(Ontology):
-        return self.modifier
+        set_field_list(json, ret, "modifier", Ontology)
 
-    @strawberry.field
-    def onset(self, info) -> Ontology:
-        return self.onset
+        set_extra_properties(json, ret)
 
-    @strawberry.field
-    def evidence(self, info) -> Ontology:
-        return self.evidence
+        return ret
 
-    @strawberry.field
-    def extra_properties(self, info) -> JSONScalar:
-        return self.extra_properties
+    @staticmethod
+    def filter(instance, input: PhenotypicFeatureInputType):
+        return generic_filter(instance, input)

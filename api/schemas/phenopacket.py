@@ -1,11 +1,16 @@
 from typing import List, Optional
 import strawberry
+
+from strawberry.field import field
 from api.schemas.dataloader_input import DataLoaderOutput
 from api.schemas.utils import (
+    generic_filter,
     get_response,
-    json_to_obj_arr
+    set_extra_properties,
+    set_field,
+    set_field_list
 )
-from api.schemas.individual import Individual, IndividualInputType, filter_individual
+from api.schemas.individual import Individual, IndividualInputType
 from api.schemas.phenotypicfeature import PhenotypicFeature, PhenotypicFeatureInputType
 from api.schemas.biosample import Biosample, BiosampleInputObjectType
 from api.schemas.disease import Disease, DiseaseInputType
@@ -16,23 +21,26 @@ from api.schemas.metadata import MetaData, MetaDataInputType
 from api.schemas.scalars.json_scalar import JSONScalar
 
 
-async def get_phenopackets(dataloader_input):
+async def get_phenopackets(param):
+    print("wtf")
+    dataloader_input = param[0]
     token = dataloader_input.token
+    query_input = dataloader_input.input
     if dataloader_input.ids == None:
         response = get_response("phenopackets", token)
-        obj_arr = json_to_obj_arr(response["results"], Phenopacket)
-        return DataLoaderOutput(obj_arr)
+        obj_arr = list()
+        for p in response["results"]:
+            obj_arr.append(Phenopacket.deserialize(p))
     else:
         ids = set(dataloader_input.ids)
-        obj_arr = []
+        obj_arr = list()
         for id in ids:
-            obj_arr.append(Phenopacket(**get_response(f"phenopackets/{id}", token)))
-        return DataLoaderOutput(obj_arr)
-
+            obj_arr.append(Phenopacket.deserialize(get_response(f"phenopackets/{id}", token)))
+    return [DataLoaderOutput([p for p in obj_arr if Phenopacket.filter(p, query_input)])]
 
 @strawberry.input
 class PhenopacketInputType:
-    ids: Optional[List(id)] = None
+    ids: Optional[List[strawberry.ID]] = None
     subject: Optional[IndividualInputType] = None
     phenotypic_features: Optional[PhenotypicFeatureInputType] = None
     biosamples: Optional[BiosampleInputObjectType] = None
@@ -45,57 +53,36 @@ class PhenopacketInputType:
 
 @strawberry.type
 class Phenopacket:
-    id: id
-    subject: Individual
-    phenotypic_features: List(PhenotypicFeature)
-    biosamples: List(Biosample)
-    genes: List(Gene)
-    variants: List(Variant)
-    diseases: List(Disease)
-    hts_files: List(HtsFile)
-    meta_data: MetaData
-    table: str
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    id: strawberry.ID = None
+    subject: Optional[Individual] = None
+    phenotypic_features: Optional[List[PhenotypicFeature]] = None
+    biosamples: Optional[List[Biosample]] = None
+    genes: Optional[List[Gene]] = None
+    variants: Optional[List[Variant]] = None
+    diseases: Optional[List[Disease]] = None
+    hts_files: Optional[List[HtsFile]] = None
+    meta_data: Optional[MetaData] = None
+    table: Optional[str] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
+    extra_properties: Optional[JSONScalar] = None
 
-    @strawberry.field
-    def subject(self, info) -> Individual:
-        return self.subject
+    @staticmethod
+    def deserialize(json):
+        ret = Phenopacket(**json)
 
-    @strawberry.field
-    def phenotypic_features(self, info) -> List(PhenotypicFeature):
-        return self.phenotypic_features
+        for (field_name ,type) in [("phenotypic_features", PhenotypicFeature), ("biosamples", Biosample), \
+                                ("genes", Gene), ("variants", Variant), ("diseases", Disease), \
+                                ("hts_files", HtsFile)]:
+            set_field_list(json, ret, field_name, type)
+        
+        set_field(json, ret, "metadata", MetaData)
+        set_field(json, ret, "subject", Individual)
 
-    @strawberry.field
-    def biosamples(self, info) -> List(Biosample):
-        return self.biosamples
+        set_extra_properties(json, ret)
 
-    @strawberry.field
-    def genes(self, info) -> List(Gene):
-        return self.genes
+        return ret
 
-    @strawberry.field
-    def variants(self, info) -> List(Variant):
-        return self.variants
-
-    @strawberry.field
-    def diseases(self, info) -> List(Disease):
-        return self.diseases
-
-    @strawberry.field
-    def hts_files(self, info) -> List(HtsFile):
-        return self.hts_files
-
-    @strawberry.field
-    def meta_data(self, info) -> MetaData:
-        return self.meta_data
-
-
-def filter_phenopackets(instance, input):
-    if input.get("ids") != None:
-        return instance.id in input.ids and filter_individual(
-            instance.subject, input.subject
-        )
-    else:
-        return filter_individual(instance.subject, input.subject)
+    @staticmethod
+    def filter(instance, input):
+        return generic_filter(instance, input)

@@ -1,25 +1,34 @@
-from typing import Union
+from typing import Optional
 import strawberry
 
 @strawberry.input
 class AgeInputType:
-    age: int
-    start: int
-    end: int
+    age: Optional[int] = None
+    start: Optional[int] = None
+    end: Optional[int] = None
 
 @strawberry.type
 class AgeRange:
     start: str
     end: str
 
+    @staticmethod
+    def filter(instance, input: AgeInputType):
+        return filter_age(instance, input)
+
+
 @strawberry.type
 class Age:
     age: str
 
-def filter_age_union(instance, input: AgeInputType):
-    age = int(input.get("age"))
-    start = int(input.get("start"))
-    end = int(input.get("end"))
+    @staticmethod
+    def filter(instance, input: AgeInputType):
+        return filter_age(instance, input)
+
+def filter_age(instance, input: AgeInputType):
+    age = int(input.age)
+    start = int(input.start)
+    end = int(input.end)
     if isinstance(instance, Age):
         if age != None and instance.age == age:
             return True

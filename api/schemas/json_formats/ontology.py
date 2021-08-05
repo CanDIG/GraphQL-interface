@@ -1,32 +1,39 @@
+from api.schemas.utils import generic_filter
+from typing import Optional
 import strawberry
 
 @strawberry.input
 class OntologyInputType:
-    id: str
-    label: str
+    id: Optional[str] = None
+    label: Optional[str] = None
 
 @strawberry.type
 class Ontology:
     id: str
     label: str
 
+    @staticmethod
+    def deserialize(json):
+        return Ontology(**json)
+    
+    @staticmethod
+    def filter(instance, input: OntologyInputType):
+        return generic_filter(instance, input)
+
 @strawberry.input
 class SampleTissueInputType:
-    reference: str
-    display: str
+    reference: Optional[str] = None
+    display: Optional[str] = None
 
 @strawberry.type
 class SampleTissue:
     reference: str
     display: str
+    
+    @staticmethod
+    def deserialize(json):
+        return SampleTissue(**json)
 
-def filter_ontology(instance, input: OntologyInputType):
-    id = input.get("id")
-    label = input.get("label")
-    if id == None and label == None:
-        return True
-    if id == None:
-        return instance.label == label
-    if label == None:
-        return instance.id == id
-    return instance.id == id and instance.label == label
+    @staticmethod
+    def filter(instance, input: SampleTissueInputType):
+        return generic_filter(instance, input)
