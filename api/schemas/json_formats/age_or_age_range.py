@@ -1,8 +1,9 @@
+from api.interfaces.input import Input
 from typing import Optional
 import strawberry
 
 @strawberry.input
-class AgeInputType:
+class AgeInputType(Input):
     age: Optional[int] = None
     start: Optional[int] = None
     end: Optional[int] = None

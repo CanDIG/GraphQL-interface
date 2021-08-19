@@ -1,9 +1,10 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter
 from typing import Optional
 import strawberry
 
 @strawberry.input
-class AlleleInputType:
+class AlleleInputType(Input):
     id: Optional[strawberry.ID] = None
     hgvs: Optional[str] = None
     genome_assembly: Optional[str] = None

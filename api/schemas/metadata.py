@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from api.schemas.json_formats.phenopacket_update import PhenopacketUpdate
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -7,7 +8,7 @@ from api.schemas.json_formats.phenopacket_external_reference import PhenopacketE
 from api.schemas.resource import Resource, ResourceInputType
 
 @strawberry.input
-class MetaDataInputType:
+class MetaDataInputType(Input):
     id: Optional[strawberry.ID] = None
     resources: Optional[List[ResourceInputType]] = None
     phenopacket_schema_version: Optional[str] = None

@@ -1,15 +1,32 @@
+from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
+from api.interfaces.input import Input
 from pydantic.typing import NoneType
-from api.schemas.utils import generic_filter, set_extra_properties, set_field
+from api.schemas.utils import generic_filter, get_katsu_response, set_extra_properties, set_field
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.json_formats.age_or_age_range import Age, AgeRange
 from typing import List, Optional, Union
 import strawberry
 from api.schemas.json_formats.comorbid_condition import ComorbidCondition, ComorbidConditionInputType
-from api.schemas.json_formats.age_or_age_range import AgeInputType
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 
+async def get_individuals(param):
+    ret = []
+    for dataloader_input in param:
+        token = dataloader_input.token
+        id = dataloader_input.ids
+        individual_response = None
+        try:
+            individual_response = get_katsu_response(f"individuals/{id}", token)
+        except:
+            pass
+        if individual_response == None:
+            ret.append(DataLoaderOutput([]))
+        else:
+            ret.append(DataLoaderOutput([Individual.deserialize(individual_response)]))
+    return ret
+
 @strawberry.input
-class IndividualInputType:
+class IndividualInputType(Input):
     ids: Optional[strawberry.ID] = None
     date_of_birth: Optional[str] = None
     sex: Optional[str] = None
@@ -40,6 +57,7 @@ class Individual:
     extra_properties: Optional[JSONScalar] = None
     created: Optional[str] = None
     updated: Optional[str] = None
+    phenopackets: Optional[str] = None
 
     @staticmethod
     def deserialize(json):

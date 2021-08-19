@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -5,7 +6,7 @@ import strawberry
 import uuid
 
 @strawberry.input
-class ResourceInputType:
+class ResourceInputType(Input):
     id: Optional[strawberry.ID] = None
     name: Optional[str] = None
     namespace_prefix: Optional[str] = None

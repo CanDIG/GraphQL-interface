@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from strawberry.field import field
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -12,7 +13,7 @@ from api.schemas.procedure import Procedure, ProcedureInputType
 from api.schemas.variant import Variant, VariantInputType
 
 @strawberry.input
-class BiosampleInputObjectType:
+class BiosampleInputObjectType(Input):
     id: Optional[strawberry.ID] = None
     phenotypic_features: Optional[PhenotypicFeatureInputType] = None
     individual: Optional[str] = None

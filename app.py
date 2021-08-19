@@ -1,3 +1,5 @@
+from api.schemas.individual import get_individuals
+from api.schemas.candig_server.variant import get_candig_server_variants
 from api.query import Query
 from starlette.responses import Response
 from starlette.websockets import WebSocket
@@ -15,7 +17,12 @@ class MyGraphQL(BaseGraphQL):
         request: Union[Request, WebSocket],
         response: Optional[Response] = None,
     ):
-        return {"request": request, "response": response, "phenopacket_loader": DataLoader(load_fn=get_phenopackets)}
+        return {"request": request, 
+                "response": response, 
+                "phenopacket_loader": DataLoader(load_fn=get_phenopackets), 
+                "individual_loader": DataLoader(load_fn=get_individuals),
+                "candig_server_variants_loader": DataLoader(load_fn=get_candig_server_variants)
+                }
 
 schema = strawberry.Schema(query=Query)
 graphql_app = MyGraphQL(schema)

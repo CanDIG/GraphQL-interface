@@ -1,9 +1,10 @@
+from api.interfaces.input import Input
 from api.schemas.utils import gene_filter, generic_all_resolver
 from api.schemas.variant import Variant, VariantInputType
 from api.schemas.resource import ResourceInputType
 from api.schemas.procedure import ProcedureInputType
 from api.schemas.phenotypicfeature import PhenotypicFeatureInputType
-from api.schemas.phenopacket import PhenopacketInputType
+from api.schemas.phenopacket import Phenopacket, PhenopacketInputType
 from api.schemas.metadata import MetaDataInputType
 from api.schemas.interpretation import InterpretationInputType
 from api.schemas.individual import IndividualInputType
@@ -17,7 +18,7 @@ from typing import Optional, Union
 import strawberry
 
 @strawberry.input
-class AggregateQueryInput:
+class AggregateQueryInput(Input):
     # filter: Optional[Union[BiosampleInputObjectType, DiagnosisInputType, DiseaseInputType,
     #                 GeneInputType, GenomicInterpretationInputType, HtsFileInputType,
     #                 IndividualInputType, InterpretationInputType, MetaDataInputType, PhenopacketInputType,
@@ -43,12 +44,12 @@ class AggregateQuery:
     @strawberry.field
     async def count(self, info, aggregate_input: AggregateQueryInput = None) -> int:
         if aggregate_input.phenopacket_filter != None:
-            filtered_res = await generic_all_resolver(info, "phenopacket_loader", aggregate_input.phenopacket_filter)
+            filtered_res = await generic_all_resolver(info, "phenopacket_loader", aggregate_input.phenopacket_filter, Phenopacket)
             return len(filtered_res)
 
     @strawberry.field
     async def ratio(self, info, aggregate_input: AggregateQueryInput = None) -> float:
         if aggregate_input.phenopacket_filter != None:
-            filtered_res = await generic_all_resolver(info, "phenopacket_loader", aggregate_input.phenopacket_filter)
-        all_res = await generic_all_resolver(info, "phenopacket_loader", None)
+            filtered_res = await generic_all_resolver(info, "phenopacket_loader", aggregate_input.phenopacket_filter, Phenopacket)
+        all_res = await generic_all_resolver(info, "phenopacket_loader", None, Phenopacket)
         return len(filtered_res)/len(all_res)

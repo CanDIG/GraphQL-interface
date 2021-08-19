@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties, set_field
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -6,7 +7,7 @@ import uuid
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 
 @strawberry.input
-class ProcedureInputType:
+class ProcedureInputType(Input):
     code: Optional[OntologyInputType] = None
     body_site: Optional[OntologyInputType] = None
 

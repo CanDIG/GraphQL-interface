@@ -2,10 +2,11 @@
 from api.schemas.utils import generic_filter, set_extra_properties
 from api.schemas.scalars.json_scalar import JSONScalar
 from typing import List, Optional
+from api.interfaces.input import Input
 import strawberry
 
 @strawberry.input
-class InterpretationInputType:
+class InterpretationInputType((Input)):
     id: Optional[strawberry.ID] = None
     resolution_status: Optional[str] = None
     phenopacket: Optional[str] = None

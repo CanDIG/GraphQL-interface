@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties
 from api.schemas.scalars.json_scalar import JSONScalar
 from typing import List, Optional
@@ -5,7 +6,7 @@ import strawberry
 
 
 @strawberry.input
-class GeneInputType:
+class GeneInputType(Input):
     id: Optional[strawberry.ID] = None
     symbol: Optional[str] = None
     

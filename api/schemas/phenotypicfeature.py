@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from typing import List, Optional
 import strawberry
@@ -6,7 +7,7 @@ from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.scalars.json_scalar import JSONScalar
 
 @strawberry.input
-class PhenotypicFeatureInputType:
+class PhenotypicFeatureInputType(Input):
     id: Optional[strawberry.ID] = None
     description: Optional[str] = None
     type: Optional[OntologyInputType] = None

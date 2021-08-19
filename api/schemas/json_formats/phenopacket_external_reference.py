@@ -1,11 +1,12 @@
 
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter
 from typing import Optional
 import strawberry
 
 
 @strawberry.input
-class PhenopacketExternalReferenceInputType:
+class PhenopacketExternalReferenceInputType(Input):
     id: Optional[str] = None
     description: Optional[str] = None
 

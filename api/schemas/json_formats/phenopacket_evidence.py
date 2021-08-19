@@ -1,10 +1,11 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter
 from typing import Optional
 import strawberry
 from .ontology import Ontology, OntologyInputType
 
 @strawberry.input
-class PhenopacketEvidenceInputType:
+class PhenopacketEvidenceInputType(Input):
     evidence_code: Optional[OntologyInputType] = None
 
 @strawberry.type

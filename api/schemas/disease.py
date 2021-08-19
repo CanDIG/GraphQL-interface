@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.schemas.diagnosis import DiagnosisInputType
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -9,7 +10,7 @@ from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 
 
 @strawberry.input
-class DiseaseInputType:
+class DiseaseInputType(Input):
     id: Optional[strawberry.ID] = None
     term: Optional[OntologyInputType] = None
     onset: Optional[PhenopacketDiseaseOnsetInputType] = None

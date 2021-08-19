@@ -1,10 +1,11 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
 
 @strawberry.input
-class HtsFileInputType:
+class HtsFileInputType(Input):
     uri: Optional[str] = None
     description: Optional[str] = None
     hts_format: Optional[str] = None

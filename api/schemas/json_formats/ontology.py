@@ -1,9 +1,10 @@
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter
 from typing import Optional
 import strawberry
 
 @strawberry.input
-class OntologyInputType:
+class OntologyInputType(Input):
     id: Optional[str] = None
     label: Optional[str] = None
 

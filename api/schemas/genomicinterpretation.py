@@ -1,4 +1,5 @@
 
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -7,7 +8,7 @@ from api.schemas.gene import Gene, GeneInputType
 from api.schemas.variant import Variant, VariantInputType
 
 @strawberry.input
-class GenomicInterpretationInputType:
+class GenomicInterpretationInputType(Input):
     id: Optional[strawberry.ID] = None
     status: Optional[str] = None
     gene: Optional[GeneInputType] = None

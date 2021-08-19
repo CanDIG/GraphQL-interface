@@ -1,11 +1,12 @@
 
+from api.interfaces.input import Input
 from api.schemas.utils import generic_filter
 from typing import Optional
 import strawberry
 
 
 @strawberry.input
-class PhenopacketUpdateInputType:
+class PhenopacketUpdateInputType(Input):
     timestamp: Optional[str] = None
     updated_by: Optional[str] = None
     comment: Optional[str] = None
