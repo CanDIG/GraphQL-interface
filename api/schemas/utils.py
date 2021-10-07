@@ -42,7 +42,7 @@ POST_VARIANT_SEARCH_BODY={
     "end": "-1",
     "referenceName": "-1"
 }
-
+NUMBER_OF_BYTES = 0
 
 def get_post_search_body(input, dataset_id, patient_id):
     body = POST_SEARCH_BODY.copy()
@@ -71,6 +71,7 @@ def json2obj(data):
 
 def get_katsu_response(endpoint, token):
     response = requests.get(f'{KATSU_API}/{endpoint}', headers={ "X-CANDIG-LOCAL-OIDC": f"{token}"})
+    print(len(response.content))
     if response.status_code != 200:
         print(f"endpoint{endpoint}")
         raise GraphQLError("Error response from Katsu!")
@@ -78,12 +79,14 @@ def get_katsu_response(endpoint, token):
 
 def get_candig_server_response(endpoint):
     response = requests.get(f'{CANDIG_SERVER}/{endpoint}')
+    print(len(response.content))
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
 def post_candig_server_response(endpoint, body = None):
     response = requests.post(f'{CANDIG_SERVER}/{endpoint}', json = body)
+    print(len(response.content))
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
@@ -164,18 +167,24 @@ def generic_filter(instance, input):
             if "__module__" in attr_input_value.__dir__():
                 if attr_input_value.__module__.startswith("api.schemas"):
                     attr_instance_value = instance.__getattribute__(attr)
-                    if not attr_instance_value.__class__.filter(attr_instance_value, attr_input_value):
-                        return False
+                    if attr_instance_value:
+                        if attr_instance_value.__class__ == list:
+                            return any(single_instance for single_instance in attr_instance_value if single_instance.__class__.filter(single_instance, attr_input_value))
+                        if not attr_instance_value.__class__.filter(attr_instance_value, attr_input_value):
+                            return False
             else:
                 if attr_input_value != instance.__getattribute__(attr):
                     return False
     return True
 
-async def generic_all_resolver(info, loader_name, input, type):
+async def generic_all_resolver(info, loader_name, input):
     token = get_token(info)
     if input == None:
         ids = None
     else:
         ids = input.ids
     res = await info.context[loader_name].load(DataLoaderInput(token, ids))
+    return res
+
+def filter_results(res, input, type):
     return [p for p in res.output if type.filter(p, input)] 

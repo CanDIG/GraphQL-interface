@@ -32,24 +32,24 @@ class BiosampleInputObjectType(Input):
     
 @strawberry.type
 class Biosample:
-    id: strawberry.ID
-    phenotypic_features: List[PhenotypicFeature]
-    individual: str
-    description: str
-    sampled_tissue: SampleTissue
-    taxonomy: Ontology
-    individual_age_at_collection: Union[Age, AgeRange]
-    histological_diagnosis: Ontology
-    tumor_progression: Ontology
-    tumor_grade: Ontology
-    diagnostic_markers: Ontology
-    procedure: Procedure
-    hts_files: List[str]
-    variants: List[Variant]
-    is_control_sample: bool
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    id: Optional[strawberry.ID] = None
+    phenotypic_features: Optional[List[PhenotypicFeature]] = None
+    individual: Optional[str] = None
+    description: Optional[str] = None
+    sampled_tissue: Optional[SampleTissue] = None
+    taxonomy: Optional[Ontology] = None
+    individual_age_at_collection: Union[Age, AgeRange] = None
+    histological_diagnosis: Optional[Ontology] = None
+    tumor_progression: Optional[Ontology] = None
+    tumor_grade: Optional[Ontology] = None
+    diagnostic_markers: Optional[Ontology] = None
+    procedure: Optional[Procedure] = None
+    hts_files: Optional[List[str]] = None
+    variants: Optional[List[Variant]] = None
+    is_control_sample: Optional[bool] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
 
     @staticmethod
     def deserialize(json):

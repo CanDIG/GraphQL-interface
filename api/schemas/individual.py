@@ -1,6 +1,5 @@
 from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
 from api.interfaces.input import Input
-from pydantic.typing import NoneType
 from api.schemas.utils import generic_filter, get_katsu_response, set_extra_properties, set_field
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.json_formats.age_or_age_range import Age, AgeRange

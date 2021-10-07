@@ -15,13 +15,14 @@ class VariantInputType(Input):
 
 @strawberry.type
 class Variant:
-    id: str
-    allele_type: str
-    allele: Allele
-    zygosity: Ontology
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    id: Optional[str] = None
+    allele_type: Optional[str] = None
+    allele: Optional[Allele] = None
+    zygosity: Optional[Ontology] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
+    hgvs_allele: Optional[JSONScalar] = None
 
     @staticmethod
     def deserialize(json):

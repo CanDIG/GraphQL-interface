@@ -13,11 +13,11 @@ class ProcedureInputType(Input):
 
 @strawberry.type
 class Procedure:
-    code: Ontology
-    body_site: Ontology
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    code: Optional[Ontology] = None
+    body_site: Optional[Ontology] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
 
     @staticmethod
     def deserialize(json):

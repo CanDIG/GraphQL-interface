@@ -1,3 +1,4 @@
+from api.schemas.aggregate_query import AggregateQuery
 from api.query import Query
 import strawberry
 

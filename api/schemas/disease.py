@@ -30,7 +30,7 @@ class Disease:
 
     @staticmethod
     def deserialize(json):
-        ret = Disease(json)
+        ret = Disease(**json)
         
         set_field(json, ret, "term", Ontology)
 

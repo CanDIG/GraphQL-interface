@@ -28,8 +28,10 @@ class SampleTissueInputType:
 
 @strawberry.type
 class SampleTissue:
-    reference: str
-    display: str
+    reference: Optional[str] = None
+    display: Optional[str] = None
+    id: Optional[str] = None
+    label: Optional[str] = None
     
     @staticmethod
     def deserialize(json):
