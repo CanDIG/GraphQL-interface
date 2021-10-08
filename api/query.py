@@ -16,7 +16,7 @@ from api.schemas.genomicinterpretation import GenomicInterpretation
 from api.schemas.diagnosis import Diagnosis
 # from api.schemas.interpretation import Interpretation
 
-@strawberry.type
+@strawberry.type 
 class Query:
     # all_meta_data: List[MetaData]
     # all_phenotypic_features: List[PhenotypicFeature]
