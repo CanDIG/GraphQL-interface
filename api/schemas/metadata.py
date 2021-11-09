@@ -5,7 +5,7 @@ from api.schemas.scalars.json_scalar import JSONScalar
 from typing import List, Optional
 import strawberry
 from api.schemas.json_formats.phenopacket_external_reference import PhenopacketExternalReference, PhenopacketExternalReferenceInputType
-from api.schemas.resource import Resource, ResourceInputType
+from api.schemas.katsu.phenopacket.resource import Resource, ResourceInputType
 
 @strawberry.input
 class MetaDataInputType(Input):

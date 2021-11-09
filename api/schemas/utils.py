@@ -1,6 +1,6 @@
 from api.settings import CANDIG_SERVER, KATSU_API
 import json
-from api.schemas.dataloader_input import DataLoaderInput
+from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
 from api.schemas.scalars.json_scalar import JSONScalar
 import requests
 from typing import List, NamedTuple
@@ -132,9 +132,12 @@ def resolve_extra_properties(parent, info):
 def set_field_list(json, obj, field_name, type):
     field = json.get(field_name)
     if field != None:
-        obj.__setattr__(field_name, [])
-        for x in field:
-            obj.__getattribute__(field_name).append(type.deserialize(x))
+        if isinstance(field, List):
+            obj.__setattr__(field_name, [])
+            for x in field:
+                obj.__getattribute__(field_name).append(type.deserialize(x))
+        else:
+            obj.__setattr__(field_name, type.deserialize(field))
 
 def set_field(json, obj, field_name, type):
     field = json.get(field_name)
@@ -145,6 +148,11 @@ def set_extra_properties(json, obj):
     extra_properties = json.get("extra_properties")
     if extra_properties != None:
         obj.extra_properties = JSONScalar(extra_properties)
+
+def set_JSON_scalar(json, obj, field_name):
+    field = json.get(field_name)
+    if field != None:
+        obj.__setattr__(field_name, JSONScalar(field))
 
 def generic_filter(instance, input):
     if input == None:
@@ -157,7 +165,7 @@ def generic_filter(instance, input):
                     return False
                 continue
             if attr == "ids":
-                if not any(id == instance.id for id in attr):
+                if not any(id == instance.id for id in attr_input_value):
                     return False
                 continue
             if "__module__" in attr_input_value.__dir__():
@@ -173,14 +181,36 @@ def generic_filter(instance, input):
                     return False
     return True
 
-async def generic_all_resolver(info, loader_name, input):
+async def generic_resolver_helper(info, loader_name, ids):
     token = get_token(info)
-    if input == None:
-        ids = None
-    else:
-        ids = input.ids
     res = await info.context[loader_name].load(DataLoaderInput(token, ids))
     return res
 
 def filter_results(res, input, type):
-    return [p for p in res.output if type.filter(p, input)] 
+    if input:
+        return [p for p in res if type.filter(p, input)] 
+    else:
+        return res
+
+async def generic_resolver(info, loader_name, input, type):
+    if input == None:
+        res = await generic_resolver_helper(info, loader_name, None)
+    else:
+        res = await generic_resolver_helper(info, loader_name, input.ids)
+    return filter_results([type.deserialize(p) for p in res.output], input, type)
+
+def generic_load_fn(enpoint_name):
+    async def load_fn(param):
+        ret = []
+        for dataloader_input in param:
+            token = dataloader_input.token
+            obj_arr = list()
+            if len(dataloader_input.ids) == 0 or len(dataloader_input.ids) >= 10:
+                response = get_katsu_response(enpoint_name, token)    
+                return [DataLoaderOutput(response["results"])]
+            else:
+                for id in dataloader_input.ids:
+                    obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}", token))
+            ret.append(DataLoaderOutput(obj_arr))
+        return ret
+    return load_fn

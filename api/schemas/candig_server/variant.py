@@ -1,5 +1,5 @@
 from pprint import pprint
-from api.schemas.individual import Individual, IndividualInputType
+from api.schemas.katsu.phenopacket.individual import Individual, IndividualInputType
 from api.schemas.dataloader_input import DataLoaderInput
 from api.schemas.utils import get_candig_server_response, get_post_search_body, get_post_variant_search_body, get_token, post_candig_server_response
 from typing import List, Optional
@@ -56,12 +56,17 @@ class CandigServerVariant:
     filtersPassed: Optional[bool] = None
 
     @strawberry.field
-    async def get_katsu_individuals(self, info) -> List[Individual]:
+    async def get_katsu_individuals(self, info) -> Optional[Individual]:
         token = get_token(info)
         patient_id = self.get_patient_id()
-        print(patient_id)
-        res = await info.context["individual_loader"].load(DataLoaderInput(token, patient_id))
-        return res.output
+        res = await info.context["individuals_loader"].load(DataLoaderInput(token, patient_id))
+        ind = None
+        for x in res.output:
+            if x["id"] == patient_id:
+                ind = x
+        if ind != None:
+            return Individual.deserialize(ind)
+        return None
 
     def get_patient_id(self):
         variant_set = get_candig_server_response(f"variantsets/{self.variantSetId}")

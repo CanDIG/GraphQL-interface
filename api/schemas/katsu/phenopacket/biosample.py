@@ -8,9 +8,9 @@ from api.schemas.json_formats.ontology import SampleTissue, SampleTissueInputTyp
 import strawberry
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.json_formats.age_or_age_range import AgeInputType
-from api.schemas.phenotypicfeature import PhenotypicFeature, PhenotypicFeatureInputType
-from api.schemas.procedure import Procedure, ProcedureInputType
-from api.schemas.variant import Variant, VariantInputType
+from api.schemas.katsu.phenopacket.phenotypicfeature import PhenotypicFeature, PhenotypicFeatureInputType
+from api.schemas.katsu.phenopacket.procedure import Procedure, ProcedureInputType
+from api.schemas.katsu.phenopacket.variant import Variant, VariantInputType
 
 @strawberry.input
 class BiosampleInputObjectType(Input):

@@ -3,7 +3,7 @@ from api.schemas.utils import generic_filter, set_extra_properties, set_field_li
 from api.schemas.scalars.json_scalar import JSONScalar
 from typing import List, Optional
 import strawberry
-from api.schemas.genomicinterpretation import GenomicInterpretation, GenomicInterpretationInputType
+from api.schemas.katsu.phenopacket.genomicinterpretation import GenomicInterpretation, GenomicInterpretationInputType
 
 
 @strawberry.input

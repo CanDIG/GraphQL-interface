@@ -4,8 +4,8 @@ from api.schemas.utils import generic_filter, set_extra_properties, set_field, s
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
-from api.schemas.gene import Gene, GeneInputType
-from api.schemas.variant import Variant, VariantInputType
+from api.schemas.katsu.phenopacket.gene import Gene, GeneInputType
+from api.schemas.katsu.phenopacket.variant import Variant, VariantInputType
 
 @strawberry.input
 class GenomicInterpretationInputType(Input):

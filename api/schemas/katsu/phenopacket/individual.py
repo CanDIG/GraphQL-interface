@@ -12,16 +12,15 @@ async def get_individuals(param):
     ret = []
     for dataloader_input in param:
         token = dataloader_input.token
-        id = dataloader_input.ids
-        individual_response = None
+        individuals_response = None
         try:
-            individual_response = get_katsu_response(f"individuals/{id}", token)
+            individuals_response = get_katsu_response("individuals", token)
         except:
             pass
-        if individual_response == None:
+        if individuals_response == None:
             ret.append(DataLoaderOutput([]))
         else:
-            ret.append(DataLoaderOutput([Individual.deserialize(individual_response)]))
+            ret.append(DataLoaderOutput(individuals_response["results"]))
     return ret
 
 @strawberry.input

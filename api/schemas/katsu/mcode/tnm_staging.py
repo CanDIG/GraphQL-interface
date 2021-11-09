@@ -1,0 +1,61 @@
+from api.schemas.dataloader_input import DataLoaderOutput
+from api.interfaces.input import Input
+from api.schemas.utils import generic_filter, get_katsu_response, set_extra_properties, set_field
+from api.schemas.scalars.json_scalar import JSONScalar
+from api.schemas.katsu.mcode.cancer_condition import CancerCondition, CancerConditionInputType
+from api.schemas.json_formats.complex_ontology import ComplexOntology, ComplexOntologyInputType
+from typing import List, Optional
+import strawberry
+
+async def get_mcode_tnm_staging(param):
+    ret = []
+    for dataloader_input in param:
+        token = dataloader_input.token
+        obj_arr = list()
+        if len(dataloader_input.ids) == 0:
+            response = get_katsu_response("tnmstaging", token)    
+            for p in response["results"]:
+                obj_arr.append(TNMStaging.deserialize(p))
+        else:
+            for id in dataloader_input.ids:
+                obj_arr.append(TNMStaging.deserialize(get_katsu_response(f"tnmstaging/{id}", token)))
+        ret.append(DataLoaderOutput(obj_arr))
+    return ret
+
+@strawberry.input
+class TNMStagingInputType(Input):
+    ids: Optional[List[strawberry.ID]] = None
+    tnm_type: Optional[str] = None
+    stage_group: Optional[ComplexOntologyInputType] = None
+    primary_tumor_category: Optional[ComplexOntologyInputType] = None
+    regional_nodes_category: Optional[ComplexOntologyInputType] = None
+    distant_metastases_category: Optional[ComplexOntologyInputType] = None
+    cancer_condition: Optional[CancerConditionInputType] = None
+
+@strawberry.type
+class TNMStaging:
+    id: Optional[strawberry.ID] = None
+    tnm_type: Optional[str] = None
+    stage_group: Optional[ComplexOntology] = None
+    primary_tumor_category: Optional[ComplexOntology] = None
+    regional_nodes_category: Optional[ComplexOntology] = None
+    distant_metastases_category: Optional[ComplexOntology] = None
+    cancer_condition: Optional[CancerCondition] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
+
+
+    @staticmethod
+    def deserialize(json):
+        ret = TNMStaging(**json)
+        for (field_name, type) in [("stage_group", ComplexOntology), ("primary_tumor_category", ComplexOntology),\
+                                    ("regional_nodes_category", ComplexOntology), ("distant_metastases_category", ComplexOntology),\
+                                    ("cancer_condition", CancerCondition)]:
+            set_field(json, ret, field_name, type)
+        set_extra_properties(json, ret)
+        return ret
+    
+    @staticmethod
+    def filter(instance, input: TNMStagingInputType):
+        return generic_filter(instance, input)

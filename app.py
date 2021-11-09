@@ -1,10 +1,12 @@
-from api.schemas.individual import get_individuals
+from api.schemas.utils import generic_load_fn
+from api.schemas.katsu.mcode.mcode_packet import MCodePacket
+from api.schemas.katsu.phenopacket.individual import get_individuals
 from api.schemas.candig_server.variant import get_candig_server_variants
 from api.query import Query
 from starlette.responses import Response
 from starlette.websockets import WebSocket
 import strawberry
-from api.schemas.phenopacket import get_phenopackets
+from api.schemas.katsu.phenopacket.phenopacket import Phenopacket
 from typing import Optional, Union, Any
 from strawberry.asgi import GraphQL as BaseGraphQL
 from strawberry.dataloader import DataLoader
@@ -19,8 +21,18 @@ class MyGraphQL(BaseGraphQL):
     ):
         return {"request": request, 
                 "response": response, 
-                "phenopacket_loader": DataLoader(load_fn=get_phenopackets), 
-                "individual_loader": DataLoader(load_fn=get_individuals),
+                "phenopackets_loader": DataLoader(load_fn=generic_load_fn("phenopackets")), 
+                "individuals_loader": DataLoader(load_fn=get_individuals),
+                # mcode data loaders
+                "mcode_packets_loader": DataLoader(load_fn=generic_load_fn("mcodepackets")),
+                "mcode_genetic_specimens": DataLoader(load_fn=generic_load_fn("geneticspecimens")),
+                "mcode_genomic_regions_studied": DataLoader(load_fn=generic_load_fn("genomicregionsstudied")),
+                "mcode_genomics_reports": DataLoader(load_fn=generic_load_fn("genomicsreports")),
+                "mcode_labs_vital": DataLoader(load_fn=generic_load_fn("labsvital")),
+                "mcode_cancer_conditions": DataLoader(load_fn=generic_load_fn("cancerconditions")),
+                "mcode_tnm_staging_loader": DataLoader(load_fn=generic_load_fn("tnmstaging")),
+                "mcode_cancer_related_procedures_packets_loader": DataLoader(load_fn=generic_load_fn("cancerrelatedprocedures")),
+                "mcode_medication_statements_packets_loader": DataLoader(load_fn=generic_load_fn("medicationstatements")),
                 "candig_server_variants_loader": DataLoader(load_fn=get_candig_server_variants)
                 }
 

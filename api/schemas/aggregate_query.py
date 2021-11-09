@@ -1,20 +1,21 @@
+from dataclasses import field
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.interfaces.input import Input
-from api.schemas.utils import gene_filter, generic_all_resolver
-from api.schemas.variant import Variant, VariantInputType
-from api.schemas.resource import ResourceInputType
-from api.schemas.procedure import ProcedureInputType
-from api.schemas.phenotypicfeature import PhenotypicFeatureInputType
-from api.schemas.phenopacket import Phenopacket, PhenopacketInputType
+from api.schemas.utils import gene_filter, generic_resolver_helper
+from api.schemas.katsu.phenopacket.variant import Variant, VariantInputType
+from api.schemas.katsu.phenopacket.resource import ResourceInputType
+from api.schemas.katsu.phenopacket.procedure import ProcedureInputType
+from api.schemas.katsu.phenopacket.phenotypicfeature import PhenotypicFeatureInputType
+from api.schemas.katsu.phenopacket.phenopacket import Phenopacket, PhenopacketInputType
 from api.schemas.metadata import MetaDataInputType
-from api.schemas.interpretation import InterpretationInputType
-from api.schemas.individual import IndividualInputType
-from api.schemas.htsfile import HtsFileInputType
-from api.schemas.genomicinterpretation import GenomicInterpretationInputType
-from api.schemas.gene import GeneInputType
-from api.schemas.disease import Disease, DiseaseInputType
-from api.schemas.diagnosis import DiagnosisInputType
-from api.schemas.biosample import BiosampleInputObjectType
+from api.schemas.katsu.phenopacket.interpretation import InterpretationInputType
+from api.schemas.katsu.phenopacket.individual import IndividualInputType
+from api.schemas.katsu.phenopacket.htsfile import HtsFileInputType
+from api.schemas.katsu.phenopacket.genomicinterpretation import GenomicInterpretationInputType
+from api.schemas.katsu.phenopacket.gene import GeneInputType
+from api.schemas.katsu.phenopacket.disease import Disease, DiseaseInputType
+from api.schemas.katsu.phenopacket.diagnosis import DiagnosisInputType
+from api.schemas.katsu.phenopacket.biosample import BiosampleInputObjectType
 from typing import List, Optional
 import strawberry
 import sklearn as sk
@@ -23,10 +24,6 @@ import pandas as pd
 import json
 @strawberry.input
 class AggregateQueryFilter(Input):
-    # filter: Optional[Union[BiosampleInputObjectType, DiagnosisInputType, DiseaseInputType,
-    #                 GeneInputType, GenomicInterpretationInputType, HtsFileInputType,
-    #                 IndividualInputType, InterpretationInputType, MetaDataInputType, PhenopacketInputType,
-    #                 PhenotypicFeatureInputType, ProcedureInputType, ResourceInputType, VariantInputType]] = None
     biosample_filter: Optional[BiosampleInputObjectType] = None
     diagnosis_filter: Optional[DiagnosisInputType] = None
     disease_filter: Optional[DiseaseInputType] = None
@@ -46,9 +43,11 @@ class AggregateQueryFilter(Input):
 class IndividualQueryColumns(Input):
     column_names: Optional[List[str]] = None
 
+# TODO: Add other nested object fields as query columns
+#       Now we only have subject
 @strawberry.input
 class PhenopacketQueryColumns(Input):
-    column_names: Optional[List[str]] = None
+    column_names: Optional[List[str]] = field(default_factory=list)
     subject: Optional[IndividualQueryColumns] = None
 
 
@@ -62,15 +61,17 @@ class MachineLearningQuery:
     async def logistic_regression(self, info, aggregate_filter: AggregateQueryFilter = None, dependent_variables: AggregateQueryColumns = None) -> JSONScalar:
         res = []
         if aggregate_filter.phenopacket_filter != None:
-            res = await generic_all_resolver(info, "phenopacket_loader", aggregate_filter.phenopacket_filter)
+            res = await generic_resolver_helper(info, "phenopackets_loader", aggregate_filter.phenopacket_filter.ids)
         if dependent_variables.__getattribute__("phenopacket") != None:
-            named_columns = dependent_variables.phenopacket.subject.column_names + ["filter"]
+            named_columns = dependent_variables.phenopacket.column_names + dependent_variables.phenopacket.subject.column_names + ["filter"]
             df = pd.DataFrame(columns = named_columns)
             for phenopacket in res.output:
                 new_row = dict()
+                for name in dependent_variables.phenopacket.column_names:
+                    new_row[name] = phenopacket.__getattribute__(name)
                 for name in dependent_variables.phenopacket.subject.column_names:
                     new_row[name] = phenopacket.subject.__getattribute__(name)
-                    new_row["filter"] = Phenopacket.filter(phenopacket, aggregate_filter.phenopacket_filter)
+                new_row["filter"] = Phenopacket.filter(phenopacket, aggregate_filter.phenopacket_filter)
                 df = df.append(new_row, ignore_index=True)
             df = df.apply(preprocessing.LabelEncoder().fit_transform)
             y = df['filter'].copy()
@@ -97,12 +98,12 @@ class AggregateQuery:
     @strawberry.field
     async def count(self, info, aggregate_filter: AggregateQueryFilter = None) -> int:
         if aggregate_filter.phenopacket_filter != None:
-            filtered_res = await generic_all_resolver(info, "phenopacket_loader", aggregate_filter.phenopacket_filter, Phenopacket)
+            filtered_res = await generic_resolver_helper(info, "phenopacket_loader", aggregate_filter.phenopacket_filter, Phenopacket)
             return len(filtered_res)
 
     @strawberry.field
     async def ratio(self, info, aggregate_filter: AggregateQueryFilter = None) -> float:
         if aggregate_filter.phenopacket_filter != None:
-            filtered_res = await generic_all_resolver(info, "phenopacket_loader", aggregate_filter.phenopacket_filter, Phenopacket)
-        all_res = await generic_all_resolver(info, "phenopacket_loader", None, Phenopacket)
+            filtered_res = await generic_resolver_helper(info, "phenopacket_loader", aggregate_filter.phenopacket_filter, Phenopacket)
+        all_res = await generic_resolver_helper(info, "phenopacket_loader", None, Phenopacket)
         return len(filtered_res)/len(all_res)

@@ -3,7 +3,6 @@ from api.interfaces.input import Input
 from typing import List, Optional
 import strawberry
 
-from strawberry.field import field
 from api.schemas.dataloader_input import DataLoaderOutput
 from api.schemas.utils import (
     generic_filter,
@@ -12,33 +11,15 @@ from api.schemas.utils import (
     set_field,
     set_field_list
 )
-from api.schemas.individual import Individual, IndividualInputType
-from api.schemas.phenotypicfeature import PhenotypicFeature, PhenotypicFeatureInputType
-from api.schemas.biosample import Biosample, BiosampleInputObjectType
-from api.schemas.disease import Disease, DiseaseInputType
-from api.schemas.gene import Gene, GeneInputType
-from api.schemas.variant import Variant, VariantInputType
-from api.schemas.htsfile import HtsFile, HtsFileInputType
+from api.schemas.katsu.phenopacket.individual import Individual, IndividualInputType
+from api.schemas.katsu.phenopacket.phenotypicfeature import PhenotypicFeature, PhenotypicFeatureInputType
+from api.schemas.katsu.phenopacket.biosample import Biosample, BiosampleInputObjectType
+from api.schemas.katsu.phenopacket.disease import Disease, DiseaseInputType
+from api.schemas.katsu.phenopacket.gene import Gene, GeneInputType
+from api.schemas.katsu.phenopacket.variant import Variant, VariantInputType
+from api.schemas.katsu.phenopacket.htsfile import HtsFile, HtsFileInputType
 from api.schemas.metadata import MetaData, MetaDataInputType
 from api.schemas.scalars.json_scalar import JSONScalar
-
-
-async def get_phenopackets(param):
-    ret = []
-    for dataloader_input in param:
-        token = dataloader_input.token
-        if dataloader_input.ids == None:
-            response = get_katsu_response("phenopackets", token)
-            obj_arr = list()
-            for p in response["results"]:
-                obj_arr.append(Phenopacket.deserialize(p))
-        else:
-            ids = set(dataloader_input.ids)
-            obj_arr = list()
-            for id in ids:
-                obj_arr.append(Phenopacket.deserialize(get_katsu_response(f"phenopackets/{id}", token)))
-        ret.append(DataLoaderOutput(obj_arr))
-    return ret
 
 @strawberry.input
 class PhenopacketInputType(Input):
