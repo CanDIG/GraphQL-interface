@@ -16,23 +16,23 @@ import strawberry
 class McodeDataModels:
     @strawberry.field
     async def genetic_specimens(self, info, input: Optional[GeneticSpecimenInputType] = None) -> List[GeneticSpecimen]:
-        return await generic_resolver(info, "mcode_genetic_specimens", input, GeneticSpecimen)
+        return await generic_resolver(info, "mcode_genetic_specimens_loader", input, GeneticSpecimen)
 
     @strawberry.field
     async def genomic_regions_studied(self, info, input: Optional[GenomicRegionStudiedInputType] = None) -> List[GenomicRegionStudied]:
-        return await generic_resolver(info, "mcode_genomic_regions_studied", input, GenomicsReport)
+        return await generic_resolver(info, "mcode_genomic_regions_studied_loader", input, GenomicsReport)
 
     @strawberry.field
     async def genomics_reports(self, info, input: Optional[GenomicsReportInputType] = None) -> List[GenomicsReport]:
-        return await generic_resolver(info, "mcode_genomics_reports", input, GenomicsReport)
+        return await generic_resolver(info, "mcode_genomics_reports_loader", input, GenomicsReport)
 
     @strawberry.field
     async def labs_vital(self, info, input: Optional[LabsVitalInputType] = None) -> List[LabsVital]:
-        return await generic_resolver(info, "mcode_labs_vital", input, LabsVital)
+        return await generic_resolver(info, "mcode_labs_vital_loader", input, LabsVital)
 
     @strawberry.field
     async def cancer_conditions(self, info, input: Optional[CancerConditionInputType] = None) -> List[CancerCondition]:
-        return await generic_resolver(info, "mcode_cancer_conditions", input, CancerCondition)
+        return await generic_resolver(info, "mcode_cancer_conditions_loader", input, CancerCondition)
 
     @strawberry.field
     async def TNM_staging(self, info, input: Optional[TNMStagingInputType] = None) -> List[TNMStaging]:
