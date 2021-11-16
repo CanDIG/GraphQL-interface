@@ -4,10 +4,18 @@ from typing import List, Optional
 import strawberry
 from api.interfaces.input import Input
 from api.schemas.json_formats.complex_ontology import ComplexOntology, ComplexOntologyInputType
-
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
+
+@strawberry.input
+class CancerConditionTNMStagingInputType(Input):
+    ids: Optional[List[strawberry.ID]] = None
+    tnm_type: Optional[str] = None
+    stage_group: Optional[ComplexOntologyInputType] = None
+    primary_tumor_category: Optional[ComplexOntologyInputType] = None
+    regional_nodes_category: Optional[ComplexOntologyInputType] = None
+    distant_metastases_category: Optional[ComplexOntologyInputType] = None
 
 @strawberry.input
 class CancerConditionInputType(Input):
@@ -20,16 +28,6 @@ class CancerConditionInputType(Input):
     date_of_diagnosis: Optional[str] = None
     histology_morphology_behavior: Optional[OntologyInputType] = None
     verification_status: Optional[OntologyInputType] = None
-
-@strawberry.input
-class TNMStagingInputType(Input):
-    ids: Optional[List[strawberry.ID]] = None
-    tnm_type: Optional[str] = None
-    stage_group: Optional[ComplexOntologyInputType] = None
-    primary_tumor_category: Optional[ComplexOntologyInputType] = None
-    regional_nodes_category: Optional[ComplexOntologyInputType] = None
-    distant_metastases_category: Optional[ComplexOntologyInputType] = None
-    cancer_condition: Optional[CancerConditionInputType] = None
 
 @strawberry.type
 class CancerConditionTNMStaging:
@@ -53,7 +51,7 @@ class CancerConditionTNMStaging:
         return ret
     
     @staticmethod
-    def filter(instance, input: TNMStagingInputType):
+    def filter(instance, input: CancerConditionTNMStagingInputType):
         return generic_filter(instance, input)
 
 @strawberry.type
@@ -82,7 +80,6 @@ class CancerCondition:
                                     ("verification_status", Ontology)]:
             set_field(json, ret, field_name, type)
         set_field_list(json, ret, "body_site", Ontology)
-        # set_field_list(json, ret,"tnm_staging", TNMStaging)
         set_extra_properties(json, ret)
         
         return ret
