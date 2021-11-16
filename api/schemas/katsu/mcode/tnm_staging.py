@@ -1,26 +1,11 @@
 from api.schemas.dataloader_input import DataLoaderOutput
 from api.interfaces.input import Input
-from api.schemas.utils import generic_filter, get_katsu_response, set_extra_properties, set_field
-from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.katsu.mcode.cancer_condition import CancerCondition, CancerConditionInputType
+from api.schemas.utils import generic_filter, set_extra_properties, set_field
+from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.json_formats.complex_ontology import ComplexOntology, ComplexOntologyInputType
 from typing import List, Optional
 import strawberry
-
-async def get_mcode_tnm_staging(param):
-    ret = []
-    for dataloader_input in param:
-        token = dataloader_input.token
-        obj_arr = list()
-        if len(dataloader_input.ids) == 0:
-            response = get_katsu_response("tnmstaging", token)    
-            for p in response["results"]:
-                obj_arr.append(TNMStaging.deserialize(p))
-        else:
-            for id in dataloader_input.ids:
-                obj_arr.append(TNMStaging.deserialize(get_katsu_response(f"tnmstaging/{id}", token)))
-        ret.append(DataLoaderOutput(obj_arr))
-    return ret
 
 @strawberry.input
 class TNMStagingInputType(Input):
