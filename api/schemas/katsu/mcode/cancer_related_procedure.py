@@ -25,7 +25,7 @@ class CancerRelatedProcedure:
     laterality: Optional[Ontology] = None
     treatment_intent: Optional[Ontology] = None
     reason_code: Optional[Ontology] = None
-    reason_reference: Optional[List[CancerCondition]] = None
+    reason_reference: Optional[List[str]] = None # reason_reference is a list of ids (represented as strings) to cancer conditions
     extra_properties: Optional[JSONScalar] = None
     created: Optional[str] = None
     updated: Optional[str] = None
@@ -38,7 +38,6 @@ class CancerRelatedProcedure:
                                     ("treatment_intent", Ontology), ("reason_code", Ontology)]:
             set_field(json, ret, field_name, type)
         set_field_list(json, ret, "body_site", Ontology)
-        set_field_list(json, ret, "reason_reference", CancerCondition)
         set_extra_properties(json, ret)
         return ret
     
