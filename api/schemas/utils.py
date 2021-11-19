@@ -103,25 +103,25 @@ def gene_filter(gene, kwargs):
         return False
     return all(item in gene.items() for item in kwargs.items())
 
-def json_to_obj_arr(json, type):
+def json_to_obj_arr(json, cast_type):
     res = []
     for x in json:
-        res.append(type(**x))
+        res.append(cast_type(**x))
     return res
 
 
-def generate_res(json, type, kwargs, filter):
+def generate_res(json, cast_type, kwargs, filter):
     res = []
     for x in json:
         if filter(x, kwargs):
-            res.append(type(**x))
+            res.append(cast_type(**x))
     return res
 
 
-def generic_resolve(info, kwargs, api_endpoint, type):
+def generic_resolve(info, kwargs, api_endpoint, cast_type):
     token = get_token(info)
     response = get_katsu_response(api_endpoint, token)
-    return generate_res(response["results"], type, kwargs, generic_filter)
+    return generate_res(response["results"], cast_type, kwargs, generic_filter)
 
 
 def resolve_extra_properties(parent, info):
@@ -129,20 +129,20 @@ def resolve_extra_properties(parent, info):
         return json2obj(parent.extra_properties)
     return None
 
-def set_field_list(json, obj, field_name, type):
+def set_field_list(json, obj, field_name, cast_type):
     field = json.get(field_name)
     if field != None:
         if isinstance(field, List):
             obj.__setattr__(field_name, [])
             for x in field:
-                obj.__getattribute__(field_name).append(type.deserialize(x))
+                obj.__getattribute__(field_name).append(cast_type.deserialize(x))
         else:
-            obj.__setattr__(field_name, type.deserialize(field))
+            obj.__setattr__(field_name, [cast_type.deserialize(field)])
 
-def set_field(json, obj, field_name, type):
+def set_field(json, obj, field_name, cast_type):
     field = json.get(field_name)
     if field != None:
-        obj.__setattr__(field_name, type.deserialize(field))
+        obj.__setattr__(field_name, cast_type.deserialize(field))
 
 def set_extra_properties(json, obj):
     extra_properties = json.get("extra_properties")
@@ -186,18 +186,18 @@ async def generic_resolver_helper(info, loader_name, ids):
     res = await info.context[loader_name].load(DataLoaderInput(token, ids))
     return res
 
-def filter_results(res, input, type):
+def filter_results(res, input, cast_type):
     if input:
-        return [p for p in res if type.filter(p, input)] 
+        return [p for p in res if cast_type.filter(p, input)] 
     else:
         return res
 
-async def generic_resolver(info, loader_name, input, type):
+async def generic_resolver(info, loader_name, input, cast_type):
     if input == None:
         res = await generic_resolver_helper(info, loader_name, None)
     else:
         res = await generic_resolver_helper(info, loader_name, input.ids)
-    return filter_results([type.deserialize(p) for p in res.output], input, type)
+    return filter_results([cast_type.deserialize(p) for p in res.output], input, cast_type)
 
 def generic_load_fn(enpoint_name):
     async def load_fn(param):
