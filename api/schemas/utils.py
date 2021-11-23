@@ -193,13 +193,20 @@ def filter_results(res, input, cast_type):
         return res
 
 async def generic_resolver(info, loader_name, input, cast_type):
-    if input == None:
+    """
+    Generic resolver with given context info, data loader name, filter input,
+    and result type.
+    """
+    if input == None: # No filter was specified
         res = await generic_resolver_helper(info, loader_name, None)
-    else:
+    else: # Id was specified
         res = await generic_resolver_helper(info, loader_name, input.ids)
     return filter_results([cast_type.deserialize(p) for p in res.output], input, cast_type)
 
 def generic_load_fn(enpoint_name):
+    """
+    Returns a generic loading function for data loader by specifying endpoint name
+    """
     async def load_fn(param):
         ret = []
         for dataloader_input in param:
@@ -210,7 +217,8 @@ def generic_load_fn(enpoint_name):
                 return [DataLoaderOutput(response["results"])]
             else:
                 for id in dataloader_input.ids:
-                    obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}", token))
+                    # TODO: confirm if 10000 does return all the results.
+                    obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}?page_size=10000", token))
             ret.append(DataLoaderOutput(obj_arr))
         return ret
     return load_fn
