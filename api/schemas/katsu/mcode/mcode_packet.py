@@ -15,7 +15,7 @@ import strawberry
 
 
 @strawberry.input
-class MCodePacketInputType:
+class MCodePacketInputType(Input):
     ids: Optional[List[strawberry.ID]] = None
     subject: Optional[IndividualInputType] = None
     genomics_report: Optional[GenomicsReportInputType] = None
