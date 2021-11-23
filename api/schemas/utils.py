@@ -71,7 +71,6 @@ def json2obj(data):
 def get_katsu_response(endpoint, token):
     response = requests.get(f'{KATSU_API}/{endpoint}', headers={ "X-CANDIG-LOCAL-OIDC": f"{token}"})
     if response.status_code != 200:
-        print(f"endpoint{endpoint}")
         raise GraphQLError("Error response from Katsu!")
     return response.json()
 
@@ -213,12 +212,12 @@ def generic_load_fn(enpoint_name):
             token = dataloader_input.token
             obj_arr = list()
             if len(dataloader_input.ids) == 0 or len(dataloader_input.ids) >= 10:
-                response = get_katsu_response(enpoint_name, token)    
+                response = get_katsu_response(f"{enpoint_name}?page_size=10000&page={dataloader_input.page_number}", token)    
                 return [DataLoaderOutput(response["results"])]
             else:
                 for id in dataloader_input.ids:
                     # TODO: confirm if 10000 does return all the results.
-                    obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}?page_size=10000", token))
+                    obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}", token))
             ret.append(DataLoaderOutput(obj_arr))
         return ret
     return load_fn

@@ -1,6 +1,7 @@
 class DataLoaderInput:
-    def __init__(self, token, ids):
+    def __init__(self, token, ids, page_number = 1):
         self.token = token
+        self.page_number = page_number
         if ids:
             self.ids = frozenset(ids)
         else:

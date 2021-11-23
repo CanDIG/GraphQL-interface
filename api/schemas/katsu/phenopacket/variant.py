@@ -22,7 +22,7 @@ class Variant:
     extra_properties: Optional[JSONScalar] = None
     created: Optional[str] = None
     updated: Optional[str] = None
-    hgvs_allele: Optional[JSONScalar] = None
+    hgvsAllele: Optional[JSONScalar] = None
 
     @staticmethod
     def deserialize(json):
