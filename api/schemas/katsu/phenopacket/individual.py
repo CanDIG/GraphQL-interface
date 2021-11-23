@@ -8,26 +8,12 @@ import strawberry
 from api.schemas.json_formats.comorbid_condition import ComorbidCondition, ComorbidConditionInputType
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 
-async def get_individuals(param):
-    ret = []
-    for dataloader_input in param:
-        token = dataloader_input.token
-        individuals_response = None
-        try:
-            individuals_response = get_katsu_response("individuals", token)
-        except:
-            pass
-        if individuals_response == None:
-            ret.append(DataLoaderOutput([]))
-        else:
-            ret.append(DataLoaderOutput(individuals_response["results"]))
-    return ret
-
 @strawberry.input
 class IndividualInputType(Input):
     ids: Optional[strawberry.ID] = None
     date_of_birth: Optional[str] = None
     sex: Optional[str] = None
+    karyotypic_sex: Optional[str] = None
     taxonomy: Optional[OntologyInputType] = None
     active: Optional[bool] = None
     comorbid_condition: Optional[ComorbidConditionInputType] = None

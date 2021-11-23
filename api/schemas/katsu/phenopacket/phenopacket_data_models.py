@@ -30,5 +30,5 @@ class PhenopacketDataModels:
 
     @strawberry.field
     async def phenopackets(self, info, input: Optional[PhenopacketInputType] = None) -> List[Phenopacket]:
-        res = await generic_resolver(info, "phenopackets_loader", input.ids, Phenopacket)
+        res = await generic_resolver(info, "phenopackets_loader", input, Phenopacket)
         return res

@@ -1,6 +1,4 @@
 from api.schemas.utils import generic_load_fn
-from api.schemas.katsu.mcode.mcode_packet import MCodePacket
-from api.schemas.katsu.phenopacket.individual import get_individuals
 from api.schemas.candig_server.variant import get_candig_server_variants
 from api.query import Query
 from starlette.responses import Response
@@ -22,7 +20,7 @@ class MyGraphQL(BaseGraphQL):
         return {"request": request, 
                 "response": response, 
                 "phenopackets_loader": DataLoader(load_fn=generic_load_fn("phenopackets")), 
-                "individuals_loader": DataLoader(load_fn=get_individuals),
+                "individuals_loader": DataLoader(load_fn=generic_load_fn("individuals")),
                 # mcode data loaders
                 "mcode_packets_loader": DataLoader(load_fn=generic_load_fn("mcodepackets")),
                 "mcode_genetic_specimens_loader": DataLoader(load_fn=generic_load_fn("geneticspecimens")),

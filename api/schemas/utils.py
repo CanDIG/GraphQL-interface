@@ -1,3 +1,4 @@
+from api.interfaces.input import Input
 from api.settings import CANDIG_SERVER, KATSU_API
 import json
 from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
@@ -92,8 +93,8 @@ def get_token(info):
     return info.context["request"].headers.get('X-CANDIG-LOCAL-OIDC') if info.context["request"].headers.get('X-CANDIG-LOCAL-OIDC') else "\"fuck\""
 
 
-def generic_filter(set, subset):
-    return all(item in set.items() for item in subset.items())
+# def generic_filter(set, subset):
+#     return all(item in set.items() for item in subset.items())
 
 
 def gene_filter(gene, kwargs):
@@ -115,13 +116,6 @@ def generate_res(json, cast_type, kwargs, filter):
         if filter(x, kwargs):
             res.append(cast_type(**x))
     return res
-
-
-def generic_resolve(info, kwargs, api_endpoint, cast_type):
-    token = get_token(info)
-    response = get_katsu_response(api_endpoint, token)
-    return generate_res(response["results"], cast_type, kwargs, generic_filter)
-
 
 def resolve_extra_properties(parent, info):
     if parent.get("extra_properties"):
@@ -170,19 +164,22 @@ def generic_filter(instance, input):
             if "__module__" in attr_input_value.__dir__():
                 if attr_input_value.__module__.startswith("api.schemas"):
                     attr_instance_value = instance.__getattribute__(attr)
-                    if attr_instance_value:
-                        if attr_instance_value.__class__ == list:
+                    if attr_instance_value: 
+                        if attr_instance_value.__class__ == list: # if the instance value is a list
                             return any(single_instance for single_instance in attr_instance_value if single_instance.__class__.filter(single_instance, attr_input_value))
-                        if not attr_instance_value.__class__.filter(attr_instance_value, attr_input_value):
+                        if not attr_instance_value.__class__.filter(attr_instance_value, attr_input_value): # filter the instance based on input filter
                             return False
+                    else: # instance value is null but input value is not
+                        return False
+
             else:
                 if attr_input_value != instance.__getattribute__(attr):
                     return False
     return True
 
-async def generic_resolver_helper(info, loader_name, ids):
+async def generic_resolver_helper(info, loader_name, ids, page_number):
     token = get_token(info)
-    res = await info.context[loader_name].load(DataLoaderInput(token, ids))
+    res = await info.context[loader_name].load(DataLoaderInput(token, ids, page_number))
     return res
 
 def filter_results(res, input, cast_type):
@@ -191,32 +188,33 @@ def filter_results(res, input, cast_type):
     else:
         return res
 
-async def generic_resolver(info, loader_name, input, cast_type):
+async def generic_resolver(info, loader_name, input: Input, cast_type):
     """
     Generic resolver with given context info, data loader name, filter input,
     and result type.
     """
     if input == None: # No filter was specified
-        res = await generic_resolver_helper(info, loader_name, None)
-    else: # Id was specified
-        res = await generic_resolver_helper(info, loader_name, input.ids)
+        res = await generic_resolver_helper(info, loader_name, None, None)
+    else: # input filter was specified
+        res = await generic_resolver_helper(info, loader_name, input.ids, input.page_number)
     return filter_results([cast_type.deserialize(p) for p in res.output], input, cast_type)
 
 def generic_load_fn(enpoint_name):
     """
     Returns a generic loading function for data loader by specifying endpoint name
     """
-    async def load_fn(param):
+    async def load_fn(param: List[DataLoaderInput]):
         ret = []
         for dataloader_input in param:
             token = dataloader_input.token
             obj_arr = list()
-            if len(dataloader_input.ids) == 0 or len(dataloader_input.ids) >= 10:
+            # no id was specified
+            if len(dataloader_input.ids) == 0:
                 response = get_katsu_response(f"{enpoint_name}?page_size=10000&page={dataloader_input.page_number}", token)    
                 return [DataLoaderOutput(response["results"])]
+            # Ids were specified
             else:
                 for id in dataloader_input.ids:
-                    # TODO: confirm if 10000 does return all the results.
                     obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}", token))
             ret.append(DataLoaderOutput(obj_arr))
         return ret
