@@ -12,6 +12,11 @@ export CANDIG_SERVER=http://candig-dev:4000
 export KATSU_API=http://localhost:8001/api
 ```
 
+Install the requirements.txt
+```
+pip install -r requirements.txt
+```
+
 Run the GraphQL interface
 ``` 
 uvicorn app:app --reload --port 7999
