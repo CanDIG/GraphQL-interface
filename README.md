@@ -46,3 +46,19 @@ query
 View auto-generated Docs on the top right corner of the GraphQL UI
 
 Root Type is query, and top level types under query are katsuDataModels, candigServerVariants and aggregate
+
+## Query Variants on Candig Server
+Sample Query:
+```
+    candigServerVariants(input:{start:"0", end:"10000"})
+    {
+        variantSetId
+        referenceName
+        getKatsuIndividuals
+        {
+            active
+            race
+    }
+  }
+```
+The `input` follows the same criteria described in Candig Server's documentation for /variants/search https://candig-server.readthedocs.io/en/v1.5.0-alpha/api.html#sample-queries-for-all-variants-services
