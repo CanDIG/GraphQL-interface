@@ -40,6 +40,7 @@ class CancerConditionTNMStaging:
     extra_properties: Optional[JSONScalar] = None
     created: Optional[str] = None
     updated: Optional[str] = None
+    cancer_condition: Optional[str] = None
 
     @staticmethod
     def deserialize(json):
@@ -80,6 +81,7 @@ class CancerCondition:
                                     ("verification_status", Ontology)]:
             set_field(json, ret, field_name, type)
         set_field_list(json, ret, "body_site", Ontology)
+        set_field_list(json, ret, "tnm_staging", CancerConditionTNMStaging)
         set_extra_properties(json, ret)
         
         return ret
