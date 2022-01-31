@@ -4,6 +4,7 @@ from api.schemas.dataloader_input import DataLoaderInput
 from api.schemas.utils import get_candig_server_response, get_post_search_body, get_post_variant_search_body, get_token, post_candig_server_response
 from typing import List, Optional
 import strawberry
+from api.schemas.scalars.json_scalar import JSONScalar
 """
 CanDIG server variants dataloader function
 """
@@ -47,6 +48,7 @@ class CandigServerVariantInput:
 class CandigServerVariant:
     id: Optional[strawberry.ID] = None
     variantSetId: Optional[strawberry.ID] = None
+    names: Optional[List[str]] = None
     referenceName: Optional[str] = None
     start: Optional[str] = None
     end: Optional[str] = None
@@ -54,12 +56,13 @@ class CandigServerVariant:
     alternateBases: Optional[List[str]] = None
     filtersApplied: Optional[bool] = None
     filtersPassed: Optional[bool] = None
+    attributes: Optional[JSONScalar] = None
 
     @strawberry.field
     async def get_katsu_individuals(self, info) -> Optional[Individual]:
         token = get_token(info)
         patient_id = self.get_patient_id()
-        res = await info.context["individuals_loader"].load(DataLoaderInput(token, patient_id))
+        res = await info.context["individuals_loader"].load(DataLoaderInput(token, [patient_id]))
         ind = None
         for x in res.output:
             if x["id"] == patient_id:
