@@ -1,5 +1,6 @@
 from api.schemas.utils import generic_load_fn
 from api.schemas.candig_server.variant import get_candig_server_variants
+from api.schemas.beacon.beacon_data_models import get_beacon_alleles
 from api.query import Query
 from starlette.responses import Response
 from starlette.websockets import WebSocket
@@ -31,7 +32,8 @@ class MyGraphQL(BaseGraphQL):
                 "mcode_tnm_staging_loader": DataLoader(load_fn=generic_load_fn("tnmstaging")),
                 "mcode_cancer_related_procedures_packets_loader": DataLoader(load_fn=generic_load_fn("cancerrelatedprocedures")),
                 "mcode_medication_statements_packets_loader": DataLoader(load_fn=generic_load_fn("medicationstatements")),
-                "candig_server_variants_loader": DataLoader(load_fn=get_candig_server_variants)
+                "candig_server_variants_loader": DataLoader(load_fn=get_candig_server_variants),
+                "beacon_allele_response_loader": DataLoader(load_fn=get_beacon_alleles)
                 }
 
 schema = strawberry.Schema(query=Query)
