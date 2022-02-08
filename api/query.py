@@ -2,6 +2,7 @@ from api.schemas.katsu.mcode.mcode_data_models import McodeDataModels
 from api.schemas.katsu.katsu_data_models import KatsuDataModels
 from api.schemas.aggregate_query import AggregateQuery
 from api.schemas.beacon.beacon_data_models import BeaconAlleleDataLoaderInput, BeaconAlleleRequest, BeaconAlleleResponse
+from api.schemas.beacon.beacon_descriptions import beacon_base_description
 from api.schemas.candig_server.variant import CandigServerVariant, CandigServerVariantDataLoaderInput, CandigServerVariantInput
 from api.schemas.utils import filter_results, generic_resolver_helper
 from typing import List, Optional
@@ -24,6 +25,6 @@ class Query:
     async def aggregate(self, info) -> AggregateQuery:
         return AggregateQuery()
     
-    @strawberry.field
+    @strawberry.field(description=beacon_base_description)
     async def beaconQuery(self, info, input: Optional[BeaconAlleleRequest]) -> BeaconAlleleResponse:
         return await info.context['beacon_allele_response_loader'].load(BeaconAlleleDataLoaderInput(input, info))

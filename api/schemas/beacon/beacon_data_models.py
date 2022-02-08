@@ -7,6 +7,7 @@ from api.schemas.candig_server.variant import CandigServerVariantInput, \
     CandigServerVariantDataLoaderInput, get_candig_server_variants, CandigServerVariant
 from strawberry.dataloader import DataLoader
 from api.schemas.katsu.phenopacket.individual import Individual
+from api.schemas.beacon.beacon_descriptions import *
 
 ''' 
     get_beacon_alleles(param): Beacon V1 DataLoader function -> Passed in a List
@@ -40,7 +41,7 @@ async def get_beacon_alleles(param):
         
     return to_return
 
-@strawberry.input
+@strawberry.input(description=beacon_allele_request_description)
 class BeaconAlleleRequest:
     referenceName: str
     referenceBases: str
@@ -56,12 +57,12 @@ class BeaconAlleleRequest:
             and self.alternateBases == o.alternateBases and self.variantType == o.variantType \
             and self.datasetIds == o.datasetIds
 
-@strawberry.type
+@strawberry.type(description=beacon_error_description)
 class BeaconError:
     errorCode: Optional[int] = None
     errorMessage: Optional[str] = None
 
-@strawberry.type
+@strawberry.type(description=beacon_og_request_description)
 class BeaconOriginalRequest:
     referenceName: str
     referenceBases: str
@@ -71,13 +72,13 @@ class BeaconOriginalRequest:
     variantType: Optional[str] = None
     datasetIds: Optional[List[str]] = None
 
-@strawberry.type
+@strawberry.type(description=beacon_individual_description)
 class BeaconIndividual:
     personalInfo: Optional[Individual] = None
     mcodepackets: Optional[MCodePacket] = None
     phenopackets: Optional[Phenopacket] = None
 
-@strawberry.type
+@strawberry.type(description=beacon_allele_response_description)
 class BeaconAlleleResponse:
     exists: Optional[bool] = None
     error: Optional[BeaconError] = None

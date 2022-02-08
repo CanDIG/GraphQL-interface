@@ -11,7 +11,9 @@ query {
     alternateBases: "C",
     start: 712800,
     end: 712900
-  }){individualsPresent{dateOfBirth}}
+  }){individualsPresent{
+    personalInfo{dateOfBirth}
+  }}
 }
 '''
 
@@ -20,5 +22,5 @@ if __name__ == "__main__":
     t1 = time.time()
     response = requests.post(GRAPHQL_ENDPOINT, json={'query': DEFAULT_QUERY})
     individuals = json.loads(response.text)['data']['beaconQuery']['individualsPresent']
-    print([individual['dateOfBirth'] for individual in individuals])
+    print([individual['personalInfo']['dateOfBirth'] for individual in individuals])
     print(f'Execution took: {time.time() - t1}s')
