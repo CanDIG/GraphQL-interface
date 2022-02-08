@@ -26,4 +26,4 @@ class Query:
     
     @strawberry.field
     async def beaconQuery(self, info, input: Optional[BeaconAlleleRequest]) -> BeaconAlleleResponse:
-        return await info.context['beacon_allele_response_loader'].load(BeaconAlleleDataLoaderInput(input))
+        return await info.context['beacon_allele_response_loader'].load(BeaconAlleleDataLoaderInput(input, info))

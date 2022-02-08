@@ -1,12 +1,13 @@
 from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
 from api.interfaces.input import Input
-from api.schemas.utils import generic_filter, get_katsu_response, set_extra_properties, set_field
+from api.schemas.utils import generic_filter, get_katsu_response, set_extra_properties, set_field, set_field_list
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.json_formats.age_or_age_range import Age, AgeRange
 from typing import List, Optional, Union
 import strawberry
 from api.schemas.json_formats.comorbid_condition import ComorbidCondition, ComorbidConditionInputType
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
+from api.schemas.katsu.phenopacket.biosample import Biosample
 
 @strawberry.input
 class IndividualInputType(Input):
@@ -41,7 +42,8 @@ class Individual:
     extra_properties: Optional[JSONScalar] = None
     created: Optional[str] = None
     updated: Optional[str] = None
-    phenopackets: Optional[str] = None
+    phenopackets: Optional[JSONScalar] = None
+    biosamples: Optional[List[Biosample]] = None
 
     @staticmethod
     def deserialize(json):
@@ -58,6 +60,7 @@ class Individual:
                                     ("ecog_performance_status", Ontology), ("karnofsky", Ontology)]:
             set_field(json, ret, field_name, type)
 
+        set_field_list(json, ret, 'biosamples', Biosample)
         set_extra_properties(json, ret)
         
         return ret
