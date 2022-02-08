@@ -25,6 +25,35 @@ The GraphQL interface right now only supports Querying, not Mutating, though tha
 
 ### Dependencies
 
+Ensure that you have a root `projects` directory that is empty before we get started. We will download each of the required modules into this directory for ease of use. At the end, our `projects` directory should look something like this
+
+```bash
+projects
+|__candig-server
+   |  build_candig
+   |  Dockerfile
+   |  start_candig
+|__federated-learning
+   |__ingestion_scripts
+   |  docker-compose.yaml
+   | ...
+|__GraphQL-interface
+   |__api
+      |__interfaces
+      |__schemas
+      |  query.py
+      |  ...
+   |__docs
+   |  app.py
+   |  Dockerfile
+   |  requirements.txt
+   |  ...
+|__katsu
+   |  Dockerfile
+   |  requirements.txt
+   |  ...
+```
+
 1. [CanDIG/Katsu](https://github.com/CanDIG/katsu)
    - This module provides the GraphQL service with a local instance of the Katsu API to get clinical and phenotypic patient data.
    - Clone the CanDIG/Katsu repository into a local directory.
@@ -56,18 +85,23 @@ The GraphQL interface right now only supports Querying, not Mutating, though tha
    - As a whole, the following commands will need to be performed:
    ```bash
    git clone https://github.com/CanDIG/GraphQL-interface.git
+   git pull origin AliRZ-02/DIG-779-BeaconV1-Documentation
    ```
 4. [CanDIG-V1 Server](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html)
    - This module provides the CanDIG-V1 server for use with the GraphQL variant and Beacon services.
    - It is recommended that you set the server up and collect the data simultaneously, given that both processess are quite long. Hence, we have provided a [Dockerfile](helpers/candig-server/Dockerfile) with which one can create the server and load mock variant data.
    - The server installation will be automatically completed when we load the [docker-compose](helpers/docker-compose.yaml) file
+   - As a whole, the following commands will need to be performed (given that you are in your root projects directory):
+   ```bash
+   cp -r ./GraphQL-interface/docs/helpers/candig-server ./
+   ```
 
 ### Environment
 
 For the GraphQL service to run smoothly, we need to be able to set up some environment variables and dependencies.
 
 1. Within the federated-learning repository, copy the default environment file into a local environment file with: `cp .default.env .env`
-2. Within the federated-learning repository, modify the `.env` file, modifying the `KATSU_DIR` variable to point to the Katsu directory on your machine. Add two additional variables to the `.env` file, `CANDIG_DIR` and `GRAPHQL_DIR`, and modify their values to point to the respective directories. Note that the CanDIG directory will likely be located within the GraphQL directory (i.e. `GraphQL-interface/docs/helpers/candig-server/`)
+2. Within the federated-learning repository, modify the `.env` file, modifying the `KATSU_DIR` variable to point to the Katsu directory on your machine. Add two additional variables to the `.env` file, `CANDIG_DIR` and `GRAPHQL_DIR`, and modify their values to point to the respective directories. Note that the CanDIG directory will likely be located within the GraphQL directory (i.e. `GraphQL-interface/docs/helpers/candig-server/`). It is recommended that you copy this directory to the root folder where all the other folders (i.e. `katsu, federated-learning, GraphQL-interface`) are stored.
 3. Replace the `docker-compose.yaml` file in the federated-learning repository with the `docker-compose.yaml` file present in the helpers folder.
 
 ### Quick Start

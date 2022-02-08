@@ -12,16 +12,10 @@ This process will connect CanDIG variant data with Katsu Patient Information and
 
 1. Ensure you are in your root GraphQL Repository
 2. Ensure that the `DEFAULT_HOST` variable in [defaults.py](helpers/CanDig-Katsu-Ingestion/defaults.py) is set to the proper host on your local network
-3. Run the Patient Information Ingestion Script
+3. Run the Ingestion Script
 
 ```bash
-   python3 ./docs/helpers/CanDIG-Katsu-Ingestion/candig_to_katsu.py
-```
-
-4. Run the mCODE and Phenopacket Ingestion Script
-
-```bash
-   python3 ./docs/helpers/CanDIG-Katsu-Ingestion/build_data.py
+   python3 ./docs/helpers/CanDig-Katsu-Ingestion/build_data.py
 ```
 
 This process will take several minutes and once completed, should add around 300 variant records to Katsu, adding phenopacket and mcodepacket data for each of the patients as well.
