@@ -1,0 +1,54 @@
+version: "3.7"
+
+services:
+  db-katsu:
+    image: postgres:latest
+    container_name: db-katsu
+    environment:
+      POSTGRES_DB: ${KATSU_POSTGRES_DB}
+      POSTGRES_USER: ${KATSU_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${KATSU_POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - katsu-db-data:/var/lib/postgresql/data
+  katsu:
+    image: katsu
+    build:
+      context: ${KATSU_DIR}
+    container_name: katsu
+    volumes:
+      - ./services/katsu/katsu_entrypoint.sh:/app/katsu_entrypoint.sh
+      - ./ingestion_scripts/internal:/app/chord_metadata_service/ingestion_scripts
+    entrypoint: ["/app/katsu_entrypoint.sh"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db-katsu
+    environment:
+      POSTGRES_HOST: "db-katsu"
+      POSTGRES_PORT: 5432
+      POSTGRES_DATABASE: ${KATSU_POSTGRES_DB}
+      POSTGRES_USER: ${KATSU_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${KATSU_POSTGRES_PASSWORD}
+  candig:
+          build:
+                  context: ${CANDIG_DIR}
+          ports:
+                  - "3000:3000"
+          image: candig/v1-server:latest
+          container_name: candig
+  graphql:
+          build:
+                  context: ${GRAPHQL_DIR}
+          ports:
+                  - "7999:7999"
+          image: candig/graphql:latest
+          container_name: graphql
+          environment:
+                  CANDIG_SERVER: "http://candig:3000"
+                  KATSU_API: "http://katsu:8000/api"
+
+    
+volumes:
+  katsu-db-data:
