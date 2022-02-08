@@ -3,11 +3,11 @@ from defaults import *
 import aiohttp
 
 async def post_katsu(session: aiohttp.ClientSession, data: Dict[str, Any], *args) -> Dict[str, Any]:
-    async with session.post(f'http://{DEFAULT_HOST}:8000/api/{"/".join(args)}', json=data) as response:
+    async with session.post(f'http://{DEFAULT_HOST}:{DEFAULT_KATSU_PORT}/api/{"/".join(args)}', json=data) as response:
         return await response.json()
 
 async def post_candig(session: aiohttp.ClientSession, data: Dict[str, Any], *args) -> Dict[str, Any]:
-    async with session.post(f'http://{DEFAULT_HOST}:3000/{"/".join(args)}', json=data) as response:
+    async with session.post(f'http://{DEFAULT_HOST}:{DEFAULT_CANDIG_PORT}/{"/".join(args)}', json=data) as response:
         return await response.json()
 
 async def post_medication_statement(session: aiohttp.ClientSession, patient_id: str) -> Dict[str, Any]:

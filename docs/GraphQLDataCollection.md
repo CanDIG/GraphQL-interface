@@ -11,14 +11,14 @@ This process will connect CanDIG variant data with Katsu Patient Information and
 ### Variant Patient Data Collection & Ingestion
 
 1. Ensure you are in your root GraphQL Repository
-2. Ensure that the `DEFAULT_HOST` variable in [defaults.py](helpers/CanDig-Katsu-Ingestion/defaults.py) is set to the proper host on your local network
+2. Ensure that the `DEFAULT_HOST, DEFAULT_KATSU_PORT & DEFAULT_CANDIG_PORT` variables in [defaults.py](helpers/CanDig-Katsu-Ingestion/defaults.py) are set to the proper values for your machine.
 3. Run the Ingestion Script
 
 ```bash
    python3 ./docs/helpers/CanDig-Katsu-Ingestion/build_data.py
 ```
 
-This process will take several minutes and once completed, should add around 300 variant records to Katsu, adding phenopacket and mcodepacket data for each of the patients as well.
+This process will take several minutes and once completed, should add around 300 variant records to Katsu, adding phenopacket and mcodepacket data for each of the patients as well. Note that there are several data points (there should be 6 individuals, plus their respective mCODE and phenopackets) which will print an error message due to incomplete data. This is normal and is an artifact of the CanDIG variant data, so you can ignore such messages.
 
 ## Separate Data Collection
 

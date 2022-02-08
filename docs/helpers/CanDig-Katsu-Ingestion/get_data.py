@@ -1,10 +1,10 @@
-from defaults import DEFAULT_HOST, DEFAULT_DATASET_QUERY
+from defaults import DEFAULT_HOST, DEFAULT_DATASET_QUERY, DEFAULT_KATSU_PORT
 from post_data import post_candig
 from typing import Dict, Any
 import aiohttp
 
 async def get_katsu(session: aiohttp.ClientSession, *args) -> Dict[str, Any]:
-    async with session.get(f'http://{DEFAULT_HOST}:8000/api/{"/".join(args)}') as response:
+    async with session.get(f'http://{DEFAULT_HOST}:{DEFAULT_KATSU_PORT}/api/{"/".join(args)}') as response:
         return await response.json()
 
 async def get_medication_statement(session: aiohttp.ClientSession, patient_id: str) -> Dict[str, Any]:
