@@ -85,7 +85,8 @@ projects
    - As a whole, the following commands will need to be performed:
    ```bash
    git clone https://github.com/CanDIG/GraphQL-interface.git
-   git pull origin AliRZ-02/DIG-779-BeaconV1-Documentation
+   cd GraphQL-interface
+   git pull origin AliRZ-02/DIG-780-BeaconV1-CompleteService
    ```
 4. [CanDIG-V1 Server](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html)
    - This module provides the CanDIG-V1 server for use with the GraphQL variant and Beacon services.
