@@ -15,9 +15,9 @@ This process will connect CanDIG variant data with Katsu Patient Information and
 3. Move to the root `GraphQL-interface` Repository
 4. Install the required dependencies:
 
-```
-pip install wheel pandas sklearn
-pip install -r requirements.txt
+```bash
+   pip install wheel pandas sklearn
+   pip install -r requirements.txt
 ```
 
 4. Ensure that the `DEFAULT_HOST, DEFAULT_KATSU_PORT & DEFAULT_CANDIG_PORT` variables in [defaults.py](helpers/CanDig-Katsu-Ingestion/defaults.py) are set to the proper values for your machine.
