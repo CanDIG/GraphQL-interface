@@ -10,9 +10,18 @@ This process will connect CanDIG variant data with Katsu Patient Information and
 
 ### Variant Patient Data Collection & Ingestion
 
-1. Ensure you are in your root GraphQL Repository
-2. Ensure that the `DEFAULT_HOST, DEFAULT_KATSU_PORT & DEFAULT_CANDIG_PORT` variables in [defaults.py](helpers/CanDig-Katsu-Ingestion/defaults.py) are set to the proper values for your machine.
-3. Run the Ingestion Script
+1. Create a virtual environment called `venv` in your root `projects` directory: `python3 -m venv venv`
+2. Activate the virtual environment: `source venv/bin/activate`
+3. Move to the root `GraphQL-interface` Repository
+4. Install the required dependencies:
+
+```
+pip install wheel pandas sklearn
+pip install -r requirements.txt
+```
+
+4. Ensure that the `DEFAULT_HOST, DEFAULT_KATSU_PORT & DEFAULT_CANDIG_PORT` variables in [defaults.py](helpers/CanDig-Katsu-Ingestion/defaults.py) are set to the proper values for your machine.
+5. Run the Ingestion Script
 
 ```bash
    python3 ./docs/helpers/CanDig-Katsu-Ingestion/build_data.py
