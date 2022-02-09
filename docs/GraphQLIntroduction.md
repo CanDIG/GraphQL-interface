@@ -56,17 +56,23 @@ projects
    |  ...
 ```
 
+**NOTE**: At the end of each step is a list of commands you will most likely need to perform. It may be easier to copy these straight into your terminal, rather than performing each command individually.
+
 1. [CanDIG/Katsu](https://github.com/CanDIG/katsu)
    - This module provides the GraphQL service with a local instance of the Katsu API to get clinical and phenotypic patient data.
    - Clone the CanDIG/Katsu repository into a local directory.
      - As of the 2nd of February, 2022, the latest commit to be verified as working with the GraphQL-interface is the commit `a321c235d52b615aef2cf97393eb20214bed6707` present in the `develop` branch.
    - Once the repository has been cloned up to the specific commit mentioned above, we need to pull submodule updates with the `git submodule update --init` command. Ensure you are in your local `katsu` directory before performing this command.
+   - We will need to change the allowed hosts for katsu, so that our other services can also access katsu from within their own docker containers. 
+       - Open the `./chord_metadata_service/metadata/settings.py` file 
+       - Change the `ALLOWED_HOSTS` variable to be equal to `["*"]` instead of `[CHORD_HOST or "localhost"]` 
    - As a whole, these are the commands one will most likely need to perform:
    ```bash
    git clone https://github.com/CanDIG/katsu.git
    cd katsu
    git checkout a321c235d52b615aef2cf97393eb20214bed6707
    git submodule update --init
+   sed -i 's/^ALLOWED_HOSTS = \[CHORD_HOST or "localhost"\]$/ALLOWED_HOSTS = \["*"\]/' ./chored_metadata_service/metadata/settings.py
    ```
 2. [Federated-Learning](https://github.com/CanDIG/federated-learning)
    - This module acts as a hub for the full GraphQL setup.
