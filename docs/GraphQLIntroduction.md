@@ -72,7 +72,7 @@ projects
    cd katsu
    git checkout a321c235d52b615aef2cf97393eb20214bed6707
    git submodule update --init
-   sed -i 's/^ALLOWED_HOSTS = \[CHORD_HOST or "localhost"\]$/ALLOWED_HOSTS = \["*"\]/' ./chored_metadata_service/metadata/settings.py
+   sed -i 's/^ALLOWED_HOSTS = \[CHORD_HOST or "localhost"\]$/ALLOWED_HOSTS = \["*"\]/' ./chord_metadata_service/metadata/settings.py
    ```
 2. [Federated-Learning](https://github.com/CanDIG/federated-learning)
    - This module acts as a hub for the full GraphQL setup.
