@@ -65,7 +65,7 @@ class Phenopacket:
                                 ("hts_files", HtsFile)]:
             set_field_list(json, ret, field_name, type)
         
-        set_field(json, ret, "metadata", MetaData)
+        set_field(json, ret, "meta_data", MetaData)
         set_field(json, ret, "subject", Individual)
 
         set_extra_properties(json, ret)
