@@ -1,13 +1,26 @@
+from api.schemas.candig_server.variant import CandigServerVariantInput, \
+    CandigServerVariantDataLoaderInput, get_candig_server_variants, CandigServerVariant
 from typing import List, Optional, Tuple, Union
 from api.schemas.katsu.mcode.mcode_packet import MCodePacket
 from api.schemas.katsu.phenopacket.phenopacket import Phenopacket
 from api.schemas.utils import generic_resolver
-import strawberry
-from api.schemas.candig_server.variant import CandigServerVariantInput, \
-    CandigServerVariantDataLoaderInput, get_candig_server_variants, CandigServerVariant
-from strawberry.dataloader import DataLoader
 from api.schemas.katsu.phenopacket.individual import Individual
 from api.schemas.beacon.beacon_descriptions import *
+from strawberry.dataloader import DataLoader
+import strawberry
+
+class BeaconAlleleDataLoaderInput:
+    def __init__(self, input, info) -> None:
+        self.input = input
+        self.info = info
+    
+    def __eq__(self, o: object) -> bool:
+        return isinstance(o, BeaconAlleleDataLoaderInput) and self.input == o.input
+    
+    def __hash__(self) -> int:
+        return hash((
+            self.input.referenceName, self.input.referenceBases, self.input.start, self.input.end, self.input.alternateBases
+        ))
 
 @strawberry.input(description=beacon_allele_request_description)
 class BeaconAlleleRequest:
@@ -16,17 +29,12 @@ class BeaconAlleleRequest:
     start: int = strawberry.field(description=beacon_start_pos)
     end: int = strawberry.field(description=beacon_end_pos)
     alternateBases: str = strawberry.field(description=beacon_alt_base)
-    datasetIds: Optional[List[str]] = strawberry.field(default = None, description=beacon_dataset)
+    datasetIds: Optional[List[str]] = strawberry.field(default=None, description=beacon_dataset)
 
     def __eq__(self, o: object) -> bool:
         return isinstance(o, BeaconAlleleRequest) and self.referenceName == o.referenceName \
             and self.referenceBases == o.referenceBases and self.start == o.start and self.end == o.end \
             and self.alternateBases == o.alternateBases and self.datasetIds == o.datasetIds
-
-@strawberry.type(description=beacon_error_description)
-class BeaconError:
-    errorCode: Optional[int] = strawberry.field(default=None, description=beacon_error_code)
-    errorMessage: Optional[str] = strawberry.field(default=None, description=beacon_error_message)
 
 @strawberry.type(description=beacon_og_request_description)
 class BeaconOriginalRequest:
@@ -36,6 +44,11 @@ class BeaconOriginalRequest:
     end: int = strawberry.field(description=beacon_end_pos)
     alternateBases: str = strawberry.field(description=beacon_alt_base)
     datasetIds: Optional[List[str]] = strawberry.field(default=None, description=beacon_dataset)
+
+@strawberry.type(description=beacon_error_description)
+class BeaconError:
+    errorCode: Optional[int] = strawberry.field(default=None, description=beacon_error_code)
+    errorMessage: Optional[str] = strawberry.field(default=None, description=beacon_error_message)
 
 @strawberry.type(description=beacon_individual_description)
 class BeaconIndividual:
@@ -51,7 +64,7 @@ class BeaconAlleleResponse:
 
     @strawberry.field(description=beacon_id_description)
     def beaconId(self) -> str:
-        return 'com.distributedgenomics'
+        return 'com.candig.graphql-interface'
     
     @strawberry.field(description=beacon_api_version_description)
     def apiVersion(self) -> str:
@@ -59,22 +72,28 @@ class BeaconAlleleResponse:
 
     @strawberry.field(description=beacon_individuals_present_description)
     async def individuals_present(self, info) -> List[BeaconIndividual]:
-        if self.exists is False: return []
+        if self.exists is False: 
+            return []
+        
         return await self.get_individuals(info)
     
-    async def get_variants(self):
+    ''' get_variants(): Return CandigServerVariants matching input specs'''
+    async def get_variants(self) -> List[CandigServerVariant]:
         start, end, name, _, _, datasets = self.get_request_info()
         variant_in = CandigServerVariantInput(start=start, end=end, referenceName=name)
         loader_in = CandigServerVariantDataLoaderInput(datasets, variant_in, None)
 
-        try: return await DataLoader(load_fn=get_candig_server_variants).load(loader_in)
+        try: 
+            return await DataLoader(load_fn=get_candig_server_variants).load(loader_in)
         except Exception:
             return []
     
-    def get_request_info(self): 
+    ''' get_request_info(): Get input specs requested by the user'''
+    def get_request_info(self) -> Tuple[int, int, str, str, str, Optional[List[str]]]: 
         return self.alleleRequest.start, self.alleleRequest.end, self.alleleRequest.referenceName, \
             self.alleleRequest.referenceBases, self.alleleRequest.alternateBases, self.alleleRequest.datasetIds
     
+    '''get_individuals(): Get BeaconIndividuals matching input specs'''
     async def get_individuals(self, info) -> List[BeaconIndividual]:
         individuals_list = []
         start, end, name, base, alt_base, _ = self.get_request_info()
@@ -94,22 +113,13 @@ class BeaconAlleleResponse:
         
         return individuals_list
     
-    '''
-        find_packet(packets, patient_id): Passed in either a list of mCODE packets or a list
-            phenopackets as well as a string for the patient_id and returns an optional
-            response that is either an mCODE packet or phenopacket, depending on the type passed
-            in
-    '''
+    ''' find_packet(packets, patient_id): Find mCODE/phenopacket that matches patient id'''
     def find_packet(self, packets: Union[List[MCodePacket], List[Phenopacket]], patient_id: str) -> Optional[Union[MCodePacket, Phenopacket]]:
         packets = sorted(packets, key=lambda packet: packet.subject.id)
         return self.binary_search_packets(packets, patient_id, 0, len(packets) - 1)
     
-    '''
-        binary_search_packets(packets, patient_id, start, end): Recursive function that takes
-            in a sorted list of either mCODE packets or phenopackets and returns an optional 
-            response that is either an mCODE packet of a phenopacket matching the patient_id
-    '''
-    def binary_search_packets(self, packets: Union[List[MCodePacket], List[Phenopacket]], patient_id: str, start: int, end: int):
+    ''' binary_search_packets(packets, patient_id, start, end): Search for packet with matching patient id'''
+    def binary_search_packets(self, packets: Union[List[MCodePacket], List[Phenopacket]], patient_id: str, start: int, end: int) -> Optional[Union[MCodePacket, Phenopacket]]:
         if end < start: return None
         
         mid_index = (start + end) // 2
@@ -120,25 +130,11 @@ class BeaconAlleleResponse:
         elif middle_id < patient_id: return self.binary_search_packets(packets, patient_id, mid_index + 1, end)
         elif middle_id > patient_id: return self.binary_search_packets(packets, patient_id, start, mid_index - 1)
 
-class BeaconAlleleDataLoaderInput:
-    def __init__(self, input, info) -> None:
-        self.input = input
-        self.info = info
-    
-    def __eq__(self, o: object) -> bool:
-        return isinstance(o, BeaconAlleleDataLoaderInput) and self.input == o.input
-    
-    def __hash__(self) -> int:
-        return hash((
-            self.input.referenceName, self.input.referenceBases, self.input.start, 
-            self.input.end, self.input.alternateBases
-        ))
-
 ''' get_beacon_alleles(param): Beacon V1 DataLoader function to get BeaconAlleleResponse objects from requests'''
 async def get_beacon_alleles(param):
     to_return = []
     for input in param:
-        base_allele_request=get_request(input.input)
+        base_allele_request = get_request(input.input)
         start, end, name, base, alt_base, datasets = collect_input_fields(input.input)
         variant_in = CandigServerVariantInput(start=start, end=end, referenceName=name)
         loader_in = CandigServerVariantDataLoaderInput(datasets, variant_in, None)
@@ -147,7 +143,7 @@ async def get_beacon_alleles(param):
             variants = await DataLoader(load_fn=get_candig_server_variants).load(loader_in)
             have_individuals = await individuals_present(variants, start, end, name, base, alt_base, input.info)
             to_return.append(build_response(have_individuals, base_allele_request))
-        except Exception as e:
+        except Exception:
             to_return.append(build_response(False, base_allele_request))
         
     return to_return
@@ -156,12 +152,12 @@ async def get_beacon_alleles(param):
 def collect_input_fields(input: BeaconAlleleRequest) -> Tuple[str, str, str, str, str, Optional[List[str]]]:
     return str(input.start), str(input.end), input.referenceName, input.referenceBases, input.alternateBases, input.datasetIds
 
-''' variant_matches(variant, start, end, name, r_base, a_base): Check if the variant matches given fields'''
-def variant_matches(variant: CandigServerVariant, start: str, end: str, name: str, r_base: str, a_base: str) -> bool:
+''' variant_matches(variant, start, end, name, base, alt_base): Check if the variant matches given fields'''
+def variant_matches(variant: CandigServerVariant, start: str, end: str, name: str, base: str, alt_base: str) -> bool:
     return variant.referenceName == name and variant.start >= start and variant.end <= end and \
-        a_base in variant.alternateBases and variant.referenceBases == r_base
+        alt_base in variant.alternateBases and variant.referenceBases == base
 
-''' build_response(exists, request, people): Return a BeaconAlleleResponse object from given fields'''
+''' build_response(exists, request): Return a BeaconAlleleResponse object from given fields'''
 def build_response(exists: bool, request: Optional[BeaconOriginalRequest] = None) -> BeaconAlleleResponse:
     return BeaconAlleleResponse(exists=exists, alleleRequest=request)
 
@@ -172,14 +168,14 @@ def get_request(input: BeaconAlleleRequest) -> BeaconOriginalRequest:
         alternateBases=input.alternateBases, start=input.start, end=input.end, datasetIds=input.datasetIds
     )
 
-''' get_individuals(variants, start, end, r_name, r_base, a_name, info): Check if there are individuals
+''' get_individuals(variants, start, end, name, base, alt_base, info): Check if there are individuals
         whose records match the input categories'''
-async def individuals_present(variants: List[CandigServerVariant], start: str, end: str, r_name: str, r_base: str, a_base: str, info) -> List[BeaconIndividual]:
+async def individuals_present(variants: List[CandigServerVariant], start: str, end: str, name: str, base: str, alt_base: str, info) -> bool:
     for variant in variants:
         try:
-            if variant_matches(variant, start, end, r_name, r_base, a_base):
+            if variant_matches(variant, start, end, name, base, alt_base):
                 return True if await variant.get_katsu_individuals(info) is not None else False
-        except Exception as e:
+        except Exception:
             pass
     
     return False
