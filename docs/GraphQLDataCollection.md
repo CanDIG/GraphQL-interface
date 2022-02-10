@@ -6,7 +6,7 @@ In running and testing the GraphQL implementation, we will need to have sample d
 
 If you want to test the GraphQL module or just want connected Katsu and CanDIG data without the hassle of searching through schemas to create your own data, the holistic approach described here should work best.
 
-This process will connect CanDIG variant data with Katsu Patient Information and will generate random mCODE Packet Information as well as phenopacket Information for testing purposes. Ensure you already have the canDIG variant data ingested. This would already be done for you if you installed the canDIG V1 server through the provided [dockerfile](helpers/candig-server/Dockerfile). Otherwise [download and ingest that data first](#canDIG), otherwise the following steps will not be of use to you.
+This process will connect CanDIG variant data with Katsu Patient Information and will generate random mCODE Packet Information as well as phenopacket Information for testing purposes. Ensure you already have the canDIG variant data ingested. This would already be done for you if you installed the canDIG V1 server through the provided [dockerfile](helpers/candig-server/Dockerfile) (such as if you followed the instructions in installing via `docker-compose` from the [GraphQLIntroduction File](GraphQLIntroduction.md)). Otherwise [download and ingest that data first](#canDIG), otherwise the following steps will not be of use to you.
 
 ### Variant Patient Data Collection & Ingestion
 
@@ -65,8 +65,8 @@ candig_repo add-referenceset candig-example-data/registry.db hg19.fa -d "hg19a r
 bash ./group1_load.sh
 ```
 
-> The above script both downloads and ingests data for the canDIG V1 server. The first `wget` command simply downloads a sample FASTA file that is a reference set for the variants we will ingest later on. It is then promptly unzipped. The following three `wget` commands download the variant data for all 300 test patients, they also download a setup script and a clinical metadata file. These files are available at the [canDIG github releases](https://github.com/CanDIG/sample-data-generator/releases), if you prefer to download them manually.
->
-> The script then unzips the downloaded files, modifies the files for minor name and filepath corrections, and finally uses the internal commands of candig-server to ingest the collected data.
->
-> Once the scripts is complete, you should now have a new dataset called `test300` with the ingested data.
+The above script both downloads and ingests data for the canDIG V1 server. The first `wget` command simply downloads a sample FASTA file that is a reference set for the variants we will ingest later on. It is then promptly unzipped. The following three `wget` commands download the variant data for all 300 test patients, they also download a setup script and a clinical metadata file. These files are available at the [canDIG github releases](https://github.com/CanDIG/sample-data-generator/releases), if you prefer to download them manually.
+
+The script then unzips the downloaded files, modifies the files for minor name and filepath corrections, and finally uses the internal commands of candig-server to ingest the collected data.
+
+Once the script is complete, you should now have a new dataset called `test300` with the ingested data.
