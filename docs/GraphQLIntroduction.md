@@ -2,7 +2,7 @@
 
 GraphQL, as noted on its [website](https://www.graphql.org) is an API query language built to return predictable API data, eliminating the overcollection and undercollection of data that is present in traditional REST APIs.
 
-To be able to run this project in its entirety, there are several steps that one has to take to ensure full compatibility. Note that it is extremely recommended that you build the entire system up with docker, rather than building the components individually. Hence, ensure that you have both `docker` and `docker-compose` installed on your machine, with root privledges. Also ensure that you have `Python 3.x` installed on your machine, with its corresponding `virtualenv` module, for data ingestion purposes.
+To be able to run this project in its entirety, there are several steps that one has to take to ensure full compatibility. Note that it is extremely recommended that you build the entire system up with docker, rather than building the components individually. Hence, ensure that you have both `docker` and `docker-compose` installed on your machine, with root privileges. Also ensure that you have `Python 3.x` installed on your machine, with its corresponding `virtualenv` module, for data ingestion purposes.
 
 As a note, some of the documentation and some scripts in this folder have been borrowed from the [federated-learning repository](https://github.com/CanDIG/federated-learning), the [GraphQL-interface repository](https://github.com/CanDIG/GraphQL-interface) and from the [CanDIG Server Documentation](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html).
 
