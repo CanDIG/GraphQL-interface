@@ -2,11 +2,11 @@
 
 GraphQL, as noted on its [website](https://www.graphql.org) is an API query language built to return predictable API data, eliminating the overcollection and undercollection of data that is present in traditional REST APIs.
 
-To be able to run this project in its entirety, there are several steps that one has to take to ensure full compatibility. Note that it is extremely recommended that you build the entire system up with docker, rather than building the components individually. Hence, ensure that you have both `docker` and `docker-compose` installed on your machine, with root privledges. Also ensure that you have Python 3.x installed on your machine, with its corresponding virtualenv module, for data ingestion purposes.
+To be able to run this project in its entirety, there are several steps that one has to take to ensure full compatibility. Note that it is extremely recommended that you build the entire system up with docker, rather than building the components individually. Hence, ensure that you have both `docker` and `docker-compose` installed on your machine, with root privledges. Also ensure that you have `Python 3.x` installed on your machine, with its corresponding `virtualenv` module, for data ingestion purposes.
 
 As a note, some of the documentation and some scripts in this folder have been borrowed from the [federated-learning repository](https://github.com/CanDIG/federated-learning), the [GraphQL-interface repository](https://github.com/CanDIG/GraphQL-interface) and from the [CanDIG Server Documentation](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html).
 
-The instructions in these docs have been tested on an installation of Ubuntu 20.04, and will most likely work with most Unix-based distributions.
+The instructions in these docs have been tested on an installation of `Ubuntu 20.04`, and will most likely work with most Unix-based distributions.
 
 ### Context
 
@@ -23,7 +23,7 @@ The GraphQL interface right now only supports Querying, not Mutating, though tha
 > - aggregate
 >   - Purpose: Perform aggregate queries like ML and count queries to gain insights from the patient data stored in the Katsu Database.
 > - beaconQuery
->   - Purpose: Perform native cross-service queries to get mCODE, phenopacket and patient information for patients with records in the Katsu and canDIG servers.
+>   - Purpose: Perform native cross-service queries to get mCODE, phenopacket and patient information for patients with records in the Katsu and canDIG servers. The specification for our Beacon endpoint is similar to the one listed for REST APIs as described by GA4GH, but with some modifications to fit our use cases better.
 
 ### Dependencies
 
@@ -94,11 +94,11 @@ projects
    ```bash
    git clone https://github.com/CanDIG/GraphQL-interface.git
    cd GraphQL-interface
-   git pull origin AliRZ-02/DIG-780-BeaconV1-CompleteService
+   git checkout AliRZ-02/DIG-780-BeaconV1-CompleteService
    ```
 4. [CanDIG-V1 Server](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html)
    - This module provides the CanDIG-V1 server for use with the GraphQL variant and Beacon services.
-   - It is recommended that you set the server up and collect the data simultaneously, given that both processess are quite long. Hence, we have provided a [Dockerfile](helpers/candig-server/Dockerfile) with which one can create the server and load mock variant data.
+   - It is recommended that you set the server up and collect the data simultaneously, given that both processess are quite long. Hence, we have provided a [Dockerfile](helpers/candig-server/Dockerfile) with which one can create the server and load mock variant & clinical data.
    - The server installation will be automatically completed when we load the [docker-compose](helpers/docker-compose.yaml) file.
    - As a whole, the following commands will need to be performed (given that you are in your root projects directory):
    ```bash

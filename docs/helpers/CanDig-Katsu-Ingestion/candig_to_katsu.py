@@ -23,7 +23,7 @@ def check_response(status: Dict[str, Any], patient_id: str) -> NoReturn:
         the patient_id
 '''
 def get_dataset_id(datasets: Dict[str, Any]) -> str:
-    return datasets['results']['datasets'][0]['id'].strip()
+    return datasets['results']['datasets'][2]['id'].strip()
 
 '''
     get_patients_query(datasets): Passed in a JSON object, datasets, and

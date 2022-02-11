@@ -24,7 +24,7 @@ async def get_genes(session: aiohttp.ClientSession, patient_id: str) -> Dict[str
 
 async def get_candig_patients(session: aiohttp.ClientSession):
     dataset_response = await post_candig(session, DEFAULT_DATASET_QUERY, 'datasets', 'search')
-    dataset_id = dataset_response['results']['datasets'][0]['id']
+    dataset_id = dataset_response['results']['datasets'][2]['id']
 
     patient_query = DEFAULT_DATASET_QUERY.copy()
     patient_query['datasetId'] = dataset_id

@@ -12,7 +12,7 @@ DEFAULT_JSON = {
 
 
 def get_dataset_id(datasets: Dict[str, Any]) -> str:
-    return datasets['results']['datasets'][0]['id'].strip()
+    return datasets['results']['datasets'][2]['id'].strip()
 
 
 def create_variant_search(dataset_id):
