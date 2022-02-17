@@ -1,6 +1,7 @@
 # GraphQL-interface Documentation
 
 This module deals with the GraphQL API endpoint and to get it set up, there are attached Markdown Documents that will guide you through the setup process. If you are starting from scratch, then you should follow the order in which objects are listed below, to ensure a quick and easy setup process.
+This setup process is only for a local installation for testing and analysis purposes. If you wish to test this with the `CanDIGv2` stack, please clone the `CanDIGv2` repo from GitHub and follow the installation process outlined there.
 
 ## GraphQL Endpoint Setup
 
