@@ -1,5 +1,5 @@
 class DataLoaderInput:
-    def __init__(self, token, ids, page_number):
+    def __init__(self, token, ids=None, page_number=None):
         self.token = token
         if page_number == None:
             self.page_number = 1

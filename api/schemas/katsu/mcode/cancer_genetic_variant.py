@@ -28,7 +28,7 @@ class CancerGeneticVariant:
     amino_acid_change_type: Optional[Ontology] = None
     cytogenetic_location: Optional[Ontology] = None
     cytogenetic_nomenclature: Optional[Ontology] = None
-    gene_studied: Optional[Gene] = None
+    gene_studied: Optional[List[Gene]] = None
     genomic_dna_change: Optional[Ontology] = None
     genomic_source_class: Optional[Ontology] = None
     variation_code: Optional[List[Ontology]] = None
@@ -43,13 +43,13 @@ class CancerGeneticVariant:
         for (field_name, type) in [("data_value", Ontology), ("method", Ontology),\
                                     ("amino_acid_change", Ontology), ("amino_acid_change_type", Ontology),\
                                     ("cytogenetic_location", Ontology), ("cytogenetic_nomenclature", Ontology),\
-                                    ("gene_studied", Gene), ("genomic_dna_change", Ontology),\
-                                    ("genomic_source_class", Ontology)]:
+                                    ("genomic_dna_change", Ontology), ("genomic_source_class", Ontology)]:
             set_field(json, ret, field_name, type)
         if isinstance(json["variation_code"], List):
             set_field_list(json, ret, "variation_code", Ontology)
         else:
             set_field(json, ret, "variation_code", Ontology)
+        set_field_list(json, ret, "gene_studied", Gene)
         set_extra_properties(json, ret)
         
         return ret
