@@ -5,9 +5,9 @@ services:
     build:
       context: $PWD/lib/graphql/GraphQL-interface
       args:
-        conda_source: "${GRAPHQL_CONDA_SOURCE}"
-        conda_type: "${GRAPHQL_CONDA_TYPE}"
-        conda_version: "${GRAPHQL_CONDA_VERSION}"
+        GRAPHQL_CONDA_SOURCE: "${GRAPHQL_CONDA_SOURCE}"
+        GRAPHQL_CONDA_TYPE: "${GRAPHQL_CONDA_TYPE}"
+        GRAPHQL_CONDA_VERSION: "${GRAPHQL_CONDA_VERSION}"
     image: ${DOCKER_REGISTRY}/graphql:${GRAPHQL_INTERFACE_VERSION:-latest}
     networks:
       - ${DOCKER_NET}
@@ -30,8 +30,8 @@ services:
         - "traefik.http.services.graphql.loadbalancer.server.port=${GRAPHQL_INTERFACE_PORT}"
     logging: *default-logging
     environment:
-      - GRAPHQL_KATSU_API="${GRAPHQL_KATSU_API}"
-      - GRAPHQL_CANDIG_SERVE"${GRAPHQL_CANDIG_SERVER}"
-      - GRAPHQL_BEACON_ID="${GRAPHQL_BEACON_ID}"
-      - GRAPHQL_BEACON_VERSION="${GRAPHQL_BEACON_VERSION}"
-      - GRAPHQL_KATSU_TOKEN_KEY="${GRAPHQL_KATSU_TOKEN_KEY}"
+      - GRAPHQL_KATSU_API=${GRAPHQL_KATSU_API}
+      - GRAPHQL_CANDIG_SERVER=${GRAPHQL_CANDIG_SERVER}
+      - GRAPHQL_BEACON_ID=${GRAPHQL_BEACON_ID}
+      - GRAPHQL_BEACON_VERSION=${GRAPHQL_BEACON_VERSION}
+      - GRAPHQL_KATSU_TOKEN_KEY=${GRAPHQL_KATSU_TOKEN_KEY}

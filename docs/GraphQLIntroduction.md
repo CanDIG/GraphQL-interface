@@ -89,12 +89,11 @@ projects
 3. [GraphQL-interface](https://github.com/CanDIG/GraphQL-interface)
    - It goes without saying, but this module provides the heart and soul of the GraphQL interface.
    - Clone the CanDIG/GraphQL-interface repository into a local directory.
-     - The latest branch on main should be set up to be used for Katsu and CanDIG work, but as of February 2, 2022, the Beacon Implementation is still under development and as such, will need to be pulled from its specific branch, if working with Beacon.
+     - Use the `-b <branch-name>` option with `git clone` to pull a specific branch.
+       - eg. `-b AliRZ-02/DIG-770-GraphQL-Basic-Configuration`
    - As a whole, the following commands will need to be performed:
    ```bash
    git clone https://github.com/CanDIG/GraphQL-interface.git
-   cd GraphQL-interface
-   git checkout AliRZ-02/DIG-780-BeaconV1-CompleteService
    ```
 4. [CanDIG-V1 Server](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html)
    - This module provides the CanDIG-V1 server for use with the GraphQL variant and Beacon services.
@@ -117,7 +116,28 @@ cp .default.env .env
 ```
 
 2. Within the federated-learning repository, modify the `.env` file, modifying the `KATSU_DIR` variable to point to your Katsu directory. Add two additional variables to the `.env` file, `CANDIG_DIR` and `GRAPHQL_DIR`, and modify their values to point to the respective directories.
-   - eg. `KATSU_DIR=../katsu`, `CANDIG_DIR=../candig-server`, `GRAPHQL_DIR=../GraphQL-interface`.
+
+   - Modify the following in the `federated-learning` repo's `.env` file:
+     - `KATSU_DIR=../katsu` to point to your local Katsu repo, from the root `federated-learning` directory.
+   - Add the following to the `federated-learning` repo's `.env` file, modifying the values as needed for your system, if required:
+
+     ```bash
+       CANDIG_DIR=../candig-server
+       GRAPHQL_DIR=../GraphQL-interface
+
+       GRAPHQL_CONDA_SOURCE=condaforge
+       GRAPHQL_CONDA_TYPE=miniforge3
+       GRAPHQL_CONDA_VERSION=latest
+       GRAPHQL_INTERFACE_VERSION=v1.0.0
+       GRAPHQL_INTERFACE_PORT=7999
+
+       GRAPHQL_KATSU_API=http://katsu:8000/api
+       GRAPHQL_CANDIG_SERVER=http://candig:3000
+       GRAPHQL_BEACON_ID=com.candig.graphql
+       GRAPHQL_BEACON_VERSION=1.0.0
+       GRAPHQL_KATSU_TOKEN_KEY=X-CANDIG-LOCAL-OIDC
+     ```
+
 3. Replace the `docker-compose.yaml` file in the federated-learning repository with the `docker-compose.yaml` file present in the [helpers](helpers/) folder of the GraphQL-interface docs.
 
 ```bash
