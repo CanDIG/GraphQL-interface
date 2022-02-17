@@ -3,7 +3,6 @@ from api.schemas.utils import generic_filter, set_extra_properties, set_field
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
-import uuid
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 
 @strawberry.input

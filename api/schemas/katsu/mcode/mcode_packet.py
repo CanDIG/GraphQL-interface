@@ -1,7 +1,7 @@
 from api.interfaces.input import Input
 from api.schemas.dataloader_input import DataLoaderOutput
 from api.schemas.katsu.mcode.cancer_related_procedure import CancerRelatedProcedure
-from api.schemas.utils import generic_filter, generic_load_fn, get_katsu_response, set_extra_properties, set_field, set_field_list
+from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.katsu.mcode.medication_statement import MedicationStatement, MedicationStatementInputType

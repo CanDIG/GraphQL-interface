@@ -1,6 +1,4 @@
 from api.schemas.katsu.mcode.mcode_data_models import McodeDataModels
-from api.schemas.katsu.mcode.mcode_packet import MCodePacket
-from typing import Optional
 from api.schemas.katsu.phenopacket.phenopacket_data_models import PhenopacketDataModels
 import strawberry
 

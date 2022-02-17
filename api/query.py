@@ -1,13 +1,10 @@
-from api.schemas.katsu.mcode.mcode_data_models import McodeDataModels
 from api.schemas.katsu.katsu_data_models import KatsuDataModels
 from api.schemas.aggregate_query import AggregateQuery
 from api.schemas.beacon.beacon_data_models import BeaconAlleleDataLoaderInput, BeaconAlleleRequest, BeaconAlleleResponse
 from api.schemas.beacon.beacon_descriptions import beacon_base_description
 from api.schemas.candig_server.variant import CandigServerVariant, CandigServerVariantDataLoaderInput, CandigServerVariantInput
-from api.schemas.utils import filter_results, generic_resolver_helper
 from typing import List, Optional
 import strawberry
-from api.schemas.metadata import MetaData
 
 # from api.schemas.interpretation import Interpretation
 

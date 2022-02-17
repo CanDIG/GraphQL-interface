@@ -1,8 +1,8 @@
 from dataclasses import field
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.interfaces.input import Input
-from api.schemas.utils import gene_filter, generic_resolver_helper
-from api.schemas.katsu.phenopacket.variant import Variant, VariantInputType
+from api.schemas.utils import generic_resolver_helper
+from api.schemas.katsu.phenopacket.variant import VariantInputType
 from api.schemas.katsu.phenopacket.resource import ResourceInputType
 from api.schemas.katsu.phenopacket.procedure import ProcedureInputType
 from api.schemas.katsu.phenopacket.phenotypicfeature import PhenotypicFeatureInputType
@@ -13,15 +13,14 @@ from api.schemas.katsu.phenopacket.individual import IndividualInputType
 from api.schemas.katsu.phenopacket.htsfile import HtsFileInputType
 from api.schemas.katsu.phenopacket.genomicinterpretation import GenomicInterpretationInputType
 from api.schemas.katsu.phenopacket.gene import GeneInputType
-from api.schemas.katsu.phenopacket.disease import Disease, DiseaseInputType
+from api.schemas.katsu.phenopacket.disease import DiseaseInputType
 from api.schemas.katsu.phenopacket.diagnosis import DiagnosisInputType
 from api.schemas.katsu.phenopacket.biosample import BiosampleInputObjectType
 from typing import List, Optional
 import strawberry
-import sklearn as sk
 from sklearn import preprocessing, model_selection, linear_model
 import pandas as pd
-import json
+
 @strawberry.input
 class AggregateQueryFilter(Input):
     biosample_filter: Optional[BiosampleInputObjectType] = None
@@ -76,7 +75,7 @@ class MachineLearningQuery:
             df = df.apply(preprocessing.LabelEncoder().fit_transform)
             y = df['filter'].copy()
             X = df.drop(['filter'], axis = 1)
-            X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.25, random_state=123)
+            X_train, _, y_train, _ = model_selection.train_test_split(X, y, test_size=0.25, random_state=123)
             model = linear_model.LogisticRegression()
             model.fit(X_train, y_train)
             return logistic_regression_to_dict(model)

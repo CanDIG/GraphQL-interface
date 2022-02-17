@@ -3,7 +3,6 @@ from api.schemas.utils import generic_filter, set_extra_properties
 from typing import Optional
 from api.schemas.scalars.json_scalar import JSONScalar
 import strawberry
-import uuid
 
 @strawberry.input
 class ResourceInputType(Input):

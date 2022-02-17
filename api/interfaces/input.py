@@ -1,5 +1,6 @@
 from typing import Optional
 import strawberry
+
 @strawberry.input
 class Input:
     page_number: Optional[int] = 1

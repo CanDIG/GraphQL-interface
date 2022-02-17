@@ -1,4 +1,3 @@
-from api.schemas.dataloader_input import DataLoaderOutput
 from api.interfaces.input import Input
 from api.schemas.katsu.mcode.cancer_condition import CancerCondition, CancerConditionInputType
 from api.schemas.utils import generic_filter, set_extra_properties, set_field

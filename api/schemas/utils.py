@@ -1,5 +1,5 @@
 from api.interfaces.input import Input
-from api.settings import CANDIG_SERVER, KATSU_API
+from api.settings import GRAPHQL_CANDIG_SERVER, GRAPHQL_KATSU_API, GRAPHQL_KATSU_TOKEN_KEY
 import json
 from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -69,35 +69,33 @@ def json2obj(data):
 
 
 def get_katsu_response(endpoint, token):
-    response = requests.get(f'{KATSU_API}/{endpoint}', headers={ "X-CANDIG-LOCAL-OIDC": f"{token}"})
+    response = requests.get(f'{GRAPHQL_KATSU_API}/{endpoint}', headers={GRAPHQL_KATSU_TOKEN_KEY : f"{token}"})
+
     if response.status_code != 200:
         raise GraphQLError("Error response from Katsu!")
     return response.json()
 
 def get_candig_server_response(endpoint):
-    response = requests.get(f'{CANDIG_SERVER}/{endpoint}')
+    response = requests.get(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}')
+
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
 def post_candig_server_response(endpoint, body = None):
-    response = requests.post(f'{CANDIG_SERVER}/{endpoint}', json = body)
+    response = requests.post(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body)
+    
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
 def get_token(info):
-    # if('X-CANDIG-LOCAL-OIDC' not in info.context.headers):
-    #     raise GraphQLError('Token is missing in headers')
-    return info.context["request"].headers.get('X-CANDIG-LOCAL-OIDC') if info.context["request"].headers.get('X-CANDIG-LOCAL-OIDC') else "\"fuck\""
-
-
-# def generic_filter(set, subset):
-#     return all(item in set.items() for item in subset.items())
+    return info.context["request"].headers.get(GRAPHQL_KATSU_TOKEN_KEY) if info.context["request"].headers.get(GRAPHQL_KATSU_TOKEN_KEY) else ""
 
 
 def gene_filter(gene, kwargs):
     id = kwargs.pop("id", None)
+
     if id != kwargs and id not in gene["alternate_ids"]:
         return False
     return all(item in gene.items() for item in kwargs.items())
@@ -149,6 +147,7 @@ def set_JSON_scalar(json, obj, field_name):
 def generic_filter(instance, input):
     if input == None:
         return True
+    
     for attr in input.__annotations__:
         attr_input_value = input.__getattribute__(attr)
         if attr_input_value != None:
@@ -209,7 +208,8 @@ def generic_load_fn(enpoint_name):
             obj_arr = list()
             # no id was specified
             if len(dataloader_input.ids) == 0:
-                response = get_katsu_response(f"{enpoint_name}?page_size=10000&page={dataloader_input.page_number}", token)    
+                url = f"{enpoint_name}?page_size=10000&page={dataloader_input.page_number}"
+                response = get_katsu_response(url, token)    
                 return [DataLoaderOutput(response["results"])]
             # Ids were specified
             else:

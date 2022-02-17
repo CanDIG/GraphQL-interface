@@ -4,6 +4,7 @@ from typing import List, Optional
 import strawberry
 from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.scalars.json_scalar import JSONScalar
+
 @strawberry.input
 class GenomicRegionStudiedInputType(Input):
     ids: Optional[List[strawberry.ID]]= None
