@@ -115,7 +115,7 @@ For the GraphQL service to run smoothly, we need to be able to set up some envir
 cp .default.env .env
 ```
 
-2. Within the federated-learning repository, modify the `.env` file, modifying the `KATSU_DIR` variable to point to your Katsu directory. Add two additional variables to the `.env` file, `CANDIG_DIR` and `GRAPHQL_DIR`, and modify their values to point to the respective directories.
+2. Within the federated-learning repository:
 
    - Modify the following in the `federated-learning` repo's `.env` file:
      - `KATSU_DIR=../katsu` to point to your local Katsu repo, from the root `federated-learning` directory.
