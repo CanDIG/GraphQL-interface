@@ -1,0 +1,38 @@
+#!/bin/bash/
+
+if [ -d test_server ]; 
+	then rm -r test_server;
+fi
+
+echo "Setting up test_server"
+
+python3.6 -m venv test_server
+cd test_server
+source bin/activate
+
+pip install -U pip
+pip install -U setuptools==57.5.0
+pip install cython
+pip install candig-server
+pip install candig-ingest==1.3.1
+
+mkdir candig-example-data
+
+wget http://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/hg19.fa.gz
+gunzip hg19.fa.gz
+
+wget https://github.com/CanDIG/test_data/releases/download/v1.0.0/group1.tar
+wget https://github.com/CanDIG/test_data/releases/download/v1.0.0/group1_load.sh
+wget https://github.com/CanDIG/test_data/releases/download/v1.0.0/group1_clinphen.json
+
+tar xvf group1.tar
+
+sed -i 's/GRCh37-lite/hg19a/' group1_load.sh
+sed -i 's/registry.db/candig-example-data\/registry.db/' group1_load.sh
+
+chmod +x group1_load.sh
+ingest candig-example-data/registry.db test300 group1_clinphen.json
+candig_repo add-referenceset candig-example-data/registry.db hg19.fa -d "hg19a reference genome" --name hg19a
+bash ./group1_load.sh
+
+echo "Test Setup Complete"
