@@ -34,7 +34,7 @@ This process will take several minutes and once completed, should add around 300
 
 ## Separate Data Collection
 
-If you want to install the data separately or are looking for a specific subset of the data, the following steps should be of use to you.
+If you want to install the data separately or are looking for a specific subset of the data, the following steps should be of use to you. Note that if you didn't install via Docker/Docker-Compose, then you will most likely need to install data using the methods indicated below. If you did use Docker/Docker-Compose as indicated in the [GraphQLIntroduction](GraphQLIntroduction.md) file, you will not need to perform the steps below (unless you want to ingest Synthea mCODE data for Katsu).
 
 ### Katsu Data Collection
 

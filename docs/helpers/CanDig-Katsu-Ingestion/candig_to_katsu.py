@@ -1,6 +1,7 @@
 '''
     candig_to_katsu.py: transfers patient_info from CanDIG-V1 to katsu
 '''
+
 from post_data import post_candig, post_katsu
 from typing import NoReturn, Dict, Any
 from aiohttp import ClientSession

@@ -1,3 +1,9 @@
+'''
+Purpose: 
+    Perform coverage testing of the GraphQL service by trying to return most of the fields and subfields of the 
+    GraphQL BeaconV1 endpoint. Can run script through command line with `python3 test_examples.py`
+'''
+
 from typing import Any, Dict
 from example_query import long_query
 import aiohttp

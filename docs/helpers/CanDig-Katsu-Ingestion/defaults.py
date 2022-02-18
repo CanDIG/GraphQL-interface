@@ -1,3 +1,7 @@
+'''
+    defaults.py: File containing list of default constants for the data generation tool (build_data.py)
+'''
+
 DEFAULT_DATASET_QUERY = {
     "pageSize": 1000,
     "pageToken": "0"

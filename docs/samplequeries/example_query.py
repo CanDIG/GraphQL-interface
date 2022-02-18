@@ -1,3 +1,9 @@
+'''
+Purpose: 
+  File containing a long GraphQL query with pretty much all of the returnable fields and subfields of the Beacon endpoint, 
+  for use in testing for coverage.
+'''
+
 long_query = """ 
 query beaconQuery($rName: String!, $rBase: String!, $aBase: String!, $start: Int!, $end: Int!)
 {
