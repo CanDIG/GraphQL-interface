@@ -9,6 +9,16 @@ from graphql import GraphQLError
 
 """
 CanDIG server variants dataloader function
+
+NOTE: 
+    There are a couple of sections of the code below that take the form `if len(res_variants) == 0 and got_error ...`. These sections,
+    exist to inform the client that no database within the CanDIG Server has a variant of the specified type. In these cases, we would have the
+    variant array length being zero (len(res_variants) == 0) and got_error == True since the CanDIG server returns a 404 Error if it doesn't find a 
+    response. We then raise an error of our own to inform the GraphQL client and any callers to this function that no variants were found. 
+
+    Without this try-except and len(res_variant) checking, the function would error out if the first database didn't contain the specified variant,
+    even if later ones did. Catching the errors during searches and instead only raising an error if all the searches turn up empty ensures that
+    all databases are searched. 
 """
 async def get_candig_server_variants(param):
     datasets_response = post_candig_server_response("datasets/search")

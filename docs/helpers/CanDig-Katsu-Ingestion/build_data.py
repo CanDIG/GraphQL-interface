@@ -1,6 +1,7 @@
 '''
     build_data.py: Script used to ingest random mCODE and phenopacket data into Katsu
 '''
+
 from typing import Any, Dict, NoReturn
 from candig_to_katsu import transfer_to_katsu
 from generate_data import *

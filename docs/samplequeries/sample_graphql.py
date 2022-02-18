@@ -1,3 +1,9 @@
+'''
+Purpose:
+  Script depicting a sample query in GraphQL, along with its time to completion, to contrast traditional 
+  REST APIs to GraphQL APIs.
+'''
+
 import requests
 import time
 import json

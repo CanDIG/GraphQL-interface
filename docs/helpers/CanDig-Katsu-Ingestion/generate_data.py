@@ -1,3 +1,7 @@
+'''
+    generate_data.py: File used to randomly generate mcode and phenopacket data for use in coverage testing of the BEacon V1 endpoint
+'''
+
 from datetime import datetime, timedelta
 from defaults import DEFAULT_STATUSES
 from typing import Any, Dict

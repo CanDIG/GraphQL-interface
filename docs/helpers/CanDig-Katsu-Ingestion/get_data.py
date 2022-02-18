@@ -1,3 +1,7 @@
+'''
+    get_data.py: File containing functions to perform GET requests to Katsu and CanDIG services for coverage testing of Beacon V1
+'''
+
 from defaults import DEFAULT_HOST, DEFAULT_DATASET_QUERY, DEFAULT_KATSU_PORT
 from post_data import post_candig
 from typing import Dict, Any

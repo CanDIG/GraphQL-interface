@@ -1,3 +1,7 @@
+'''
+    post_data.py: File containing functions to perform POST requests to Katsu and CanDIG services for coverage testing of Beacon V1
+'''
+
 from generate_data import *
 from defaults import *
 import aiohttp
