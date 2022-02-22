@@ -136,6 +136,7 @@ cp .default.env .env
        GRAPHQL_BEACON_ID=com.candig.graphql
        GRAPHQL_BEACON_VERSION=1.0.0
        GRAPHQL_KATSU_TOKEN_KEY=X-CANDIG-LOCAL-OIDC
+       GRAPHQL_CANDIG_TOKEN_KEY=X-CANDIG-LOCAL-OIDC
      ```
 
 3. Replace the `docker-compose.yaml` file in the federated-learning repository with the `docker-compose.yaml` file present in the [helpers](helpers/) folder of the GraphQL-interface docs.
