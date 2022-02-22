@@ -31,14 +31,15 @@ async def get_candig_server_variants(param):
                 body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset_id, patient_id = dataloader_input.patient_id)
                 try:
                     results = post_candig_server_response("search", token, body)["results"]["variants"]
-                except:
+                except Exception as e:
+                    print(f'get_candig_server_variants: variant.py - An error was received from the CanDIG Variant Service within the dataset: {dataset_id} - {e}')
                     got_error = True
                     continue
 
                 res_variants.extend([CandigServerVariant(**v) for v in results])
             
             if len(res_variants) == 0 and got_error: 
-                raise GraphQLError("Error response from Candig Server!")
+                raise GraphQLError("NON-200 response from Candig Server!")
 
             ret.append(res_variants)
         else:
@@ -48,7 +49,8 @@ async def get_candig_server_variants(param):
                 if dataloader_input.patient_id == None:
                     try:
                         results = post_candig_server_response("variants/search", token, body=get_post_variant_search_body(dataset["id"], dataloader_input.input))["results"]["variants"]
-                    except:
+                    except Exception as e:
+                        print(f'get_candig_server_variants: variant.py - An error was received from the CanDIG Variant Service within the dataset: {dataset.get("id")} - {e}')
                         got_error = True
                         continue
 
@@ -57,14 +59,15 @@ async def get_candig_server_variants(param):
                     body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset["id"], patient_id = dataloader_input.patient_id)
                     try:
                         results = post_candig_server_response("search", token, body)["results"]["variants"]
-                    except:
+                    except Exception as e:
+                        print(f'get_candig_server_variants: variant.py - An error was received from the CanDIG Variant Service within the dataset: {dataset.get("id")} - {e}')
                         got_error = True
                         continue
 
                     res_variants.extend([CandigServerVariant(**v) for v in results])
             
             if len(res_variants) == 0 and got_error: 
-                raise GraphQLError("Error response from Candig Server!")
+                raise GraphQLError("NON-200 response from Candig Server!")
             
             ret.append(res_variants)
     return ret

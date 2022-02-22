@@ -207,6 +207,7 @@ class BeaconAlleleResponse:
     @strawberry.field(description=beacon_individuals_present_description)
     async def individuals_present(self, info) -> List[BeaconIndividual]:
         if self.exists is False: 
+            print('individuals_present: BeaconAlleleResponse: beacon_data_models.py - Cannot find individuals for variant that doesn\'t exist in Katsu')
             return []
         
         return await self.get_individuals(info)
@@ -219,7 +220,8 @@ class BeaconAlleleResponse:
 
         try: 
             return await DataLoader(load_fn=get_candig_server_variants).load(loader_in)
-        except Exception:
+        except Exception as e:
+            print(f'get_variants: BeaconAlleleResponse: beacon_data_models.py - Error in finding variants from CanDIG - \n \tError: {e}')
             return []
     
     ''' get_request_info(): Get input specs requested by the user'''
@@ -242,7 +244,8 @@ class BeaconAlleleResponse:
                     matching_mcode = self.find_packet(all_mcode_data, individual.id)
                     matching_phenopacket = self.find_packet(all_phenotype_data, individual.id)
                     individuals_list.append(BeaconIndividual(individual, matching_mcode, matching_phenopacket))
-                except:
+                except Exception as e:
+                    print(f'get_individuals: BeaconAlleleResponse: beacon_data_models.py - Error in getting patients with the specified variant - \n \tError: {e}')
                     pass
         
         return individuals_list
@@ -279,9 +282,12 @@ async def get_beacon_alleles(param):
             have_individuals = await individuals_present(variants, start, end, name, base, alt_base, input.info)
             to_return.append(build_response(have_individuals, base_allele_request))
         except Exception as e:
-            if f'{e}' == 'Error response from Candig Server!':
+            if f'{e}' == 'NON-200 response from Candig Server!':
+                print(f'get_beacon_alleles: beacon_data_models.py - No patient exists with specified variant:\n--- \
+                \nStart: {start} \nEnd: {end} \nReference Name: {name} \nReference Base: {base} \nAlternate Base: {alt_base}\n---')
                 to_return.append(build_response(False, base_allele_request, None))
             else:
+                print(f'get_beacon_alleles: beacon_data_models.py - Error in finding patients with specified variant - \n \tError: {e}')
                 to_return.append(build_response(None, base_allele_request, BeaconError(errorCode=404, errorMessage=f'{e}')))
         
     return to_return
@@ -321,8 +327,10 @@ async def individuals_present(variants: List[CandigServerVariant], start: str, e
     for variant in variants:
         try:
             if variant_matches(variant, start, end, name, base, alt_base):
-                return True if await variant.get_katsu_individuals(info) is not None else False
+                if await variant.get_katsu_individuals(info) is not None:
+                    return True 
         except Exception:
             pass
     
+    print(f'---\n No patient exists with specified variant: \nStart: {start} \nEnd: {end} \nReference Name: {name} \nReference Base: {base} \nAlternate Base: {alt_base}\n---')
     return False
