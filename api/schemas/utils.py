@@ -1,5 +1,5 @@
 from api.interfaces.input import Input
-from api.settings import GRAPHQL_CANDIG_SERVER, GRAPHQL_KATSU_API, GRAPHQL_KATSU_TOKEN_KEY
+from api.settings import GRAPHQL_CANDIG_SERVER, GRAPHQL_KATSU_API, GRAPHQL_KATSU_TOKEN_KEY, GRAPHQL_CANDIG_TOKEN_KEY
 import json
 from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -75,23 +75,25 @@ def get_katsu_response(endpoint, token):
         raise GraphQLError("Error response from Katsu!")
     return response.json()
 
-def get_candig_server_response(endpoint):
-    response = requests.get(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}')
+def get_candig_server_response(endpoint, token):
+    response = requests.get(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}', headers={GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
 
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
-def post_candig_server_response(endpoint, body = None):
-    response = requests.post(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body)
+def post_candig_server_response(endpoint, token, body = None):
+    response = requests.post(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body, headers={GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
     
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
-def get_token(info):
+def get_katsu_token(info):
     return info.context["request"].headers.get(GRAPHQL_KATSU_TOKEN_KEY) if info.context["request"].headers.get(GRAPHQL_KATSU_TOKEN_KEY) else ""
 
+def get_candig_token(info):
+    return info.context["request"].headers.get(GRAPHQL_CANDIG_TOKEN_KEY) if info.context["request"].headers.get(GRAPHQL_CANDIG_TOKEN_KEY) else ""
 
 def gene_filter(gene, kwargs):
     id = kwargs.pop("id", None)
@@ -176,7 +178,7 @@ def generic_filter(instance, input):
     return True
 
 async def generic_resolver_helper(info, loader_name, ids, page_number):
-    token = get_token(info)
+    token = get_katsu_token(info)
     res = await info.context[loader_name].load(DataLoaderInput(token, ids, page_number))
     return res
 

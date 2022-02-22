@@ -18,7 +18,7 @@ class Query:
 
     @strawberry.field
     async def candig_server_variants(self, info, input: Optional[CandigServerVariantInput], dataset_name: Optional[str] = None, dataset_id: Optional[str] = None) -> List[CandigServerVariant]:
-        return await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(None, input, None))
+        return await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(None, input, None, info))
 
     @strawberry.field
     async def aggregate(self, info) -> AggregateQuery:

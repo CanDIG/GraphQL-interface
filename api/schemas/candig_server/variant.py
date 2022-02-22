@@ -1,7 +1,6 @@
-from pprint import pprint
 from api.schemas.katsu.phenopacket.individual import Individual, IndividualInputType
 from api.schemas.dataloader_input import DataLoaderInput
-from api.schemas.utils import get_candig_server_response, get_post_search_body, get_post_variant_search_body, get_token, post_candig_server_response
+from api.schemas.utils import get_candig_server_response, get_post_search_body, get_post_variant_search_body, get_katsu_token, post_candig_server_response, get_candig_token
 from typing import List, Optional
 import strawberry
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -21,17 +20,17 @@ NOTE:
     all databases are searched. 
 """
 async def get_candig_server_variants(param):
-    datasets_response = post_candig_server_response("datasets/search")
     got_error = False
     ret = []
     
     for dataloader_input in param:
+        token = get_candig_token(dataloader_input.info)
         if dataloader_input.dataset_ids != None:
             res_variants = []
             for dataset_id in dataloader_input.dataset_ids:
                 body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset_id, patient_id = dataloader_input.patient_id)
                 try:
-                    results = post_candig_server_response("search", body)["results"]["variants"]
+                    results = post_candig_server_response("search", token, body)["results"]["variants"]
                 except:
                     got_error = True
                     continue
@@ -44,10 +43,11 @@ async def get_candig_server_variants(param):
             ret.append(res_variants)
         else:
             res_variants = []
+            datasets_response = post_candig_server_response("datasets/search", token) # We search here instead of outside the for loop since different users may have access to different datasets
             for dataset in datasets_response["results"]["datasets"]:
                 if dataloader_input.patient_id == None:
                     try:
-                        results = post_candig_server_response("variants/search", body=get_post_variant_search_body(dataset["id"], dataloader_input.input))["results"]["variants"]
+                        results = post_candig_server_response("variants/search", token, body=get_post_variant_search_body(dataset["id"], dataloader_input.input))["results"]["variants"]
                     except:
                         got_error = True
                         continue
@@ -56,7 +56,7 @@ async def get_candig_server_variants(param):
                 else:
                     body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset["id"], patient_id = dataloader_input.patient_id)
                     try:
-                        results = post_candig_server_response("search", body)["results"]["variants"]
+                        results = post_candig_server_response("search", token, body)["results"]["variants"]
                     except:
                         got_error = True
                         continue
@@ -97,8 +97,8 @@ class CandigServerVariant:
 
     @strawberry.field
     async def get_katsu_individuals(self, info) -> Optional[Individual]:
-        token = get_token(info)
-        patient_id = self.get_patient_id()
+        token = get_katsu_token(info)
+        patient_id = self.get_patient_id(info)
         res = await info.context["individuals_loader"].load(DataLoaderInput(token, [patient_id]))
         ind = None
         for x in res.output:
@@ -108,15 +108,17 @@ class CandigServerVariant:
             return Individual.deserialize(ind)
         return None
 
-    def get_patient_id(self):
-        variant_set = get_candig_server_response(f"variantsets/{self.variantSetId}")
+    def get_patient_id(self, info):
+        token = get_candig_token(info)
+        variant_set = get_candig_server_response(f"variantsets/{self.variantSetId}", token)
         return variant_set["results"]["patientId"]
 
 class CandigServerVariantDataLoaderInput:
-    def __init__(self, dataset_ids, input: CandigServerVariantInput, patient_id):
+    def __init__(self, dataset_ids, input: CandigServerVariantInput, patient_id, info):
         self.dataset_ids = dataset_ids
         self.input = input
         self.patient_id = patient_id
+        self.info = info
 
     def __hash__(self):
         return hash((self.dataset_ids, self.input.start, self.input.end, self.input.referenceName, self.patient_id))

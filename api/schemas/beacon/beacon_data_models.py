@@ -211,11 +211,11 @@ class BeaconAlleleResponse:
         
         return await self.get_individuals(info)
     
-    ''' get_variants(): Return CandigServerVariants matching input specs'''
-    async def get_variants(self) -> List[CandigServerVariant]:
+    ''' get_variants(info): Return CandigServerVariants matching input specs'''
+    async def get_variants(self, info) -> List[CandigServerVariant]:
         start, end, name, _, _, datasets = self.get_request_info()
         variant_in = CandigServerVariantInput(start=start, end=end, referenceName=name)
-        loader_in = CandigServerVariantDataLoaderInput(datasets, variant_in, None)
+        loader_in = CandigServerVariantDataLoaderInput(datasets, variant_in, None, info)
 
         try: 
             return await DataLoader(load_fn=get_candig_server_variants).load(loader_in)
@@ -233,7 +233,7 @@ class BeaconAlleleResponse:
         start, end, name, base, alt_base, _ = self.get_request_info()
         all_mcode_data = await generic_resolver(info, "mcode_packets_loader", None, MCodePacket) 
         all_phenotype_data = await generic_resolver(info, "phenopackets_loader", None, Phenopacket)
-        variants = await self.get_variants()
+        variants = await self.get_variants(info)
 
         for variant in variants:
             if variant_matches(variant, str(start), str(end), name, base, alt_base):
@@ -272,7 +272,7 @@ async def get_beacon_alleles(param):
         base_allele_request = get_request(input.input)
         start, end, name, base, alt_base, datasets = collect_input_fields(input.input)
         variant_in = CandigServerVariantInput(start=start, end=end, referenceName=name)
-        loader_in = CandigServerVariantDataLoaderInput(datasets, variant_in, None)
+        loader_in = CandigServerVariantDataLoaderInput(datasets, variant_in, None, input.info)
         
         try: 
             variants = await DataLoader(load_fn=get_candig_server_variants).load(loader_in)
