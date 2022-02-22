@@ -5,30 +5,66 @@ from api.schemas.utils import get_candig_server_response, get_post_search_body, 
 from typing import List, Optional
 import strawberry
 from api.schemas.scalars.json_scalar import JSONScalar
+from graphql import GraphQLError
+
 """
 CanDIG server variants dataloader function
+
+NOTE: 
+    There are a couple of sections of the code below that take the form `if len(res_variants) == 0 and got_error ...`. These sections,
+    exist to inform the client that no database within the CanDIG Server has a variant of the specified type. In these cases, we would have the
+    variant array length being zero (len(res_variants) == 0) and got_error == True since the CanDIG server returns a 404 Error if it doesn't find a 
+    response. We then raise an error of our own to inform the GraphQL client and any callers to this function that no variants were found. 
+
+    Without this try-except and len(res_variant) checking, the function would error out if the first database didn't contain the specified variant,
+    even if later ones did. Catching the errors during searches and instead only raising an error if all the searches turn up empty ensures that
+    all databases are searched. 
 """
 async def get_candig_server_variants(param):
     datasets_response = post_candig_server_response("datasets/search")
+    got_error = False
     ret = []
     for dataloader_input in param:
         if dataloader_input.dataset_ids != None:
             res_variants = []
-            for dataset_id in dataloader_input.dataset_ids :
+            for dataset_id in dataloader_input.dataset_ids:
                 body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset_id, patient_id = dataloader_input.patient_id)
-                results = post_candig_server_response("search", body)["results"]["variants"]
+                try:
+                    results = post_candig_server_response("search", body)["results"]["variants"]
+                except:
+                    got_error = True
+                    continue
+
                 res_variants.extend([CandigServerVariant(**v) for v in results])
+            
+            if len(res_variants) == 0 and got_error: 
+                raise GraphQLError("Error response from Candig Server!")
+
             ret.append(res_variants)
         else:
             res_variants = []
             for dataset in datasets_response["results"]["datasets"]:
                 if dataloader_input.patient_id == None:
-                    results = post_candig_server_response("variants/search", body=get_post_variant_search_body(dataset["id"], dataloader_input.input))["results"]["variants"]
+                    try:
+                        results = post_candig_server_response("variants/search", body=get_post_variant_search_body(dataset["id"], dataloader_input.input))["results"]["variants"]
+                    except:
+                        got_error = True
+                        continue
+
                     res_variants.extend([CandigServerVariant(**v) for v in results])
                 else:
                     body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset["id"], patient_id = dataloader_input.patient_id)
-                    results = post_candig_server_response("search", body)["results"]["variants"]
+                    try:
+                        results = post_candig_server_response("search", body)["results"]["variants"]
+                    except:
+                        got_error = True
+                        continue
+
                     res_variants.extend([CandigServerVariant(**v) for v in results])
+            
+            if len(res_variants) == 0 and got_error: 
+                raise GraphQLError("Error response from Candig Server!")
+            
             ret.append(res_variants)
     return ret
 

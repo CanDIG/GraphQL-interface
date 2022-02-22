@@ -2,11 +2,11 @@
 
 GraphQL, as noted on its [website](https://www.graphql.org) is an API query language built to return predictable API data, eliminating the overcollection and undercollection of data that is present in traditional REST APIs.
 
-To be able to run this project in its entirety, there are several steps that one has to take to ensure full compatibility. Note that it is extremely recommended that you build the entire system up with docker, rather than building the components individually. Hence, ensure that you have both `docker` and `docker-compose` installed on your machine, with root privledges. Also ensure that you have Python 3.x installed on your machine, with its corresponding virtualenv module, for data ingestion purposes.
+To be able to run this project in its entirety, there are several steps that one has to take to ensure full compatibility. Note that it is extremely recommended that you build the entire system up with docker, rather than building the components individually. Hence, ensure that you have both `docker` and `docker-compose` installed on your machine, with root privileges. Also ensure that you have `Python 3.x` installed on your machine, with its corresponding `virtualenv` module, for data ingestion purposes.
 
 As a note, some of the documentation and some scripts in this folder have been borrowed from the [federated-learning repository](https://github.com/CanDIG/federated-learning), the [GraphQL-interface repository](https://github.com/CanDIG/GraphQL-interface) and from the [CanDIG Server Documentation](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html).
 
-The instructions in these docs have been tested on an installation of Ubuntu 20.04, and will most likely work with most Unix-based distributions.
+The instructions in these docs have been tested on an installation of `Ubuntu 20.04`, and will most likely work with most Unix-based distributions.
 
 ### Context
 
@@ -23,7 +23,7 @@ The GraphQL interface right now only supports Querying, not Mutating, though tha
 > - aggregate
 >   - Purpose: Perform aggregate queries like ML and count queries to gain insights from the patient data stored in the Katsu Database.
 > - beaconQuery
->   - Purpose: Perform native cross-service queries to get mCODE, phenopacket and patient information for patients with records in the Katsu and canDIG servers.
+>   - Purpose: Perform native cross-service queries to get mCODE, phenopacket and patient information for patients with records in the Katsu and canDIG servers. The specification for our Beacon endpoint is similar to the one listed for REST APIs as described by GA4GH, but with some modifications to fit our use cases better.
 
 ### Dependencies
 
@@ -63,9 +63,9 @@ projects
    - Clone the CanDIG/Katsu repository into a local directory.
      - As of the 2nd of February, 2022, the latest commit to be verified as working with the GraphQL-interface is the commit `a321c235d52b615aef2cf97393eb20214bed6707` present in the `develop` branch.
    - Once the repository has been cloned up to the specific commit mentioned above, we need to pull submodule updates with the `git submodule update --init` command. Ensure you are in your local `katsu` directory before performing this command.
-   - We will need to change the allowed hosts for katsu, so that our other services can also access katsu from within their own docker containers. 
-       - Open the `./chord_metadata_service/metadata/settings.py` file 
-       - Change the `ALLOWED_HOSTS` variable to be equal to `["*"]` instead of `[CHORD_HOST or "localhost"]` 
+   - We will need to change the allowed hosts for katsu, so that our other services can also access katsu from within their own docker containers.
+     - Open the `./chord_metadata_service/metadata/settings.py` file
+     - Change the `ALLOWED_HOSTS` variable to be equal to `["*"]` instead of `[CHORD_HOST or "localhost"]`
    - As a whole, these are the commands one will most likely need to perform:
    ```bash
    git clone https://github.com/CanDIG/katsu.git
@@ -94,13 +94,13 @@ projects
    ```bash
    git clone https://github.com/CanDIG/GraphQL-interface.git
    cd GraphQL-interface
-   git pull origin AliRZ-02/DIG-779-BeaconV1-Documentation
+   git checkout AliRZ-02/DIG-780-BeaconV1-CompleteService
    ```
 4. [CanDIG-V1 Server](https://candig-server.readthedocs.io/en/v1.5.0-alpha/index.html)
    - This module provides the CanDIG-V1 server for use with the GraphQL variant and Beacon services.
-   - It is recommended that you set the server up and collect the data simultaneously, given that both processess are quite long. Hence, we have provided a [Dockerfile](helpers/candig-server/Dockerfile) with which one can create the server and load mock variant data.
+   - It is recommended that you set the server up and collect the data simultaneously, given that both processess are quite long. Hence, we have provided a [Dockerfile](helpers/candig-server/Dockerfile) with which one can create the server and load mock variant & clinical data.
    - The server installation will be automatically completed when we load the [docker-compose](helpers/docker-compose.yaml) file.
-   - As a whole, the following commands will need to be performed (given that you are in your root projects directory): 
+   - As a whole, the following commands will need to be performed (given that you are in your root projects directory):
    ```bash
    cp -r ./GraphQL-interface/docs/helpers/candig-server ./
    ```
@@ -110,13 +110,16 @@ projects
 For the GraphQL service to run smoothly, we need to be able to set up some environment variables and dependencies.
 
 1. Within the federated-learning repository, copy the default environment file into a local environment file:
+
 ```bash
-# While in the federated-learning repository 
+# While in the federated-learning repository
 cp .default.env .env
 ```
+
 2. Within the federated-learning repository, modify the `.env` file, modifying the `KATSU_DIR` variable to point to your Katsu directory. Add two additional variables to the `.env` file, `CANDIG_DIR` and `GRAPHQL_DIR`, and modify their values to point to the respective directories.
    - eg. `KATSU_DIR=../katsu`, `CANDIG_DIR=../candig-server`, `GRAPHQL_DIR=../GraphQL-interface`.
 3. Replace the `docker-compose.yaml` file in the federated-learning repository with the `docker-compose.yaml` file present in the [helpers](helpers/) folder of the GraphQL-interface docs.
+
 ```bash
 # While in the root projects directory
 cp ./GraphQL-interface/docs/helpers/docker-compose.yaml ./federated-learning/
@@ -124,10 +127,10 @@ cp ./GraphQL-interface/docs/helpers/docker-compose.yaml ./federated-learning/
 
 ### Quick Start
 
-1. Within the federated-learning directory, start up docker with `docker-compose up`. This will start the CanDIG server, the GraphQL interface as well as the Katsu DB. 
+1. Within the federated-learning directory, start up docker with `docker-compose up`. This will start the CanDIG server, the GraphQL interface as well as the Katsu DB.
    - This process will take some time, so don't worry if things seem to be going slowly.
    - This process will output some error messages for skipped Patients. This is normal and is just an artifact of the testing data.
-3. Once the setup for all 3 are complete, ensure the endpoints can be reached:
+2. Once the setup for all 3 are complete, ensure the endpoints can be reached:
    - Visit `http://localhost:8000` to ensure the Katsu API is loading up as required.
    - Visit `http://localhost:3000` to ensure the CanDIG V1 Server is up and running.
    - Visit `http://localhost:7999/graphql` to ensure the GraphQL service is up and running. You should be able to see a GraphiQL UI at this point.

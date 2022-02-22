@@ -1,6 +1,6 @@
 # GraphQL-interface Documentation
 
-This module deals with the GraphQL API endpoint and to get it set up, there are attached Markdown Documents that will guide you through the setup process.
+This module deals with the GraphQL API endpoint and to get it set up, there are attached Markdown Documents that will guide you through the setup process. If you are starting from scratch, then you should follow the order in which objects are listed below, to ensure a quick and easy setup process.
 
 ## GraphQL Endpoint Setup
 
@@ -20,4 +20,4 @@ The [following directory](helpers/) contains the modules required for data inges
 
 ## Sample Queries Sub-Directory
 
-The [following directory](samplequeries/) contains scripts detailing how to query GraphQL using python. A sample REST query page is also included to contrast the two data collection strategies.
+The [following directory](samplequeries/) contains scripts detailing how to query GraphQL using python. A sample REST query page is also included to contrast the two data collection strategies. It also contains a comprehensive Beacon Test Script which tests every possible field returnable in a Beacon Request.

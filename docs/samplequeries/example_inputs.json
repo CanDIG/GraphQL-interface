@@ -1,0 +1,164 @@
+{
+  "inputs": [
+    {
+      "id": 1,
+      "chr": "1",
+      "start": "712800",
+      "end": "712900",
+      "ref_base": "T",
+      "alt_base": "C"
+    },
+    {
+      "id": 2,
+      "chr": "1",
+      "start": "945100",
+      "end": "945200",
+      "ref_base": "C",
+      "alt_base": "T"
+    },
+    {
+      "id": 3,
+      "chr": "1",
+      "start": "1368223",
+      "end": "1368225",
+      "ref_base": "GA",
+      "alt_base": "G"
+    },
+    {
+      "id": 4,
+      "chr": "1",
+      "start": "19598000",
+      "end": "19598100",
+      "ref_base": "AAAAAAAAG",
+      "alt_base": "A"
+    },
+    {
+      "id": 5,
+      "chr": "2",
+      "start": "121221",
+      "end": "121222",
+      "ref_base": "A",
+      "alt_base": "G"
+    },
+    {
+      "id": 6,
+      "chr": "2",
+      "start": "32260",
+      "end": "32270",
+      "ref_base": "T",
+      "alt_base": "C"
+    },
+    {
+      "id": 7,
+      "chr": "7",
+      "start": "84968",
+      "end": "84969",
+      "ref_base": "C",
+      "alt_base": "T"
+    },
+    {
+      "id": 8,
+      "chr": "9",
+      "start": "231000",
+      "end": "232000",
+      "ref_base": "A",
+      "alt_base": "AT"
+    },
+    {
+      "id": 9,
+      "chr": "11",
+      "start": "99925898",
+      "end": "99925899",
+      "ref_base": "A",
+      "alt_base": "C"
+    },
+    {
+      "id": 10,
+      "chr": "13",
+      "start": "19077200",
+      "end": "19077300",
+      "ref_base": "G",
+      "alt_base": "A"
+    },
+    {
+      "id": 11,
+      "chr": "14",
+      "start": "19456897",
+      "end": "19456898",
+      "ref_base": "C",
+      "alt_base": "T"
+    },
+    {
+      "id": 12,
+      "chr": "15",
+      "start": "20405300",
+      "end": "20405310",
+      "ref_base": "T",
+      "alt_base": "A"
+    },
+    {
+      "id": 13,
+      "chr": "16",
+      "start": "69848771",
+      "end": "69848772",
+      "ref_base": "A",
+      "alt_base": "G"
+    },
+    {
+      "id": 14,
+      "chr": "17",
+      "start": "827",
+      "end": "828",
+      "ref_base": "T",
+      "alt_base": "C"
+    },
+    {
+      "id": 15,
+      "chr": "17",
+      "start": "14673964",
+      "end": "14673965",
+      "ref_base": "G",
+      "alt_base": "A"
+    },
+    {
+      "id": 16,
+      "chr": "3",
+      "start": "1",
+      "end": "2",
+      "ref_base": "T",
+      "alt_base": "C"
+    },
+    {
+      "id": 17,
+      "chr": "5",
+      "start": "5",
+      "end": "14",
+      "ref_base": "A",
+      "alt_base": "G"
+    },
+    {
+      "id": 18,
+      "chr": "12",
+      "start": "1234355",
+      "end": "1234365",
+      "ref_base": "ACTG",
+      "alt_base": "GTCA"
+    },
+    {
+      "id": 19,
+      "chr": "12",
+      "start": "1873000",
+      "end": "1874000",
+      "ref_base": "C",
+      "alt_base": "T"
+    },
+    {
+      "id": 20,
+      "chr": "17",
+      "start": "91023",
+      "end": "91024",
+      "ref_base": "T",
+      "alt_base": "C"
+    }
+  ]
+}

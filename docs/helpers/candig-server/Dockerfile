@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM python:3.6
-MAINTAINER "CanDIG Project"
+LABEL Maintainer="CanDIG Project"
 
 ADD . /code
 WORKDIR /code

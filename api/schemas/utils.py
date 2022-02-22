@@ -6,7 +6,6 @@ from api.schemas.scalars.json_scalar import JSONScalar
 import requests
 from typing import List, NamedTuple
 from graphql import GraphQLError
-from pprint import pprint
 
 POST_SEARCH_BODY = {
     "datasetId": "-1",

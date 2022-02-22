@@ -1,3 +1,9 @@
+'''
+Purpose:
+  Script depicting a sample query in REST, along with its time to completion, to contrast traditional 
+  REST APIs to GraphQL APIs.
+'''
+
 import time
 from typing import Any, Dict
 import aiohttp
@@ -12,7 +18,7 @@ DEFAULT_JSON = {
 
 
 def get_dataset_id(datasets: Dict[str, Any]) -> str:
-    return datasets['results']['datasets'][0]['id'].strip()
+    return datasets['results']['datasets'][2]['id'].strip()
 
 
 def create_variant_search(dataset_id):

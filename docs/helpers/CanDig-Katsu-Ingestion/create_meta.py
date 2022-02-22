@@ -1,4 +1,8 @@
-from typing import Any, Dict, NoReturn
+'''
+    create_meta.py: File containing functions used to generate Katsu Metadata for testing purposes.
+'''
+
+from typing import Any, Dict
 from post_data import post_katsu
 from defaults import DEFAULT_DATASET, DEFAULT_TABLE, DEFAULT_MCODE, DEFAULT_PHENOPACKET
 import aiohttp

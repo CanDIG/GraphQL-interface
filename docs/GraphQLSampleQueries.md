@@ -34,7 +34,7 @@ DEFAULT_JSON = {
 
 
 def get_dataset_id(datasets: Dict[str, Any]) -> str:
-    return datasets['results']['datasets'][0]['id'].strip()
+    return datasets['results']['datasets'][2]['id'].strip()
 
 
 def create_variant_search(dataset_id):
@@ -119,10 +119,10 @@ What we find is that the REST API version of the code is significantly longer an
 
 | ENDPOINT | AVERAGE REQUEST LENGTH | CODE LENGTH |
 | -------- | ---------------------- | ----------- |
-| REST API | 0.22165 seconds        | 60 Lines    |
-| GRAPHQL  | 0.23980 seconds        | 24 Lines    |
+| REST API | 0.18 seconds           | 60 Lines    |
+| GRAPHQL  | 0.62 seconds           | 26 Lines    |
 
-As can be seen, the GraphQL and REST endpoints perform similarly, however, the GraphQL code is much shorter and this is not even factoring in the longer trial and error period that existed for the REST endpoints as I tried to get the inputs and outputs for the endpoints to work, vs the minimal setup time for the GraphQL endpoint. Additionally, the load on memory is much lower with the GraphQL endpoint as I am not carrying around extra data that I have no use for after querying.
+As can be seen, while the REST endpoints perform slightly better, the GraphQL endpoints also collect mCODE and phenopacket data at the same time. Thus for even larger queries, the GraphQL endpoint would not experience a decrease in performance whereas the REST endpoints would. The GraphQL code is also much shorter and on top of that, REST endpoints also have longer trial and error periods as we try to get the inputs and outputs for the endpoints to work, vs the minimal setup time for the GraphQL endpoint. On top of that, the current prototype of the GraphQL service has to query the REST endpoints exposed by the data services, and then filter the collected data, which would obviously not be the case if the data services exposed their own GraphQL endpoints, which would make the service faster. Finally, the load on memory is much lower with the GraphQL endpoint as I am not carrying around extra data that I have no use for after querying.
 
 ## Query Example 2: Querying Katsu
 
@@ -260,6 +260,34 @@ query canDIGSearch {
 ```
 
 Note that a sample query for Beacon can be found in the first example provided.
+
+## Query Example 4: Full Beacon Query
+
+For this query, we will test the full Beacon specs by querying every field that can be returned by Beacon, and this will help us determine if there are any errors due to parsing or of the like within the GraphQL-interface.
+
+To perform this query, simply return to the `projects` root directory and perform the following commands:
+
+Note that you will need to have a `virtualenv` called `venv` already installed and set up with the requirements from the GraphQL-interface directory. If you already have one set up, please skip the next command block:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+cd GraphQL-interface
+pip install wheel pandas sklearn
+pip install -r requirements.txt
+cd ..
+deactivate
+```
+
+The following steps will perform the query and output the status of the queries sent. Note that the last 5 queries should output a result stating that no variants could be found. Additionally, this query will take some time due to its large nature, and so don't worry if it takes a minute or two.
+
+```bash
+source venv/bin/activate
+cd GraphQL-interface
+python3 docs/samplequeries/test_examples.py
+```
+
+The inputs queries can be seen in the [Example Queries JSON File](samplequeries/example_inputs.json). The main GraphQL query that we will use is present in the [Example Query Python File](samplequeries/example_query.py), but be warned, it is quite long. Finally, the testing script can be found in the [test_examples.py](samplequeries/test_examples.py) file.
 
 ## Summary
 
