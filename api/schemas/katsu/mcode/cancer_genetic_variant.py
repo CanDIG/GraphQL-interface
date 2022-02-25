@@ -5,6 +5,7 @@ from api.schemas.json_formats.ontology import Ontology, OntologyInputType
 from api.schemas.katsu.phenopacket.gene import Gene, GeneInputType
 from typing import List, Optional
 import strawberry
+
 @strawberry.input
 class CancerGeneticVariantInputType(Input):
     ids: Optional[List[strawberry.ID]] = None
@@ -45,10 +46,12 @@ class CancerGeneticVariant:
                                     ("cytogenetic_location", Ontology), ("cytogenetic_nomenclature", Ontology),\
                                     ("genomic_dna_change", Ontology), ("genomic_source_class", Ontology)]:
             set_field(json, ret, field_name, type)
+
         if isinstance(json["variation_code"], List):
             set_field_list(json, ret, "variation_code", Ontology)
         else:
             set_field(json, ret, "variation_code", Ontology)
+            
         set_field_list(json, ret, "gene_studied", Gene)
         set_extra_properties(json, ret)
         

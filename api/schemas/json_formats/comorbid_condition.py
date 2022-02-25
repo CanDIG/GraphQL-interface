@@ -19,7 +19,7 @@ class ComorbidCondition:
         ret = ComorbidCondition(**json)
         set_field(json, ret, "clinical_status", Ontology)
         set_field(json, ret, "code", Ontology)
-        return 
+        return ret
 
     @staticmethod
     def filter(instance, input: ComorbidConditionInputType):

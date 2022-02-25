@@ -30,12 +30,16 @@ def filter_age(instance, input: AgeInputType):
     age = int(input.age)
     start = int(input.start)
     end = int(input.end)
+
     if isinstance(instance, Age):
         if age != None and instance.age == age:
             return True
+    
     if isinstance(instance, AgeRange):
         if start != None and end != None and start >= instance.start and end <= instance.end:
             return True
+    
     if age == None and start == None and end == None:
         return True
+    
     return False

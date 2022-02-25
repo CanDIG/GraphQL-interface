@@ -24,6 +24,7 @@ async def get_candig_server_variants(param):
     datasets_response = post_candig_server_response("datasets/search")
     got_error = False
     ret = []
+    
     for dataloader_input in param:
         if dataloader_input.dataset_ids != None:
             res_variants = []

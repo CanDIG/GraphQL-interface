@@ -32,23 +32,28 @@ services:
       POSTGRES_USER: ${KATSU_POSTGRES_USER}
       POSTGRES_PASSWORD: ${KATSU_POSTGRES_PASSWORD}
   candig:
-          build:
-                  context: ${CANDIG_DIR}
-          ports:
-                  - "3000:3000"
-          image: candig/v1-server:latest
-          container_name: candig
+    build:
+      context: ${CANDIG_DIR}
+    ports:
+      - "3000:3000"
+    image: candig/v1-server:latest
+    container_name: candig
   graphql:
-          build:
-                  context: ${GRAPHQL_DIR}
-          ports:
-                  - "7999:7999"
-          image: candig/graphql:latest
-          container_name: graphql
-          environment:
-                  CANDIG_SERVER: "http://candig:3000"
-                  KATSU_API: "http://katsu:8000/api"
+    build:
+      context: ${GRAPHQL_DIR}
+      args:
+        GRAPHQL_CONDA_SOURCE: "${GRAPHQL_CONDA_SOURCE}"
+        GRAPHQL_CONDA_TYPE: "${GRAPHQL_CONDA_TYPE}"
+        GRAPHQL_CONDA_VERSION: "${GRAPHQL_CONDA_VERSION}"
+    ports:
+      - "${GRAPHQL_INTERFACE_PORT}:7999"
+    image: candig/graphql:latest
+    container_name: graphql
+    environment:
+      - GRAPHQL_KATSU_API=${GRAPHQL_KATSU_API}
+      - GRAPHQL_CANDIG_SERVER=${GRAPHQL_CANDIG_SERVER}
+      - GRAPHQL_BEACON_ID=${GRAPHQL_BEACON_ID}
+      - GRAPHQL_KATSU_TOKEN_KEY=${GRAPHQL_KATSU_TOKEN_KEY}
 
-    
 volumes:
   katsu-db-data:

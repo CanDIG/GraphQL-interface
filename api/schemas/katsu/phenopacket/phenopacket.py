@@ -3,10 +3,8 @@ from api.interfaces.input import Input
 from typing import List, Optional
 import strawberry
 
-from api.schemas.dataloader_input import DataLoaderOutput
 from api.schemas.utils import (
     generic_filter,
-    get_katsu_response,
     set_extra_properties,
     set_field,
     set_field_list
