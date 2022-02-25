@@ -5,7 +5,7 @@ from api.schemas.katsu.mcode.mcode_packet import MCodePacket
 from api.schemas.katsu.phenopacket.phenopacket import Phenopacket
 from api.schemas.utils import generic_resolver
 from api.schemas.katsu.phenopacket.individual import Individual
-from api.settings import GRAPHQL_BEACON_ID, GRAPHQL_BEACON_VERSION
+import api.settings
 from strawberry.dataloader import DataLoader
 import strawberry
 
@@ -198,11 +198,11 @@ class BeaconAlleleResponse:
 
     @strawberry.field(description=beacon_id_description)
     def beaconId(self) -> str:
-        return GRAPHQL_BEACON_ID
+        return api.settings.GRAPHQL_BEACON_ID
     
     @strawberry.field(description=beacon_api_version_description)
     def apiVersion(self) -> str:
-        return GRAPHQL_BEACON_VERSION
+        return api.settings.GRAPHQL_BEACON_VERSION
 
     @strawberry.field(description=beacon_individuals_present_description)
     async def individuals_present(self, info) -> List[BeaconIndividual]:
