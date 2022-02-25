@@ -134,7 +134,7 @@ cp ./GraphQL-interface/docs/helpers/docker-compose.yaml ./federated-learning/
 2. Once the setup for all 3 are complete, ensure the endpoints can be reached:
    - Visit `http://localhost:8000` to ensure the Katsu API is loading up as required.
    - Visit `http://localhost:3000` to ensure the CanDIG V1 Server is up and running.
-   - Visit `http://localhost:7999/graphql` to ensure the GraphQL service is up and running. You should be able to see a GraphiQL UI at this point.
+   - Visit `http://localhost:7999` to ensure the GraphQL service is up and running. You should be able to see a GraphiQL UI at this point.
 
 ### Data Collection & Ingestion
 
