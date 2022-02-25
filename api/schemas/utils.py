@@ -1,5 +1,5 @@
 from api.interfaces.input import Input
-from api.settings import GRAPHQL_CANDIG_SERVER, GRAPHQL_KATSU_API, GRAPHQL_KATSU_TOKEN_KEY
+import api.settings
 import json
 from api.schemas.dataloader_input import DataLoaderInput, DataLoaderOutput
 from api.schemas.scalars.json_scalar import JSONScalar
@@ -69,28 +69,28 @@ def json2obj(data):
 
 
 def get_katsu_response(endpoint, token):
-    response = requests.get(f'{GRAPHQL_KATSU_API}/{endpoint}', headers={GRAPHQL_KATSU_TOKEN_KEY : f"{token}"})
+    response = requests.get(f'{api.settings.GRAPHQL_KATSU_API}/{endpoint}', headers={api.settings.GRAPHQL_KATSU_TOKEN_KEY : f"{token}"})
 
     if response.status_code != 200:
         raise GraphQLError("Error response from Katsu!")
     return response.json()
 
 def get_candig_server_response(endpoint):
-    response = requests.get(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}')
+    response = requests.get(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}')
 
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
 def post_candig_server_response(endpoint, body = None):
-    response = requests.post(f'{GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body)
+    response = requests.post(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body)
     
     if response.status_code != 200:
         raise GraphQLError("Error response from Candig Server!")
     return response.json()
 
 def get_token(info):
-    return info.context["request"].headers.get(GRAPHQL_KATSU_TOKEN_KEY) if info.context["request"].headers.get(GRAPHQL_KATSU_TOKEN_KEY) else ""
+    return info.context["request"].headers.get(api.settings.GRAPHQL_KATSU_TOKEN_KEY) if info.context["request"].headers.get(api.settings.GRAPHQL_KATSU_TOKEN_KEY) else ""
 
 
 def gene_filter(gene, kwargs):
