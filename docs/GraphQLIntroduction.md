@@ -89,8 +89,6 @@ projects
 3. [GraphQL-interface](https://github.com/CanDIG/GraphQL-interface)
    - It goes without saying, but this module provides the heart and soul of the GraphQL interface.
    - Clone the CanDIG/GraphQL-interface repository into a local directory.
-     - Use the `-b <branch-name>` option with `git clone` to pull a specific branch.
-       - eg. `-b AliRZ-02/DIG-770-GraphQL-Basic-Configuration`
    - As a whole, the following commands will need to be performed:
    ```bash
    git clone https://github.com/CanDIG/GraphQL-interface.git
@@ -119,25 +117,7 @@ cp .default.env .env
 
    - Modify the following in the `federated-learning` repo's `.env` file:
      - `KATSU_DIR=../katsu` to point to your local Katsu repo, from the root `federated-learning` directory.
-   - Add the following to the `federated-learning` repo's `.env` file, modifying the values as needed for your system, if required:
-
-     ```bash
-       CANDIG_DIR=../candig-server
-       GRAPHQL_DIR=../GraphQL-interface
-
-       GRAPHQL_CONDA_SOURCE=condaforge
-       GRAPHQL_CONDA_TYPE=miniforge3
-       GRAPHQL_CONDA_VERSION=latest
-       GRAPHQL_INTERFACE_VERSION=v1.0.0
-       GRAPHQL_INTERFACE_PORT=7999
-
-       GRAPHQL_KATSU_API=http://katsu:8000/api
-       GRAPHQL_CANDIG_SERVER=http://candig:3000
-       GRAPHQL_BEACON_ID=com.candig.graphql
-       GRAPHQL_BEACON_VERSION=1.0.0
-       GRAPHQL_KATSU_TOKEN_KEY=X-CANDIG-LOCAL-OIDC
-       GRAPHQL_CANDIG_TOKEN_KEY=X-CANDIG-LOCAL-OIDC
-     ```
+   - Add the environment variables present in the `helpers` directory's [helpers.env](helpers/helpers.env) file to the `federated-learning` repo's `.env` file, modifying the values as needed for your system, if required:
 
 3. Replace the `docker-compose.yaml` file in the federated-learning repository with the `docker-compose.yaml` file present in the [helpers](helpers/) folder of the GraphQL-interface docs.
 
@@ -154,7 +134,7 @@ cp ./GraphQL-interface/docs/helpers/docker-compose.yaml ./federated-learning/
 2. Once the setup for all 3 are complete, ensure the endpoints can be reached:
    - Visit `http://localhost:8000` to ensure the Katsu API is loading up as required.
    - Visit `http://localhost:3000` to ensure the CanDIG V1 Server is up and running.
-   - Visit `http://localhost:7999/graphql` to ensure the GraphQL service is up and running. You should be able to see a GraphiQL UI at this point.
+   - Visit `http://localhost:7999` to ensure the GraphQL service is up and running. You should be able to see a GraphiQL UI at this point.
 
 ### Data Collection & Ingestion
 

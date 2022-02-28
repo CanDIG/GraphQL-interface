@@ -89,7 +89,7 @@ import requests
 import time
 import json
 
-GRAPHQL_ENDPOINT = 'http://localhost:7999/graphql'
+GRAPHQL_ENDPOINT = 'http://localhost:7999'
 DEFAULT_QUERY = '''
 query {
   beaconQuery(input:{

@@ -11,7 +11,7 @@ import aiofiles
 import asyncio
 import json
 
-GRAPHQL_HOST = 'http://localhost:7999/graphql'
+GRAPHQL_HOST = 'http://localhost:7999/'
 
 def has_errors(response: Dict[str, Any]) -> bool:
     return response.get('errors') != None

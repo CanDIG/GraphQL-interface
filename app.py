@@ -39,4 +39,4 @@ class MyGraphQL(BaseGraphQL):
 schema = strawberry.Schema(query=Query)
 graphql_app = MyGraphQL(schema)
 app = FastAPI()
-app.add_route("/graphql", graphql_app)
+app.add_route("/", graphql_app)
