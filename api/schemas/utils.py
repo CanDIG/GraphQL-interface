@@ -75,7 +75,7 @@ def get_katsu_response(endpoint, token):
     response = requests.get(f'{api.settings.GRAPHQL_KATSU_API}/{endpoint}', headers={api.settings.GRAPHQL_KATSU_TOKEN_KEY : f"{token}"})
 
     if response.status_code != 200:
-        print(f'NON-200 response from Katsu! - {response.status_code} \n \tResponse: {response.text}')
+        print(f'NON-200 response from Katsu! - {response.status_code} --- Response: {response.text}')
         raise GraphQLError("NON-200 response from Katsu!")
 
     return response.json()
@@ -84,7 +84,7 @@ def get_candig_server_response(endpoint, token):
     response = requests.get(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
 
     if response.status_code != 200:
-        print(f'NON-200 response from Candig Server! - {response.status_code} \n \tResponse: {response.text}')
+        print(f'NON-200 response from Candig Server! - {response.status_code} --- Response: {response.text}')
         raise GraphQLError("NON-200 response from Candig Server!")
 
     return response.json()
@@ -93,7 +93,7 @@ def post_candig_server_response(endpoint, token, body = None):
     response = requests.post(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body, headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
     
     if response.status_code != 200:
-        print(f'NON-200 response from Candig Server! - {response.status_code} \n \tResponse: {response.text}')
+        print(f'NON-200 response from Candig Server! - {response.status_code} --- Response: {response.text}')
         raise GraphQLError("NON-200 response from Candig Server!")
 
     return response.json()
