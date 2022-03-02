@@ -12,6 +12,11 @@ from strawberry.dataloader import DataLoader
 from starlette.requests import Request
 from api.schema import schema
 from fastapi import FastAPI
+import sys
+
+# For logging purposes, traceback is disabled. Comment the following line out to enable traceback
+sys.tracebacklimit = 0
+
 class MyGraphQL(BaseGraphQL):
     async def get_context(
         self,

@@ -8,9 +8,6 @@ from typing import List, NamedTuple
 from graphql import GraphQLError
 import sys
 
-# For logging purposes, traceback is disabled. Comment the following line out to enable traceback
-sys.tracebacklimit = 0
-
 POST_SEARCH_BODY = {
     "datasetId": "-1",
     "logic": {
