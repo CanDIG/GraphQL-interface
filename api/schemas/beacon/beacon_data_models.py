@@ -207,7 +207,7 @@ class BeaconAlleleResponse:
     @strawberry.field(description=beacon_individuals_present_description)
     async def individuals_present(self, info) -> List[BeaconIndividual]:
         if self.exists is False: 
-            print('individuals_present: BeaconAlleleResponse: beacon_data_models.py - Cannot find individuals for variant that doesn\'t exist in Katsu')
+            print('individuals_present: BeaconAlleleResponse: beacon_data_models.py - Cannot find individuals for variant that doesn\'t exist')
             return []
         
         return await self.get_individuals(info)
