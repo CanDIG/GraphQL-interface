@@ -42,6 +42,3 @@ schema = strawberry.Schema(query=Query)
 graphql_app = MyGraphQL(schema)
 app = FastAPI()
 app.add_route("/", graphql_app)
-
-# For logging purposes, traceback is disabled. Comment the following line out to enable traceback
-sys.tracebacklimit = 0
