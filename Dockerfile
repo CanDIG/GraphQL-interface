@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 
-ARG GRAPHQL_CONDA_SOURCE=condaforge
-ARG GRAPHQL_CONDA_TYPE=miniforge3
-ARG GRAPHQL_CONDA_VERSION=latest
+ARG GRAPHQL_PYTHON_SOURCE=python
+ARG GRAPHQL_PYTHON_TYPE=3.8
+ARG GRAPHQL_PYTHON_VERSION=slim
 
-FROM ${GRAPHQL_CONDA_SOURCE}/${GRAPHQL_CONDA_TYPE}:${GRAPHQL_CONDA_VERSION}
+FROM ${GRAPHQL_PYTHON_SOURCE}:${GRAPHQL_PYTHON_TYPE}-${GRAPHQL_PYTHON_VERSION}
 
 LABEL Maintainer="CanDIG Project"
 
@@ -17,7 +17,7 @@ USER root
 RUN apt update
 
 RUN apt install gcc musl-dev -y \
-	&& conda install --file conda-requirements.txt \
+	&& pip install wheel pandas sklearn \
     && pip install -U setuptools pip \
     && pip install -r requirements.txt
 	
