@@ -42,8 +42,6 @@ services:
     build:
       context: ${GRAPHQL_DIR}
       args:
-        GRAPHQL_PYTHON_SOURCE: ${GRAPHQL_PYTHON_SOURCE}
-        GRAPHQL_PYTHON_TYPE: ${GRAPHQL_PYTHON_TYPE}
         GRAPHQL_PYTHON_VERSION: ${GRAPHQL_PYTHON_VERSION}
     ports:
       - "${GRAPHQL_INTERFACE_PORT}:7999"

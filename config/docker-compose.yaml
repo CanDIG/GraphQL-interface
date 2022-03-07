@@ -5,8 +5,6 @@ services:
     build:
       context: $PWD/lib/graphql/GraphQL-interface
       args:
-        GRAPHQL_PYTHON_SOURCE: ${GRAPHQL_PYTHON_SOURCE}
-        GRAPHQL_PYTHON_TYPE: ${GRAPHQL_GRAPHQL_PYTHON_TYPE}
         GRAPHQL_PYTHON_VERSION: ${GRAPHQL_PYTHON_VERSION}
     image: ${DOCKER_REGISTRY}/graphql:${GRAPHQL_INTERFACE_VERSION:-latest}
     networks:

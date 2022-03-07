@@ -1,10 +1,8 @@
 # syntax=docker/dockerfile:1
 
-ARG GRAPHQL_PYTHON_SOURCE=python
-ARG GRAPHQL_PYTHON_TYPE=3.8
-ARG GRAPHQL_PYTHON_VERSION=slim
+ARG GRAPHQL_PYTHON_VERSION=3.8
 
-FROM ${GRAPHQL_PYTHON_SOURCE}:${GRAPHQL_PYTHON_TYPE}-${GRAPHQL_PYTHON_VERSION}
+FROM python:${GRAPHQL_PYTHON_VERSION}-slim
 
 LABEL Maintainer="CanDIG Project"
 
@@ -17,8 +15,8 @@ USER root
 RUN apt update
 
 RUN apt install gcc musl-dev -y \
-	&& pip install wheel pandas sklearn \
+    && pip install wheel pandas sklearn \
     && pip install -U setuptools pip \
     && pip install -r requirements.txt
-	
+
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7999", "--proxy-headers"]
