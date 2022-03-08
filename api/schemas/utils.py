@@ -67,31 +67,41 @@ def _json_object_hook(d):
 def json2obj(data):
     return json.loads(data, object_hook=_json_object_hook)
 
-
 def get_katsu_response(endpoint, token):
     response = requests.get(f'{api.settings.GRAPHQL_KATSU_API}/{endpoint}', headers={api.settings.GRAPHQL_KATSU_TOKEN_KEY : f"{token}"})
 
     if response.status_code != 200:
-        raise GraphQLError("Error response from Katsu!")
+        response_text = response.text.replace("\n", " ")
+        print(f'NON-200 response from Katsu! - {response.status_code} --- Response: {response_text}')
+        raise GraphQLError("NON-200 response from Katsu!")
+
     return response.json()
 
-def get_candig_server_response(endpoint):
-    response = requests.get(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}')
+def get_candig_server_response(endpoint, token):
+    response = requests.get(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
 
     if response.status_code != 200:
-        raise GraphQLError("Error response from Candig Server!")
+        response_text = response.text.replace("\n", " ")
+        print(f'NON-200 response from Candig Server! - {response.status_code} --- Response: {response_text}')
+        raise GraphQLError("NON-200 response from Candig Server!")
+
     return response.json()
 
-def post_candig_server_response(endpoint, body = None):
-    response = requests.post(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body)
+def post_candig_server_response(endpoint, token, body = None):
+    response = requests.post(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body, headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
     
     if response.status_code != 200:
-        raise GraphQLError("Error response from Candig Server!")
+        response_text = response.text.replace("\n", " ")
+        print(f'NON-200 response from Candig Server! - {response.status_code} --- Response: {response_text}')
+        raise GraphQLError("NON-200 response from Candig Server!")
+
     return response.json()
 
-def get_token(info):
+def get_katsu_token(info):
     return info.context["request"].headers.get(api.settings.GRAPHQL_KATSU_TOKEN_KEY) if info.context["request"].headers.get(api.settings.GRAPHQL_KATSU_TOKEN_KEY) else ""
 
+def get_candig_token(info):
+    return info.context["request"].headers.get(api.settings.GRAPHQL_CANDIG_TOKEN_KEY) if info.context["request"].headers.get(api.settings.GRAPHQL_CANDIG_TOKEN_KEY) else ""
 
 def gene_filter(gene, kwargs):
     id = kwargs.pop("id", None)
@@ -176,9 +186,8 @@ def generic_filter(instance, input):
     return True
 
 async def generic_resolver_helper(info, loader_name, ids, page_number):
-    token = get_token(info)
-    res = await info.context[loader_name].load(DataLoaderInput(token, ids, page_number))
-    return res
+    token = get_katsu_token(info)
+    return await info.context[loader_name].load(DataLoaderInput(token, ids, page_number))
 
 def filter_results(res, input, cast_type):
     if input:

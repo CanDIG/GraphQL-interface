@@ -42,9 +42,7 @@ services:
     build:
       context: ${GRAPHQL_DIR}
       args:
-        GRAPHQL_CONDA_SOURCE: "${GRAPHQL_CONDA_SOURCE}"
-        GRAPHQL_CONDA_TYPE: "${GRAPHQL_CONDA_TYPE}"
-        GRAPHQL_CONDA_VERSION: "${GRAPHQL_CONDA_VERSION}"
+        GRAPHQL_PYTHON_VERSION: ${GRAPHQL_PYTHON_VERSION}
     ports:
       - "${GRAPHQL_INTERFACE_PORT}:7999"
     image: candig/graphql:latest

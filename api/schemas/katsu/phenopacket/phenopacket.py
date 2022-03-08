@@ -51,7 +51,7 @@ class Phenopacket:
 
     @strawberry.field
     async def candig_server_variants(self, info, input: Optional[CandigServerVariantInput] = None) -> List[CandigServerVariant]:
-        res = await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(None, input, self.id))
+        res = await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(None, input, self.id, info))
         return res
 
     @staticmethod
