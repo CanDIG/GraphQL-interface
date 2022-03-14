@@ -1,0 +1,9 @@
+# Unneeded Extra Folders
+config/
+docs/
+tests/
+
+# Unneeded miscellaneous items
+__pycache__
+README.md
+example.env

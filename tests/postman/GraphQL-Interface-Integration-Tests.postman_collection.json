@@ -1,0 +1,1455 @@
+{
+	"info": {
+		"_postman_id": "de39be0c-3699-450c-886f-b5eb132e7a59",
+		"name": "GraphQL-Interface-Integration-Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Katsu Testing",
+			"item": [
+				{
+					"name": "Success",
+					"item": [
+						{
+							"name": "test_katsu_phenopacket_success_1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_1 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                id\n                table\n                created\n                updated\n                extraProperties\n            }\n        }\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_2 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                subject {... subjectFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{subjectFields}}\n{{biosampleFields}}\n{{phenotypicFields}}\n{{variantFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_3 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                phenotypicFeatures {... phenotypicFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{phenotypicFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_4 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                biosamples {... biosampleFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{biosampleFields}}\n{{phenotypicFields}}\n{{variantFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_5 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                genes {... geneFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{geneFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_6 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                variants {... variantFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{variantFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_7",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_7 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                diseases {... diseaseFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{diseaseFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_8",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_8 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                htsFiles {... htsFields}\n                metaData {... metadataFields}\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{htsFields}}\n{{metadataFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_9",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_9($phenopacketId: [ID!]) {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets(input: {ids: $phenopacketId}){\n                ...phenopacketFields\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{phenopacketFields}}\n{{subjectFields}}\n{{phenotypicFields}}\n{{biosampleFields}}\n{{geneFields}}\n{{variantFields}}\n{{diseaseFields}}\n{{htsFields}}\n{{metadataFields}}",
+										"variables": "{\n    \"phenopacketId\": [\"{{phenopacket2}}\"]\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_success_10",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_success_10 {\n    katsuDataModels{\n        phenopacketDataModels{\n            phenopackets{\n                ...phenopacketFields\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{phenopacketFields}}\n{{subjectFields}}\n{{phenotypicFields}}\n{{biosampleFields}}\n{{geneFields}}\n{{variantFields}}\n{{diseaseFields}}\n{{htsFields}}\n{{metadataFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_1 {\n    katsuDataModels{\n        mcodeDataModels{\n            geneticSpecimens {... geneticSpecimenFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{geneticSpecimenFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_2 {\n    katsuDataModels{\n        mcodeDataModels{\n            genomicRegionsStudied {\n                ... genomicRegionStudiedFields\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{genomicRegionStudiedFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_3 {\n    katsuDataModels{\n        mcodeDataModels{\n            genomicsReports {... genomicsReportFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{genomicsReportFields}}\n{{geneticSpecimenFields}}\n{{cancerGeneticVariantFields}}\n{{genomicRegionStudiedFields}}\n{{geneFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_4 {\n    katsuDataModels{\n        mcodeDataModels{\n            labsVital {... labsVitalFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{labsVitalFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_5 {\n    katsuDataModels{\n        mcodeDataModels{\n            cancerConditions {... cancerConditionsFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{cancerConditionsFields}}\n{{tnmStagingFields}}\n{{ComplexOntologyFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_6 {\n    katsuDataModels{\n        mcodeDataModels{\n            TNMStaging {... tnmStagingFieldsmCODE}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{tnmStagingFieldsmCODE}}\n{{ComplexOntologyFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_7",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_7 {\n    katsuDataModels{\n        mcodeDataModels{\n            cancerRelatedProcedures {... cancerRelatedProceduresFields}\n            medicationStatements {... medicationStatementsFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{cancerRelatedProceduresFields}}\n{{medicationStatementsFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_8",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_8 {\n    katsuDataModels{\n        mcodeDataModels{\n            mcodePackets {... mcodePacketsFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{mcodePacketsFields}}\n{{subjectFields}}\n{{biosampleFields}}\n{{phenotypicFields}}\n{{variantFields}}\n{{genomicsReportFields}}\n{{cancerConditionsFields}}\n{{medicationStatementsFields}}\n{{cancerRelatedProceduresFields}}\n{{geneticSpecimenFields}}\n{{cancerGeneticVariantFields}}\n{{genomicRegionStudiedFields}}\n{{tnmStagingFields}}\n{{geneFields}}\n{{ComplexOntologyFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_9",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_9($mcodeIds: [ID!]) {\n    katsuDataModels{\n        mcodeDataModels{\n            mcodePackets(input: {\n                ids: $mcodeIds\n            }) {... mcodePacketsFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{mcodePacketsFields}}\n{{subjectFields}}\n{{biosampleFields}}\n{{phenotypicFields}}\n{{variantFields}}\n{{genomicsReportFields}}\n{{cancerConditionsFields}}\n{{medicationStatementsFields}}\n{{cancerRelatedProceduresFields}}\n{{geneticSpecimenFields}}\n{{cancerGeneticVariantFields}}\n{{genomicRegionStudiedFields}}\n{{tnmStagingFields}}\n{{geneFields}}\n{{ComplexOntologyFields}}",
+										"variables": "{\n    \"mcodeIds\": [\"{{mcode1}}\"]\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_mcodepacket_success_10",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_mcodepacket_success_10 {\n    katsuDataModels{\n        mcodeDataModels{\n            ... mcodeFields\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{mcodeFields}}\n{{geneticSpecimenFields}}\n{{genomicRegionStudiedFields}}\n{{genomicsReportFields}}\n{{cancerGeneticVariantFields}}\n{{geneFields}}\n{{labsVitalFields}}\n{{ComplexOntologyFields}}\n{{tnmStagingFields}}\n{{cancerConditionsFields}}\n{{tnmStagingFieldsmCODE}}\n{{cancerRelatedProceduresFields}}\n{{medicationStatementsFields}}\n{{mcodePacketsFields}}\n{{subjectFields}}\n{{biosampleFields}}\n{{phenotypicFields}}\n{{variantFields}}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_variant_success_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_variant_success_1($variantStart1: String, $variantEnd1: String, $variantRef1: String) {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets {\n                candigServerVariants(input: {\n                    start: $variantStart1,\n                    end: $variantEnd1,\n                    referenceName: $variantRef1\n                }) {\n                    id\n                    variantSetId\n                    names\n                    referenceName\n                    start\n                    end\n                    referenceBases\n                    alternateBases\n                    filtersApplied\n                    filtersPassed\n                    attributes\n                    getKatsuIndividuals {... subjectFields}\n                }\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{subjectFields}}\n{{biosampleFields}}\n{{variantFields}}\n{{phenotypicFields}}",
+										"variables": "{\n    \"variantStart1\": \"{{variantStart1}}\",\n    \"variantEnd1\": \"{{variantEnd1}}\",\n    \"variantRef1\": \"{{variantRef1}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Error",
+					"item": [
+						{
+							"name": "test_katsu_phenopacket_error_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_error_1($invalidIds: [ID!]) {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets(input: {\n                ids: $invalidIds\n            }) {\n                id\n            }\n        }\n    }\n}",
+										"variables": "{\n    \"invalidIds\": [\"1\", \"2\"]\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_error_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_error_2 {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets {\n                id {name}\n                table {name}\n                created {name}\n                updated {name}\n            }\n        }\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_error_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_error_3 {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets {\n                subject\n                phenotypicFeatures\n                biosamples\n                genes\n                variants\n                diseases\n                htsFiles\n                metaData\n            }\n        }\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_error_4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_error_4 {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets {\n                noExist\n            }\n        }\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_katsu_phenopacket_error_5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_katsu_phenopacket_error_5($invalidPage: Int) {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets(input: {\n                pageNumber: $invalidPage\n            }) {\n                id\n            }\n        }\n    }\n}",
+										"variables": "{\n    \"invalidPage\": 2\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CanDIG Variants Testing",
+			"item": [
+				{
+					"name": "Success",
+					"item": [
+						{
+							"name": "test_candig_success_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_success_1($variantStart: String, $variantEnd: String, $variantRef: String) {\n    candigServerVariants(input: {\n        start: $variantStart,\n        end: $variantEnd,\n        referenceName: $variantRef\n    }){\n        id\n        variantSetId\n        names\n        referenceName\n        start\n        end\n        referenceBases\n        alternateBases\n        filtersApplied\n        filtersPassed\n    }\n}",
+										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_success_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_success_2($variantStart: String, $variantEnd: String, $variantRef: String) {\n    candigServerVariants(input: {\n        start: $variantStart,\n        end: $variantEnd,\n        referenceName: $variantRef\n    }){\n        attributes\n    }\n}",
+										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_success_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_success_3($variantStart: String, $variantEnd: String, $variantRef: String) {\n    candigServerVariants(input: {\n        start: $variantStart,\n        end: $variantEnd,\n        referenceName: $variantRef\n    }){\n        getKatsuIndividuals {... subjectFields}\n    }\n}\n\n# Fragments stored as collection variables\n{{subjectFields}}\n{{biosampleFields}}\n{{variantFields}}\n{{phenotypicFields}}",
+										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_success_4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_success_4($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String, $patient: ID) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef,\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"datasetId\": \"{{datasetId1}}\",\n    \"patient\": \"{{patient2}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_success_5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_success_5($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String, $patient: ID){\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"datasetId\": \"{{datasetId1}}\",\n    \"patient\": \"None\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_success_6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_success_6($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef\n        }) {\n        id\n    }\n}",
+										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"datasetId\": \"{{datasetId1}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Error",
+					"item": [
+						{
+							"name": "test_candig_error_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_error_1 {\n    candigServerVariants {\n        id\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_error_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_error_2($datasetId: String, $patient: ID) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"variables": "{\n    \"datasetId\": \"{{datasetId1}}\",\n    \"patient\": \"{{patient2}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_error_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_error_3($datasetId: String, $variantStart: String, $variantEnd: String, $variantRef: String, $patient: ID) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef,\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"variables": "{\n    \"datasetId\": \"Wrong\",\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"patient\": \"{{patient2}}\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_candig_error_4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_candig_error_4($variantStart: String, $variantEnd: String, $variantRef: String) {\n    candigServerVariants(\n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef\n        }) {\n        id\n    }\n}",
+										"variables": "{\n    \"variantStart\": \"712899\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\"}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Beacon V1 Testing",
+			"item": [
+				{
+					"name": "Success",
+					"item": [
+						{
+							"name": "test_beacon_success_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_1($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd\n    }) {\n        beaconId\n        apiVersion\n    }\n}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_2($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd\n    }) {\n        exists\n        error{\n            errorCode\n            errorMessage\n        }\n    }\n}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_3($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd\n    }) {\n        alleleRequest {\n            referenceName\n            referenceBases\n            alternateBases\n            start\n            end\n            datasetIds\n        }\n    }\n}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_4($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd\n    }) {\n        individualsPresent {\n            personalInfo {... subjectFields}\n            mcodepackets {... mcodePacketsFields}\n            phenopackets {... phenopacketFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{subjectFields}}\n{{mcodePacketsFields}}\n{{phenopacketFields}}\n{{genomicsReportFields}}\n{{cancerConditionsFields}}\n{{medicationStatementsFields}}\n{{cancerRelatedProceduresFields}}\n{{biosampleFields}}\n{{phenotypicFields}}\n{{geneFields}}\n{{variantFields}}\n{{geneticSpecimenFields}}\n{{cancerGeneticVariantFields}}\n{{genomicRegionStudiedFields}}\n{{tnmStagingFields}}\n{{ComplexOntologyFields}}\n{{diseaseFields}}\n{{htsFields}}\n{{metadataFields}}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_5($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd\n    }) {\n        exists\n        error {\n            errorCode\n            errorMessage\n        }\n        alleleRequest {\n            referenceName\n            referenceBases\n            start\n            end\n            alternateBases\n            datasetIds\n        }\n        beaconId\n        apiVersion\n        individualsPresent {\n            personalInfo {... subjectFields}\n            mcodepackets {... mcodePacketsFields}\n            phenopackets {... phenopacketFields}\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{subjectFields}}\n{{mcodePacketsFields}}\n{{phenopacketFields}}\n{{genomicsReportFields}}\n{{cancerConditionsFields}}\n{{medicationStatementsFields}}\n{{cancerRelatedProceduresFields}}\n{{biosampleFields}}\n{{phenotypicFields}}\n{{geneFields}}\n{{variantFields}}\n{{geneticSpecimenFields}}\n{{cancerGeneticVariantFields}}\n{{genomicRegionStudiedFields}}\n{{tnmStagingFields}}\n{{ComplexOntologyFields}}\n{{diseaseFields}}\n{{htsFields}}\n{{metadataFields}}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_6",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_6($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd,\n        datasetIds: []\n    }) {\n        exists\n        error{\n            errorCode\n            errorMessage\n        }\n    }\n}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_7",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_7($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd,\n        datasetIds: [\"N/A\"]\n    }) {\n        exists\n        error{\n            errorCode\n            errorMessage\n        }\n    }\n}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_success_8",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_success_8($variantRef: String!, $variantBase: String!, $variantAlt: String!, $variantStart: Int!, $variantEnd: Int!, $datasetIds: [String!]) {\n    beaconQuery(input: {\n        referenceName: $variantRef,\n        referenceBases: $variantBase,\n        alternateBases: $variantAlt,\n        start: $variantStart,\n        end: $variantEnd,\n        datasetIds: $datasetIds\n    }) {\n        exists\n        error{\n            errorCode\n            errorMessage\n        }\n    }\n}",
+										"variables": "{\n    \"variantRef\": \"{{variantRef1}}\",\n    \"variantBase\": \"{{variantBase1}}\",\n    \"variantAlt\": \"{{variantAlt1}}\",\n    \"variantStart\": {{variantStart1}},\n    \"variantEnd\": {{variantEnd1}},\n    \"datasetIds\": [\"{{datasetId1}}\"]\n}"
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Error",
+					"item": [
+						{
+							"name": "test_beacon_error_1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_error_1 {\n    beaconQuery {\n        exists\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_error_2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_error_2 {\n    beaconQuery(input: {}) {\n        exists\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "test_beacon_error_3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query test_beacon_error_3 {\n    beaconQuery\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{graphql_protocol}}://{{graphql_host}}:{{graphql_port}}",
+									"protocol": "{{graphql_protocol}}",
+									"host": [
+										"{{graphql_host}}"
+									],
+									"port": "{{graphql_port}}"
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test(\"ErrorCheck\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    if (pm.info.requestName.includes(\"error\")) {",
+					"        pm.expect(jsonData).to.have.property('errors')",
+					"    } else {",
+					"        pm.expect(jsonData.errors).to.eql(undefined);",
+					"    }",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "subjectFields",
+			"value": "fragment subjectFields on Individual {\n  id\n  alternateIds\n  dateOfBirth\n  age{\n      ... on Age {\n          age\n      }\n      ... on AgeRange {\n          start{\n              age\n          }\n          end{\n              age\n          }\n      }\n  }\n  sex\n  karyotypicSex\n  taxonomy {\n    id\n    label\n  }\n  active\n  deceased\n  comorbidCondition {\n    code {\n        id\n        label\n    }\n    clinicalStatus {\n        id\n        label\n    }\n  }\n  ecogPerformanceStatus {\n      id\n      label\n  }\n  karnofsky {\n      id\n      label\n  }\n  race\n  ethnicity\n  extraProperties\n  created\n  updated\n  phenopackets\n  biosamples {\n    ...biosampleFields\n  }\n}"
+		},
+		{
+			"key": "biosampleFields",
+			"value": "fragment biosampleFields on Biosample {\n  id\n  phenotypicFeatures {\n    ...phenotypicFields\n  }\n  individual\n  description\n  sampledTissue {\n    reference\n    display\n    id\n    label\n  }\n  taxonomy {\n    id\n    label\n  }\n  individualAgeAtCollection{\n      ... on Age {\n          age\n      }\n      ... on AgeRange {\n          start{\n              age\n          }\n          end{\n              age\n          }\n      }\n  }\n  histologicalDiagnosis {\n    id\n    label\n  }\n  tumorProgression {\n    id\n    label\n  }\n  tumorGrade {\n    id\n    label\n  }\n  diagnosticMarkers {\n    id\n    label\n  }\n  procedure {\n    code {\n      id\n      label\n    }\n    bodySite {\n      id\n      label\n    }\n    extraProperties\n    created\n    updated\n  }\n  htsFiles\n  variants {\n    ...variantFields\n  }\n  isControlSample\n  extraProperties\n  created\n  updated\n}"
+		},
+		{
+			"key": "phenotypicFields",
+			"value": "fragment phenotypicFields on PhenotypicFeature {\n  id\n  description\n  type {\n    id\n    label\n  }\n  negated\n  severity {\n    id\n    label\n  }\n  onset {\n    id\n    label\n  }\n  modifier {\n    id\n    label\n  }\n  evidence {\n    evidenceCode{\n        id\n        label\n    }\n    reference{\n        id\n        description\n    }\n  }\n  biosample\n  phenopacket\n  extraProperties\n  created\n  updated\n}"
+		},
+		{
+			"key": "phenopacketFields",
+			"value": "fragment phenopacketFields on Phenopacket {\n  id\n  subject {\n    ...subjectFields\n  }\n  phenotypicFeatures {\n    ...phenotypicFields\n  }\n  biosamples {\n    ...biosampleFields\n  }\n  genes {\n    ...geneFields\n  }\n  variants {\n    ...variantFields\n  }\n  diseases {\n    ...diseaseFields\n  }\n  htsFiles {\n    ...htsFields\n  }\n  metaData {\n    ...metadataFields\n  }\n  table\n  created\n  updated\n  extraProperties\n}"
+		},
+		{
+			"key": "geneFields",
+			"value": "fragment geneFields on Gene {\n  id\n  alternateIds\n  symbol\n  created\n  updated\n  extraProperties\n}"
+		},
+		{
+			"key": "variantFields",
+			"value": "fragment variantFields on Variant{\n    id\n    allele {\n      id\n      hgvs\n      genomeAssembly\n      chr\n      pos\n      ref\n      alt\n      info\n      seqId\n      position\n      deletedSequence\n      insertedSequence\n      iscn\n    }\n    alleleType\n    hgvsAllele\n    zygosity {\n      id\n      label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "diseaseFields",
+			"value": "fragment diseaseFields on Disease{\n    id\n    term {\n      id\n      label\n    }\n    diseaseStage {\n      id\n      label\n    }\n    tnmFinding {\n      id\n      label\n    }\n    onset{\n        ... on Age{\n            age\n        }\n        ... on AgeRange{\n            start{\n                age\n            }\n            end{\n                age\n            }\n        }\n    }\n    extraProperties\n    created\n    updated  \n}"
+		},
+		{
+			"key": "htsFields",
+			"value": "fragment htsFields on HtsFile{\n    uri\n    description\n    htsFormat\n    genomeAssembly\n    individualToSampleIdentifiers\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "metadataFields",
+			"value": "fragment metadataFields on MetaData {\n    id\n    created\n    createdBy\n    submittedBy\n    resources {\n      id\n      name\n      namespacePrefix\n      url\n      version\n      iriPrefix\n      extraProperties\n      created\n      updated\n    }\n    updates {\n      timestamp\n      updatedBy\n      comment\n    }\n    phenopacketSchemaVersion\n    externalReferences {\n      id\n      description\n    }\n    extraProperties\n    updated\n}"
+		},
+		{
+			"key": "geneticSpecimensFields",
+			"value": "fragment geneticSpecimensFields on GeneticSpecimens{\n    id\n    specimentType {\n        id\n        label\n    }\n    collectionBody {\n        id\n        label\n    }\n    laterality {\n        id\n        label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "mcodeFields",
+			"value": "fragment mcodeFields on McodeDataModels {\n    geneticSpecimens {\n        ... geneticSpecimenFields\n    }\n    genomicRegionsStudied {\n        ... genomicRegionStudiedFields\n    }\n    genomicsReports {\n        ... genomicsReportFields\n    }\n    labsVital {\n        ... labsVitalFields\n    }\n    cancerConditions {\n        ... cancerConditionsFields\n    }\n    TNMStaging {\n        ... tnmStagingFieldsmCODE\n    }\n    cancerRelatedProcedures{\n        ... cancerRelatedProceduresFields\n    }\n    medicationStatements {\n        ... medicationStatementsFields\n    }\n    mcodePackets {\n        ... mcodePacketsFields\n    }\n}"
+		},
+		{
+			"key": "geneticSpecimenFields",
+			"value": "fragment geneticSpecimenFields on GeneticSpecimen{\n    id\n    specimenType {\n        id\n        label\n    }\n    collectionBody {\n        id\n        label\n    }\n    laterality {\n        id\n        label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "genomicRegionsStudiedFields",
+			"value": "fragment genomicRegionsStudiedFields on GenomicRegionsStudied {\n    id\n    dnaRangesExamined{\n        id \n        label\n    }\n    dnaRangesDescription\n    geneMutation{\n        id\n        label\n    }\n    geneStudied{\n        id\n        label\n    }\n    genomicReferenceSequenceId\n    genomicRegionCoordinateSystem{\n        id\n        label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "genomicRegionStudiedFields",
+			"value": "fragment genomicRegionStudiedFields on GenomicRegionStudied {\n    id\n    dnaRangesExamined{\n        id \n        label\n    }\n    dnaRegionDescription\n    geneMutation{\n        id\n        label\n    }\n    geneStudied{\n        id\n        label\n    }\n    genomicReferenceSequenceId\n    genomicRegionCoordinateSystem{\n        id\n        label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "genomicsReportFields",
+			"value": "fragment genomicsReportFields on GenomicsReport{\n    id\n    code{\n        id\n        label\n    }\n    performingOrganizationName\n    issued\n    geneticSpecimen{\n        ... geneticSpecimenFields\n    }\n    geneticVariant{\n        ... cancerGeneticVariantFields\n    }\n    genomicRegionStudied {\n        ... genomicRegionStudiedFields\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "cancerGeneticVariantFields",
+			"value": "fragment cancerGeneticVariantFields on CancerGeneticVariant{\n    id\n    dataValue {\n        id\n        label\n    }\n    method {\n        id\n        label\n    }\n    aminoAcidChange {\n        id\n        label\n    }\n    aminoAcidChangeType {\n        id\n        label\n    }\n    cytogeneticLocation {\n        id\n        label\n    }\n    cytogeneticNomenclature {\n        id\n        label\n    }\n    geneStudied {\n        ... geneFields\n    }\n    genomicDnaChange {\n        id\n        label\n    }\n    genomicSourceClass {\n        id\n        label\n    }\n    variationCode {\n        id \n        label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "labsVitalFields",
+			"value": "fragment labsVitalFields on LabsVital {\n    id\n    individual\n    tumorMarkerCode {\n        id\n        label\n    }\n    tumorMarkerDataValue {\n        ... on Ontology {\n            id \n            label\n        }\n        ... on Ratio {\n            numerator {\n                value\n                comparator\n                unit\n                system\n                code\n            }\n            denominator {\n                value\n                comparator\n                unit\n                system\n                code\n            }\n        }\n        ... on Quantity {\n            value\n            comparator\n            unit\n            system\n            code\n        }\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "cancerConditionsFields",
+			"value": "fragment cancerConditionsFields on CancerCondition {\n    id\n    tnmStaging{... tnmStagingFields}\n    conditionType\n    bodySite {\n        id \n        label\n    }\n    laterality {\n        id\n        label\n    }\n    clinicalStatus {\n        id\n        label\n    }\n    code {\n        id\n        label\n    }\n    dateOfDiagnosis\n    histologyMorphologyBehavior{\n        id\n        label\n    }\n    verificationStatus {\n        id\n        label\n    }\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "tnmStagingFields",
+			"value": "fragment tnmStagingFields on CancerConditionTNMStaging {\n    id\n    tnmType\n    stageGroup {... ComplexOntologyFields}\n    primaryTumorCategory {... ComplexOntologyFields}\n    regionalNodesCategory {... ComplexOntologyFields}\n    distantMetastasesCategory {... ComplexOntologyFields}\n    extraProperties\n    created\n    updated\n    cancerCondition\n}"
+		},
+		{
+			"key": "ComplexOntologyFields",
+			"value": "fragment ComplexOntologyFields on ComplexOntology {\n    dataValue {\n        id\n        label\n    }\n    stagingSystem {\n        id\n        label\n    }\n}"
+		},
+		{
+			"key": "tnmStagingFieldsmCODE",
+			"value": "fragment tnmStagingFieldsmCODE on TNMStaging {\n    id\n    tnmType\n    stageGroup {... ComplexOntologyFields}\n    primaryTumorCategory {... ComplexOntologyFields}\n    regionalNodesCategory {... ComplexOntologyFields}\n    distantMetastasesCategory {... ComplexOntologyFields}\n    extraProperties\n    created\n    updated\n    cancerCondition\n}"
+		},
+		{
+			"key": "cancerRelatedProceduresFields",
+			"value": "fragment cancerRelatedProceduresFields on CancerRelatedProcedure {\n    id\n    procedureType\n    code {\n        id\n        label\n    }\n    bodySite {\n        id\n        label\n    }\n    laterality {\n        id\n        label\n    }\n    treatmentIntent {\n        id\n        label\n    }\n    reasonCode {\n        id\n        label\n    }\n    reasonReference\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "medicationStatementsFields",
+			"value": "fragment medicationStatementsFields on MedicationStatement {\n    id\n    medicationCode {\n        id\n        label\n    }\n    terminationReason {\n        id\n        label\n    }\n    treatmentIntent {\n        id\n        label\n    }\n    startDate\n    endDate\n    extraProperties\n    created\n    updated\n}"
+		},
+		{
+			"key": "mcodePacketsFields",
+			"value": "fragment mcodePacketsFields on MCodePacket {\n    id\n    subject {... subjectFields}\n    genomicsReport {... genomicsReportFields}\n    cancerCondition {... cancerConditionsFields}\n    medicationStatement {... medicationStatementsFields}\n    cancerRelatedProcedures {... cancerRelatedProceduresFields}\n    table\n    dateOfDeath\n    extraProperties\n    created\n    updated\n    cancerDiseaseStatus {\n        id\n        label\n    }\n}"
+		},
+		{
+			"key": "phenopacket1",
+			"value": "PATIENT_91250_PHENOPACKET",
+			"type": "string"
+		},
+		{
+			"key": "phenopacket2",
+			"value": "PATIENT_30718_PHENOPACKET",
+			"type": "string"
+		},
+		{
+			"key": "mcode1",
+			"value": "PATIENT_91250_MCODE",
+			"type": "string"
+		},
+		{
+			"key": "mcode2",
+			"value": "PATIENT_30718_MCODE",
+			"type": "string"
+		},
+		{
+			"key": "patient1",
+			"value": "PATIENT_91250",
+			"type": "string"
+		},
+		{
+			"key": "patient2",
+			"value": "PATIENT_30718",
+			"type": "string"
+		},
+		{
+			"key": "variantStart1",
+			"value": "712800",
+			"type": "string"
+		},
+		{
+			"key": "variantEnd1",
+			"value": "712900",
+			"type": "string"
+		},
+		{
+			"key": "variantRef1",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "variantBase1",
+			"value": "T",
+			"type": "string"
+		},
+		{
+			"key": "variantAlt1",
+			"value": "C",
+			"type": "string"
+		},
+		{
+			"key": "datasetId1",
+			"value": "WyJ0ZXN0MzAwIl0",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,5 @@
+# Postman Tests
+postman/
+
+# Unnecessary miscellaneous items
+__pycache__
