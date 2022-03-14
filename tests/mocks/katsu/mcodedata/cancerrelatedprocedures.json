@@ -1,0 +1,39 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": "PATIENT_91250_CRP",
+      "procedure_type": "surgical",
+      "code": {
+        "id": "PATIENT_91250_CRP_CODE",
+        "label": "Code for CRP"
+      },
+      "body_site": [
+        {
+          "id": "PATIENT_91250_CRP_SITE",
+          "label": "Site for CRP"
+        }
+      ],
+      "laterality": {
+        "id": "PATIENT_91250_CRP_LATERALITY",
+        "label": "Laterality for CRP"
+      },
+      "treatment_intent": {
+        "id": "PATIENT_91250_CRP_TI",
+        "label": "TI for CRP"
+      },
+      "reason_code": {
+        "id": "PATIENT_91250_CRP_RC",
+        "label": "RC for CRP"
+      },
+      "extra_properties": {
+        "A": "B"
+      },
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40",
+      "reason_reference": ["PATIENT_91250_CC"]
+    }
+  ]
+}

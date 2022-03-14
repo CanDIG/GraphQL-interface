@@ -1,0 +1,85 @@
+{
+  "status": {
+    "Known peers": 1,
+    "Queried peers": 1,
+    "Successful communications": 1,
+    "Valid response": true
+  },
+  "results": {
+    "variants": [
+      {
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIjEiLCI3MTI4NzAiLCI5ZTVlMGMzNjc4NmJjYmNkYmUxNjFlYmUzOGUwZGQ3NCJd",
+        "variantSetId": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSJd",
+        "names": ["rs4311830"],
+        "referenceName": "1",
+        "start": "712870",
+        "end": "712871",
+        "referenceBases": "T",
+        "alternateBases": ["C"],
+        "attributes": {
+          "attr": {
+            "COMMON": { "values": [{ "int32Value": 1 }] },
+            "KGPROD": { "values": [{ "int32Value": 1 }] },
+            "VP": {
+              "values": [{ "stringValue": "0x050000080005100016000100" }]
+            },
+            "KGPhase1": { "values": [{ "int32Value": 1 }] },
+            "ASP": { "values": [{ "int32Value": 1 }] },
+            "RSPOS": { "values": [{ "int32Value": 712871 }] },
+            "VC": { "values": [{ "stringValue": "SNV" }] },
+            "INT": { "values": [{ "int32Value": 1 }] },
+            "SAO": { "values": [{ "int32Value": 0 }] },
+            "OTHERKG": { "values": [{ "int32Value": 1 }] },
+            "dbSNPBuildID": { "values": [{ "int32Value": 111 }] },
+            "RS": { "values": [{ "int32Value": 4311830 }] },
+            "SSR": { "values": [{ "int32Value": 0 }] },
+            "WGT": { "values": [{ "int32Value": 1 }] },
+            "CAF": {
+              "values": [
+                { "stringValue": "[0.9669" },
+                { "stringValue": "0.03306]" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzMwNzE4X1NBTVBMRV81ODAxNCIsIjEiLCI3MTI4NzAiLCI5ZTVlMGMzNjc4NmJjYmNkYmUxNjFlYmUzOGUwZGQ3NCJd",
+        "variantSetId": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzMwNzE4X1NBTVBMRV81ODAxNCJd",
+        "names": ["rs4311830"],
+        "referenceName": "1",
+        "start": "712870",
+        "end": "712871",
+        "referenceBases": "T",
+        "alternateBases": ["C"],
+        "attributes": {
+          "attr": {
+            "KGPROD": { "values": [{ "int32Value": 1 }] },
+            "VP": {
+              "values": [{ "stringValue": "0x050000080005100016000100" }]
+            },
+            "INT": { "values": [{ "int32Value": 1 }] },
+            "dbSNPBuildID": { "values": [{ "int32Value": 111 }] },
+            "CAF": {
+              "values": [
+                { "stringValue": "[0.9669" },
+                { "stringValue": "0.03306]" }
+              ]
+            },
+            "WGT": { "values": [{ "int32Value": 1 }] },
+            "COMMON": { "values": [{ "int32Value": 1 }] },
+            "VC": { "values": [{ "stringValue": "SNV" }] },
+            "SAO": { "values": [{ "int32Value": 0 }] },
+            "RS": { "values": [{ "int32Value": 4311830 }] },
+            "SSR": { "values": [{ "int32Value": 0 }] },
+            "KGPhase1": { "values": [{ "int32Value": 1 }] },
+            "ASP": { "values": [{ "int32Value": 1 }] },
+            "RSPOS": { "values": [{ "int32Value": 712871 }] },
+            "OTHERKG": { "values": [{ "int32Value": 1 }] }
+          }
+        }
+      }
+    ],
+    "total": 2
+  }
+}

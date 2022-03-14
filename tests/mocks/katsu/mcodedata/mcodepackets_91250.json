@@ -1,0 +1,553 @@
+{
+  "id": "PATIENT_91250_MCODE",
+  "date_of_death": "2019-09-02T00:00:00Z",
+  "cancer_disease_status": {
+    "id": "PATIENT_91250_MCODE_STATUS",
+    "label": "Patient's condition improved"
+  },
+  "extra_properties": {
+    "height": "179cm",
+    "weight": "47kg"
+  },
+  "created": "2022-03-10T15:04:51.371434Z",
+  "updated": "2022-03-10T15:04:51.371479Z",
+  "subject": {
+    "id": "PATIENT_91250",
+    "biosamples": [
+      {
+        "id": "PATIENT_91250_BIO",
+        "phenotypic_features": [
+          {
+            "type": {
+              "id": "PATIENT_91250_PF_TYPE",
+              "label": "Phenotypic Features for PATIENT_91250"
+            },
+            "description": "Phenotypic Features for PATIENT_91250",
+            "negated": false,
+            "severity": {
+              "id": "PATIENT_91250_PF_SEVERITY",
+              "label": "LOW"
+            },
+            "modifier": [
+              {
+                "id": "PATIENT_91250_PF_MODIFIER",
+                "label": "PATIENT_91250 Modifier"
+              }
+            ],
+            "onset": {
+              "id": "PATIENT_91250_PF_ONSET",
+              "label": "EARLY"
+            },
+            "evidence": {
+              "reference": {
+                "id": "PATIENT_91250_PF_EVIDENCE_REFERENCE",
+                "description": "Reference Description - PATIENT_91250"
+              },
+              "evidence_code": {
+                "id": "PATIENT_91250_PF_EVIDENCE_EVIDENCE_CODE",
+                "label": "EVIDENCE CODE: 575"
+              }
+            },
+            "created": "2022-03-10T15:04:50.891638Z",
+            "updated": "2022-03-10T15:04:50.891674Z",
+            "phenopacket": "PATIENT_91250_PHENOPACKET"
+          }
+        ],
+        "procedure": {
+          "code": {
+            "id": "PATIENT_91250_BIO_CODE",
+            "label": "PROC_4"
+          },
+          "body_site": {
+            "id": "PATIENT_91250_BIO_SITE",
+            "label": "SITE NUMBER: 3"
+          },
+          "created": "2022-03-10T15:04:50.252297Z",
+          "updated": "2022-03-10T15:04:50.252331Z"
+        },
+        "description": "Biosample for PATIENT_91250. Test Data used for GraphQL Testing",
+        "sampled_tissue": {
+          "id": "PATIENT_91250_BIO_TISSUE",
+          "label": "TISSUE_C"
+        },
+        "taxonomy": {
+          "id": "PATIENT_91250_BIO_TAXONOMY",
+          "label": "NCBITaxon:9606"
+        },
+        "individual_age_at_collection": {
+          "age": "P47Y11M12D"
+        },
+        "histological_diagnosis": {
+          "id": "PATIENT_91250_BIO_HIST",
+          "label": "NCIT:C38757"
+        },
+        "tumor_progression": {
+          "id": "PATIENT_91250_BIO_TUMOR",
+          "label": "primary"
+        },
+        "tumor_grade": {
+          "id": "PATIENT_91250_BIO_GRADE",
+          "label": "NCIT:C28079"
+        },
+        "diagnostic_markers": [
+          {
+            "id": "PATIENT_91250_BIO_DM",
+            "label": "NCIT:C131711"
+          }
+        ],
+        "created": "2022-03-10T15:04:50.259406Z",
+        "updated": "2022-03-10T15:04:50.259431Z"
+      }
+    ],
+    "phenopackets": [
+      {
+        "id": "PATIENT_91250_PHENOPACKET",
+        "phenotypic_features": [
+          {
+            "type": {
+              "id": "PATIENT_91250_PF_TYPE",
+              "label": "Phenotypic Features for PATIENT_91250"
+            },
+            "description": "Phenotypic Features for PATIENT_91250",
+            "negated": false,
+            "severity": {
+              "id": "PATIENT_91250_PF_SEVERITY",
+              "label": "LOW"
+            },
+            "modifier": [
+              {
+                "id": "PATIENT_91250_PF_MODIFIER",
+                "label": "PATIENT_91250 Modifier"
+              }
+            ],
+            "onset": {
+              "id": "PATIENT_91250_PF_ONSET",
+              "label": "EARLY"
+            },
+            "evidence": {
+              "reference": {
+                "id": "PATIENT_91250_PF_EVIDENCE_REFERENCE",
+                "description": "Reference Description - PATIENT_91250"
+              },
+              "evidence_code": {
+                "id": "PATIENT_91250_PF_EVIDENCE_EVIDENCE_CODE",
+                "label": "EVIDENCE CODE: 575"
+              }
+            },
+            "created": "2022-03-10T15:04:50.891638Z",
+            "updated": "2022-03-10T15:04:50.891674Z",
+            "phenopacket": "PATIENT_91250_PHENOPACKET"
+          }
+        ],
+        "created": "2022-03-10T15:04:50.704637Z",
+        "updated": "2022-03-10T15:04:50.704671Z",
+        "meta_data": {
+          "created": "2022-03-10T10:04:49Z",
+          "created_by": "GraphQLTester",
+          "submitted_by": "GraphQLTester",
+          "phenopacket_schema_version": "v1.0.0",
+          "external_references": [
+            {
+              "id": "GRAPHQL_TESTER_METADATA_REFERENCE",
+              "description": "Testable External Ref for Metadata"
+            }
+          ],
+          "updated": "2022-03-10T15:04:49.180617Z"
+        },
+        "table": "GraphQLTestDataset_phenopacket",
+        "biosamples": [
+          {
+            "id": "PATIENT_91250_BIO",
+            "phenotypic_features": [
+              {
+                "type": {
+                  "id": "PATIENT_91250_PF_TYPE",
+                  "label": "Phenotypic Features for PATIENT_91250"
+                },
+                "description": "Phenotypic Features for PATIENT_91250",
+                "negated": false,
+                "severity": {
+                  "id": "PATIENT_91250_PF_SEVERITY",
+                  "label": "LOW"
+                },
+                "modifier": [
+                  {
+                    "id": "PATIENT_91250_PF_MODIFIER",
+                    "label": "PATIENT_91250 Modifier"
+                  }
+                ],
+                "onset": {
+                  "id": "PATIENT_91250_PF_ONSET",
+                  "label": "EARLY"
+                },
+                "evidence": {
+                  "reference": {
+                    "id": "PATIENT_91250_PF_EVIDENCE_REFERENCE",
+                    "description": "Reference Description - PATIENT_91250"
+                  },
+                  "evidence_code": {
+                    "id": "PATIENT_91250_PF_EVIDENCE_EVIDENCE_CODE",
+                    "label": "EVIDENCE CODE: 575"
+                  }
+                },
+                "created": "2022-03-10T15:04:50.891638Z",
+                "updated": "2022-03-10T15:04:50.891674Z",
+                "phenopacket": "PATIENT_91250_PHENOPACKET"
+              }
+            ],
+            "procedure": {
+              "code": {
+                "id": "PATIENT_91250_BIO_CODE",
+                "label": "PROC_4"
+              },
+              "body_site": {
+                "id": "PATIENT_91250_BIO_SITE",
+                "label": "SITE NUMBER: 3"
+              },
+              "created": "2022-03-10T15:04:50.252297Z",
+              "updated": "2022-03-10T15:04:50.252331Z"
+            },
+            "description": "Biosample for PATIENT_91250. Test Data used for GraphQL Testing",
+            "sampled_tissue": {
+              "id": "PATIENT_91250_BIO_TISSUE",
+              "label": "TISSUE_C"
+            },
+            "taxonomy": {
+              "id": "PATIENT_91250_BIO_TAXONOMY",
+              "label": "NCBITaxon:9606"
+            },
+            "individual_age_at_collection": {
+              "age": "P47Y11M12D"
+            },
+            "histological_diagnosis": {
+              "id": "PATIENT_91250_BIO_HIST",
+              "label": "NCIT:C38757"
+            },
+            "tumor_progression": {
+              "id": "PATIENT_91250_BIO_TUMOR",
+              "label": "primary"
+            },
+            "tumor_grade": {
+              "id": "PATIENT_91250_BIO_GRADE",
+              "label": "NCIT:C28079"
+            },
+            "diagnostic_markers": [
+              {
+                "id": "PATIENT_91250_BIO_DM",
+                "label": "NCIT:C131711"
+              }
+            ],
+            "created": "2022-03-10T15:04:50.259406Z",
+            "updated": "2022-03-10T15:04:50.259431Z"
+          }
+        ],
+        "genes": [
+          {
+            "id": "PATIENT_91250_GENES",
+            "alternate_ids": ["91250"],
+            "symbol": "KACK",
+            "created": "2022-03-10T15:04:50.482337Z",
+            "updated": "2022-03-10T15:04:50.482370Z"
+          }
+        ],
+        "variants": [
+          {
+            "id": 1,
+            "allele_type": "hgvsAllele",
+            "zygosity": {
+              "id": "PATIENT_91250_ALLELE_ZYGOSITY",
+              "label": "Allele Zygosity for given variant"
+            },
+            "created": "2022-03-10T15:04:50.580935Z",
+            "updated": "2022-03-10T15:04:50.580971Z",
+            "hgvsAllele": {
+              "id": "PATIENT_91250_VARIANTS_ALLELE",
+              "alt": "G",
+              "chr": "14",
+              "pos": 2946661,
+              "ref": "T",
+              "hgvs": "Allele Variant for PATIENT_91250"
+            }
+          }
+        ],
+        "diseases": [
+          {
+            "id": 1,
+            "term": {
+              "id": "PATIENT_91250_DISEASES_TERM",
+              "label": "DISEASE_TERM_3"
+            },
+            "onset": {
+              "age": "P21Y6M25D"
+            },
+            "disease_stage": [
+              {
+                "id": "PATIENT_91250_DISEASES_STAGE",
+                "label": "STAGE_4"
+              }
+            ],
+            "tnm_finding": [
+              {
+                "id": "PATIENT_91250_TNM",
+                "label": "TUMOUR_STAGE_2"
+              }
+            ],
+            "created": "2022-03-10T15:04:50.383273Z",
+            "updated": "2022-03-10T15:04:50.383303Z"
+          }
+        ],
+        "hts_files": []
+      }
+    ],
+    "alternate_ids": ["38422"],
+    "date_of_birth": "1984-06-21",
+    "age": {
+      "age": "P33Y2M26D"
+    },
+    "sex": "MALE",
+    "karyotypic_sex": "UNKNOWN_KARYOTYPE",
+    "taxonomy": {
+      "id": "PATIENT_91250_TAXONOMY",
+      "label": "NCBITaxon:9606"
+    },
+    "active": true,
+    "deceased": true,
+    "comorbid_condition": {
+      "code": {
+        "id": "PATIENT_91250_CC_C",
+        "label": "Comorbid Condition for PATIENT_91250"
+      },
+      "clinical_status": {
+        "id": "PATIENT_91250_CC_CS",
+        "label": "Critical"
+      }
+    },
+    "race": "Black/African American",
+    "ethnicity": "Chinese",
+    "extra_properties": {
+      "id": "WyJ0ZXN0MzAwIiwicGF0IiwiUEFUSUVOVF8xMDA3NCJd",
+      "name": "PATIENT_91250",
+      "dataset_id": "WyJ0ZXN0MzAwIl0",
+      "date_of_death": "2017-09-07",
+      "cause_of_death": "Myocardial infarction",
+      "province_of_residence": "Quebec",
+      "genetic_cancer_syndrome": "n/a",
+      "date_of_prior_malignancy": "n/a",
+      "autopsy_tissue_for_research": "n/a",
+      "family_history_and_risk_factors": "n/a",
+      "details_of_predisposition_syndrome": "n/a",
+      "occupational_or_environmental_exposure": "Pollen",
+      "family_history_of_predisposition_syndrome": "n/a",
+      "other_genetic_condition_or_significant_comorbidity": "n/a"
+    },
+    "created": "2022-03-10T15:04:48.944697Z",
+    "updated": "2022-03-10T15:04:48.944729Z"
+  },
+  "table": "GraphQLTestDataset_mcodepacket",
+  "cancer_condition": [
+    {
+      "id": "PATIENT_91250_CC",
+      "condition_type": "secondary",
+      "body_site": [
+        {
+          "id": "PATIENT_91250_CC_SITE",
+          "label": "Site #2 for cancer condition"
+        }
+      ],
+      "laterality": {
+        "id": "PATIENT_91250_CC_LATERALITY",
+        "label": "Laterality for CC"
+      },
+      "clinical_status": {
+        "id": "PATIENT_91250_CC_STATUS",
+        "label": "active"
+      },
+      "code": {
+        "id": "PATIENT_91250_CC_CODE",
+        "label": "Esophageal Cancer"
+      },
+      "date_of_diagnosis": "2014-07-26T00:00:00Z",
+      "verification_status": {
+        "id": "PATIENT_91250_VERIFICATION_STATUS",
+        "label": "unconfirmed"
+      },
+      "extra_properties": {
+        "dose": "25",
+        "route": "ORAL",
+        "dose_unit": "mg",
+        "dose_frequency": "4x"
+      },
+      "created": "2022-03-10T15:04:51.106885Z",
+      "updated": "2022-03-10T15:04:51.106904Z"
+    }
+  ],
+  "cancer_related_procedures": [
+    {
+      "id": "PATIENT_91250_CRP",
+      "procedure_type": "surgical",
+      "code": {
+        "id": "PATIENT_91250_CRP_CODE",
+        "label": "Sysgenic Cell Transplant"
+      },
+      "body_site": [
+        {
+          "id": "PATIENT_91250_CRP_SITE",
+          "label": "Site #4 for cancer-related procedure"
+        }
+      ],
+      "laterality": {
+        "id": "PATIENT_91250_CRP_LATERALITY",
+        "label": "Laterality for CRP"
+      },
+      "treatment_intent": {
+        "id": "PATIENT_91250_CRP_INTENT",
+        "label": "TUMOUR CONTROL"
+      },
+      "reason_code": {
+        "id": "PATIENT_91250_CRP_RC",
+        "label": "Reason #4 for cancer-related procedure"
+      },
+      "extra_properties": {
+        "dose": "45",
+        "route": "IV",
+        "dose_unit": "mg",
+        "dose_frequency": "1x"
+      },
+      "created": "2022-03-10T15:04:51.215931Z",
+      "updated": "2022-03-10T15:04:51.215963Z",
+      "reason_reference": ["PATIENT_91250_CC"]
+    }
+  ],
+  "medication_statement": [
+    {
+      "id": "PATIENT_91250_MS",
+      "medication_code": {
+        "id": "PATIENT_91250_MS_CODE",
+        "label": "MED_D"
+      },
+      "termination_reason": [
+        {
+          "id": "PATIENT_91250_TR",
+          "label": "Ended medication due to reason #4"
+        }
+      ],
+      "treatment_intent": {
+        "id": "PATIENT_91250_MS_INTENT",
+        "label": "TUMOUR REDUCTION"
+      },
+      "start_date": "2014-05-26T00:00:00Z",
+      "end_date": "2015-12-19T00:00:00Z",
+      "extra_properties": {
+        "dose": "20",
+        "route": "ORAL",
+        "dose_unit": "mg",
+        "dose_frequency": "2x"
+      },
+      "created": "2022-03-10T15:04:51.005685Z",
+      "updated": "2022-03-10T15:04:51.005704Z"
+    }
+  ],
+  "genomics_report": {
+    "id": "PATIENT_91250_GR",
+    "genetic_variant": {
+      "id": "PATIENT_91250_GR_GV",
+      "data_value": {
+        "id": "PATIENT_91250_GR_GV_DV",
+        "label": "Mock GR Data Value"
+      },
+      "method": {
+        "id": "PATIENT_91250_GR_GV_METHOD",
+        "label": "Mock GR Method"
+      },
+      "amino_acid_change": {
+        "id": "PATIENT_91250_GR_GV_AMINO",
+        "label": "Mock Amino Change"
+      },
+      "amino_acid_change_type": {
+        "id": "PATIENT_91250_GR_GV_AMINO_TYPE",
+        "label": "Mock Amino Change Type"
+      },
+      "cytogenetic_location": {
+        "id": "PATIENT_91250_GR_GV_CL",
+        "label": "Mock Location"
+      },
+      "cytogenetic_nomenclature": {
+        "id": "PATIENT_91250_GR_GV_CN",
+        "label": "Mock Nomenclature"
+      },
+      "gene_studied": [
+        {
+          "id": "PATIENT_91250_GR_GV_GS",
+          "alternate_ids": ["91250"],
+          "symbol": "A",
+          "created": "2022-03-09T14:21",
+          "updated": "2022-03-09T14:21",
+          "extra_properties": {
+            "Mock_1": "Mock_1 Response",
+            "Mock_2": "Mock_2 Response"
+          }
+        }
+      ],
+      "genomic_dna_change": {
+        "id": "PATIENT_91250_GR_GV_GDC",
+        "label": "Mock DNA Change"
+      },
+      "genomic_source_class": {
+        "id": "PATIENT_91250_GR_GV_GSC",
+        "label": "Mock Source Class"
+      },
+      "variation_code": [
+        {
+          "id": "PATIENT_91250_GR_GV_VC",
+          "label": "Mock Variation Code"
+        }
+      ]
+    },
+    "genomic_region_studied": {
+      "id": "PATIENT_91250_GR_GRS",
+      "dna_ranges_examined": [
+        {
+          "id": "PATIENT_91250_GR_GRS_DRE",
+          "label": "Mock DNA Ranges"
+        }
+      ],
+      "dna_region_description": ["Mock Description"],
+      "gene_mutation": [
+        {
+          "id": "PATIENT_91250_GR_GRS_GM",
+          "label": "Mock Mutation"
+        }
+      ],
+      "gene_studied": [
+        {
+          "id": "PATIENT_91250_GR_GRS_GS",
+          "label": "Mock Study"
+        }
+      ],
+      "genomic_reference_sequence_id": {
+        "start": "1",
+        "end": "1000"
+      },
+      "genomic_region_coordinate_system": {
+        "id": "PATIENT_91250_GR_GRS_GRCS",
+        "label": "Mock System"
+      },
+      "extra_properties": {
+        "Mock_1": "Mock_1 Response",
+        "Mock_2": "Mock_2 Response"
+      }
+    },
+    "created": "2022-03-09T14:21",
+    "updated": "2022-03-09T14:21",
+    "code": {
+      "id": "PATIENT_91250_GR_CODE",
+      "label": "Mock GR Response"
+    },
+    "performing_organization_name": "CanDIG",
+    "issued": "2022-03-09T15:40",
+    "extra_properties": {
+      "Mock_1": "Mock_1 Response",
+      "Mock_2": "Mock_2 Response"
+    }
+  }
+}

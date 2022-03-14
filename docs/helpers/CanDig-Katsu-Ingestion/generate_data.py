@@ -2,6 +2,7 @@
     generate_data.py: File used to randomly generate mcode and phenopacket data for use in coverage testing of the BEacon V1 endpoint
 '''
 
+from random import choice, randint
 from datetime import datetime, timedelta
 from defaults import DEFAULT_STATUSES
 from typing import Any, Dict
@@ -22,6 +23,14 @@ def generate_date_after(date: datetime, max_year: int) -> datetime:
     max_date = datetime(max_year, 12, 31)
     return generate_date_between(date, max_date)
 
+def generate_onset(patient_id: str) -> Dict[str, Any]:
+    year, month, day = randint(20, 60), randint(1, 11), randint(1, 30)
+    return choice([
+        {"age": f'P{year}Y{month}M{day}D'},
+        {"start": {"age": f'P{year - 1}Y{month}M{day}D'}, "end": {"age": f'P{year + 1}Y{month}M{day}D'}},
+        {"id": f'{patient_id}_ONSET', "label": f'ONSET_{randint(1, 5)}'}
+    ])
+
 def generate_extra_properties() -> Dict[str, Any]:
     return {
         "dose_frequency": random.choice(['1x', '2x', '3x', '4x', '5x']),
@@ -37,7 +46,8 @@ def generate_mcodepacket(patient_id: str, medication_id: str, procedures_id: str
         'cancer_disease_status': {
             'id': f'{patient_id}_MCODE_STATUS',
             'label': random.choice(DEFAULT_STATUSES)
-        }, 'subject': patient_id,
+        }, 
+        'subject': patient_id,
         'cancer_condition': [cancer_condition_id],
         'cancer_related_procedures': [procedures_id],
         'medication_statement': [medication_id],

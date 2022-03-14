@@ -1,0 +1,27 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": "PATIENT_91250_GS",
+      "specimen_type": {
+        "id": "PATIENT_91250_GS_ST",
+        "label": "ST for GS"
+      },
+      "collection_body": {
+        "id": "PATIENT_91250_GS_CB",
+        "label": "CB for GS"
+      },
+      "laterality": {
+        "id": "PATIENT_91250_GS_LATERALITY",
+        "label": "Laterality for GS"
+      },
+      "extra_properties": {
+        "A": "B"
+      },
+      "created": "2022-03-09T19:04:51.086850Z",
+      "updated": "2022-03-09T19:04:51.086883Z"
+    }
+  ]
+}

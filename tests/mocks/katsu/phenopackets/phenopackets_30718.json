@@ -1,0 +1,48 @@
+{
+  "id": "PATIENT_30718_PHENOPACKET",
+  "meta_data": {
+    "id": "PATIENT_30718_METADATA",
+    "created": "2022-03-10T10:04:49Z",
+    "created_by": "GraphQLTester",
+    "submitted_by": "GraphQLTester",
+    "resources": [
+      {
+        "id": "PATIENT_30718_METADATA_RES",
+        "name": "PATIENT_30718_RESOURCE",
+        "namespace_prefix": "RES",
+        "url": "http://localhost:8000",
+        "version": "v1.0.0",
+        "iri_prefix": "PREFIX",
+        "extra_properties": {
+          "A": "B"
+        },
+        "updated": "2022-03-10T15:04:49.180617Z",
+        "created": "2022-03-10T15:04:49.180617Z"
+      }
+    ],
+    "updates": [
+      {
+        "timestamp": "2022-03-10T13:40",
+        "updated_by": "GraphQLTester",
+        "comment": "No Comment"
+      }
+    ],
+    "phenopacket_schema_version": "v1.0.0",
+    "external_references": [
+      {
+        "id": "GRAPHQL_TESTER_METADATA_REFERENCE",
+        "description": "Testable External Ref for Metadata"
+      }
+    ],
+    "updated": "2022-03-10T15:04:49.180617Z",
+    "extra_properties": {
+      "A": "B"
+    }
+  },
+  "subject": {
+    "id": "PATIENT_30718",
+    "karyotypic_sex": "UNKNOWN_KARYOTYPE",
+    "created": "2022-03-10T13:09:09.422313Z",
+    "updated": "2022-03-10T13:09:09.422338Z"
+  }
+}

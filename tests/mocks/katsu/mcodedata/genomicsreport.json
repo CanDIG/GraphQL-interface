@@ -1,0 +1,131 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "created": "2022-03-09T14:21",
+      "updated": "2022-03-09T14:21",
+      "id": "PATIENT_91250_GR",
+      "code": {
+        "id": "PATIENT_91250_GR_CODE",
+        "label": "Mock GR Response"
+      },
+      "performing_organization_name": "CanDIG",
+      "issued": "2022-03-09T15:40",
+      "genetic_specimen": [
+        {
+          "id": "PATIENT_91250_GR_GS",
+          "specimen_type": {
+            "id": "PATIENT_91250_GR_GS_ST",
+            "label": "Mock GR Specimen"
+          },
+          "collection_body": {
+            "id": "PATIENT_91250_GR_GS_CB",
+            "label": "Mock GR Collection"
+          },
+          "laterality": {
+            "id": "PATIENT_91250_GR_GS_LATERALITY",
+            "label": "Mock GR Laterality"
+          },
+          "extra_properties": {
+            "Mock_1": "Mock_1 Response",
+            "Mock_2": "Mock_2 Response"
+          }
+        }
+      ],
+      "genetic_variant": {
+        "id": "PATIENT_91250_GR_GV",
+        "data_value": {
+          "id": "PATIENT_91250_GR_GV_DV",
+          "label": "Mock GR Data Value"
+        },
+        "method": {
+          "id": "PATIENT_91250_GR_GV_METHOD",
+          "label": "Mock GR Method"
+        },
+        "amino_acid_change": {
+          "id": "PATIENT_91250_GR_GV_AMINO",
+          "label": "Mock Amino Change"
+        },
+        "amino_acid_change_type": {
+          "id": "PATIENT_91250_GR_GV_AMINO_TYPE",
+          "label": "Mock Amino Change Type"
+        },
+        "cytogenetic_location": {
+          "id": "PATIENT_91250_GR_GV_CL",
+          "label": "Mock Location"
+        },
+        "cytogenetic_nomenclature": {
+          "id": "PATIENT_91250_GR_GV_CN",
+          "label": "Mock Nomenclature"
+        },
+        "gene_studied": [
+          {
+            "id": "PATIENT_91250_GR_GV_GS",
+            "alternate_ids": ["91250"],
+            "symbol": "A",
+            "created": "2022-03-09T14:21",
+            "updated": "2022-03-09T14:21",
+            "extra_properties": {
+              "Mock_1": "Mock_1 Response",
+              "Mock_2": "Mock_2 Response"
+            }
+          }
+        ],
+        "genomic_dna_change": {
+          "id": "PATIENT_91250_GR_GV_GDC",
+          "label": "Mock DNA Change"
+        },
+        "genomic_source_class": {
+          "id": "PATIENT_91250_GR_GV_GSC",
+          "label": "Mock Source Class"
+        },
+        "variation_code": [
+          {
+            "id": "PATIENT_91250_GR_GV_VC",
+            "label": "Mock Variation Code"
+          }
+        ]
+      },
+      "genomic_region_studied": {
+        "id": "PATIENT_91250_GR_GRS",
+        "dna_ranges_examined": [
+          {
+            "id": "PATIENT_91250_GR_GRS_DRE",
+            "label": "Mock DNA Ranges"
+          }
+        ],
+        "dna_region_description": ["Mock Description"],
+        "gene_mutation": [
+          {
+            "id": "PATIENT_91250_GR_GRS_GM",
+            "label": "Mock Mutation"
+          }
+        ],
+        "gene_studied": [
+          {
+            "id": "PATIENT_91250_GR_GRS_GS",
+            "label": "Mock Study"
+          }
+        ],
+        "genomic_reference_sequence_id": {
+          "start": "1",
+          "end": "1000"
+        },
+        "genomic_region_coordinate_system": {
+          "id": "PATIENT_91250_GR_GRS_GRCS",
+          "label": "Mock System"
+        },
+        "extra_properties": {
+          "Mock_1": "Mock_1 Response",
+          "Mock_2": "Mock_2 Response"
+        }
+      },
+      "extra_properties": {
+        "Mock_1": "Mock_1 Response",
+        "Mock_2": "Mock_2 Response"
+      }
+    }
+  ]
+}

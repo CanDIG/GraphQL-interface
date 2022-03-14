@@ -2,6 +2,7 @@
     create_meta.py: File containing functions used to generate Katsu Metadata for testing purposes.
 '''
 
+from datetime import datetime
 from typing import Any, Dict
 from post_data import post_katsu
 from defaults import DEFAULT_DATASET, DEFAULT_TABLE, DEFAULT_MCODE, DEFAULT_PHENOPACKET
@@ -20,7 +21,17 @@ async def create_project(session: aiohttp.ClientSession) -> Dict[str, Any]:
     return await post_katsu(session, project_data, 'projects')
 
 async def create_metadata(session: aiohttp.ClientSession) -> Dict[str, Any]:
-    return await post_katsu(session, {'created_by': "GraphQLTester"}, 'metadata')
+    metadata = {
+        'created': datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
+        'created_by': "GraphQLTester",
+        'submitted_by': "GraphQLTester",
+        'phenopacket_schema_version': 'v1.0.0',
+        'external_references': [{
+            'id': 'GRAPHQL_TESTER_METADATA_REFERENCE',
+            'description': 'Testable External Ref for Metadata'
+        }]
+    }
+    return await post_katsu(session, metadata, 'metadata')
 
 async def create_dataset(session: aiohttp.ClientSession, project_id: str, type: str) -> Dict[str, Any]:
     dataset_json = DEFAULT_DATASET.copy()
