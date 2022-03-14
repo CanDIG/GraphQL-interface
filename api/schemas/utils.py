@@ -45,8 +45,13 @@ POST_VARIANT_SEARCH_BODY={
 
 def get_post_search_body(input, dataset_id, patient_id):
     body = POST_SEARCH_BODY.copy()
+    if patient_id is not None:
+        body["components"][0]["patients"]["filters"][0]["value"] = patient_id
+    else:
+        body["components"][0]["patients"]["filters"][0]["value"] = "N/A"
+        body["components"][0]["patients"]["filters"][0]["operator"] = "!="
+    
     body["datasetId"] = dataset_id
-    body["components"][0]["patients"]["filters"][0]["value"] = patient_id
     body["results"][0]["start"] = input.start
     body["results"][0]["end"] = input.end
     body["results"][0]["referenceName"] = input.referenceName

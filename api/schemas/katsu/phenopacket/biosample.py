@@ -42,7 +42,7 @@ class Biosample:
     histological_diagnosis: Optional[Ontology] = None
     tumor_progression: Optional[Ontology] = None
     tumor_grade: Optional[Ontology] = None
-    diagnostic_markers: Optional[Ontology] = None
+    diagnostic_markers: Optional[List[Ontology]] = None
     procedure: Optional[Procedure] = None
     hts_files: Optional[List[str]] = None
     variants: Optional[List[Variant]] = None
@@ -55,20 +55,19 @@ class Biosample:
     def deserialize(json):
         ret = Biosample(**json)
         
-        for (field_name, type) in [("phenotypic_features", PhenotypicFeature), ("variants", Variant)]:
+        for (field_name, type) in [("phenotypic_features", PhenotypicFeature), ("variants", Variant), ("diagnostic_markers", Ontology)]:
             set_field_list(json, ret, field_name, type)
 
         for (field_name, type) in [("sampled_tissue", SampleTissue), ("taxonomy", Ontology), ("histological_diagnosis", Ontology),
-                                    ("tumor_progression", Ontology), ("tumor_grade", Ontology), ("diagnostic_markers", Ontology),
-                                    ("procedure", Procedure)]:
+                                    ("tumor_progression", Ontology), ("tumor_grade", Ontology), ("procedure", Procedure)]:
             set_field(json, ret, field_name, type)
-
+        
         individual_age_at_collection = json.get("individual_age_at_collection")
         if individual_age_at_collection != None:
             if individual_age_at_collection.get("age") != None:
-                ret.individual_age_at_collection = Age(individual_age_at_collection.get("age"))
+                set_field(json, ret, 'individual_age_at_collection', Age)
             else:
-                ret.individual_age_at_collection = AgeRange(**individual_age_at_collection)
+                set_field(json, ret, 'individual_age_at_collection', AgeRange)
 
         set_extra_properties(json, ret)
         

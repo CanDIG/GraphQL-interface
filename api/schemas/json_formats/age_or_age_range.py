@@ -1,5 +1,6 @@
 from api.interfaces.input import Input
 from typing import Optional
+from api.schemas.utils import set_field
 import strawberry
 
 @strawberry.input
@@ -9,18 +10,30 @@ class AgeInputType(Input):
     end: Optional[int] = None
 
 @strawberry.type
-class AgeRange:
-    start: str
-    end: str
+class Age:
+    age: str
+
+    @staticmethod
+    def deserialize(json):
+        return Age(**json)
 
     @staticmethod
     def filter(instance, input: AgeInputType):
         return filter_age(instance, input)
 
-
 @strawberry.type
-class Age:
-    age: str
+class AgeRange:
+    start: Age
+    end: Age
+
+    @staticmethod
+    def deserialize(json):
+        ret = AgeRange(**json)
+
+        set_field(json, ret, 'start', Age)
+        set_field(json, ret, 'end', Age)
+
+        return ret
 
     @staticmethod
     def filter(instance, input: AgeInputType):

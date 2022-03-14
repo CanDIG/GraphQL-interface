@@ -20,7 +20,7 @@ class McodeDataModels:
 
     @strawberry.field
     async def genomic_regions_studied(self, info, input: Optional[GenomicRegionStudiedInputType] = None) -> List[GenomicRegionStudied]:
-        return await generic_resolver(info, "mcode_genomic_regions_studied_loader", input, GenomicsReport)
+        return await generic_resolver(info, "mcode_genomic_regions_studied_loader", input, GenomicRegionStudied)
 
     @strawberry.field
     async def genomics_reports(self, info, input: Optional[GenomicsReportInputType] = None) -> List[GenomicsReport]:

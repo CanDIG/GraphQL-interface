@@ -51,9 +51,9 @@ class Individual:
         age = json.get("age")
         if age != None:
             if age.get("age") != None:
-                ret.age = Age(age.get("age"))
+                set_field(json, ret, 'age', Age)
             else:
-                ret.age = AgeRange(**age)
+                set_field(json, ret, 'age', AgeRange)
         
         for (field_name, type) in [("taxonomy", Ontology), ("comorbid_condition", ComorbidCondition),\
                                     ("ecog_performance_status", Ontology), ("karnofsky", Ontology)]:
