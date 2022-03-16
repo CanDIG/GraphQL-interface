@@ -4,17 +4,19 @@
   "previous": null,
   "results": [
     {
-      "created": "2022-03-09T14:21",
-      "updated": "2022-03-09T14:21",
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40",
       "id": "PATIENT_91250_GR",
       "code": {
         "id": "PATIENT_91250_GR_CODE",
         "label": "Mock GR Response"
       },
       "performing_organization_name": "CanDIG",
-      "issued": "2022-03-09T15:40",
+      "issued": "2022-03-10T13:40",
       "genetic_specimen": [
         {
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40",
           "id": "PATIENT_91250_GR_GS",
           "specimen_type": {
             "id": "PATIENT_91250_GR_GS_ST",
@@ -35,6 +37,8 @@
         }
       ],
       "genetic_variant": {
+        "created": "2022-03-10T13:40",
+        "updated": "2022-03-10T13:40",
         "id": "PATIENT_91250_GR_GV",
         "data_value": {
           "id": "PATIENT_91250_GR_GV_DV",
@@ -65,8 +69,8 @@
             "id": "PATIENT_91250_GR_GV_GS",
             "alternate_ids": ["91250"],
             "symbol": "A",
-            "created": "2022-03-09T14:21",
-            "updated": "2022-03-09T14:21",
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40",
             "extra_properties": {
               "Mock_1": "Mock_1 Response",
               "Mock_2": "Mock_2 Response"
@@ -120,7 +124,9 @@
         "extra_properties": {
           "Mock_1": "Mock_1 Response",
           "Mock_2": "Mock_2 Response"
-        }
+        },
+        "created": "2022-03-10T13:40",
+        "updated": "2022-03-10T13:40"
       },
       "extra_properties": {
         "Mock_1": "Mock_1 Response",

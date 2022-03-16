@@ -22,6 +22,47 @@
 										],
 										"type": "text/javascript"
 									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - id\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    ",
+											"    pm.expect(phenopackets[0].id).to.eql(pm.collectionVariables.get(\"phenopacket1\"));",
+											"    pm.expect(phenopackets[1].id).to.eql(pm.collectionVariables.get(\"phenopacket2\"));",
+											"});",
+											"",
+											"pm.test(\"Phenopacket Property Check - table\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"",
+											"    pm.expect(phenopackets[0].table).to.eql(\"GraphQLTestDataset_phenopacket\");",
+											"    pm.expect(phenopackets[1].table).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Phenopacket Property Check - timestamp\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"",
+											"    utils.timestampCheck(phenopackets[0].created)",
+											"    utils.timestampCheck(phenopackets[0].updated)",
+											"    pm.expect(phenopackets[1].created).to.eql(null);",
+											"    pm.expect(phenopackets[1].updated).to.eql(null);",
+											"});",
+											"",
+											"pm.test(\"Phenopacket Property Check - extraProperties\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"",
+											"    pm.expect(phenopackets[0].extraProperties).to.eql(null)",
+											"    pm.expect(phenopackets[1].extraProperties).to.eql(null);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -47,6 +88,45 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - subject\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"",
+											"    var subject1 = phenopackets[0].subject",
+											"    var subject2 = phenopackets[1].subject",
+											"    var patientId1 = subject1.id",
+											"    var patientId2 = subject2.id",
+											"",
+											"    phenopacketFuncs.subjectCheck(subject1, patientId1, \"patient1\")",
+											"",
+											"    pm.expect(patientId2).to.eql(pm.collectionVariables.get(\"patient2\"));",
+											"    pm.expect(subject2.alternateIds).to.eql(null);",
+											"    pm.expect(subject2.dateOfBirth).to.eql(null);",
+											"    pm.expect(subject2.age).to.eql(null)",
+											"    pm.expect(subject2.sex).to.eql(null)",
+											"    pm.expect(subject2.karyotypicSex).to.eql(null)",
+											"    pm.expect(subject2.taxonomy).to.eql(null)",
+											"    pm.expect(subject2.active).to.eql(null)",
+											"    pm.expect(subject2.deceased).to.eql(null)",
+											"    pm.expect(subject2.comorbidCondition).to.eql(null)",
+											"    pm.expect(subject2.ecogPerformanceStatus).to.eql(null)",
+											"    pm.expect(subject2.karnofsky).to.eql(null)",
+											"    pm.expect(subject2.race).to.eql(null),",
+											"    pm.expect(subject2.ethnicity).to.eql(null),",
+											"    pm.expect(subject2.extraProperties).to.eql(null)",
+											"    pm.expect(subject2.phenopackets).to.eql(null)",
+											"    pm.expect(subject2.biosamples).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -70,6 +150,23 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - Phenotypic Features\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"",
+											"    phenopacketFuncs.phenotypeCheck(phenopackets[0].phenotypicFeatures[0], \"patient1\")",
+											"    pm.expect(phenopackets[1].phenotypicFeatures).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -93,6 +190,38 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - Biosamples\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    var biosample1 = phenopackets[0].biosamples[0]",
+											"    var biosample2 = phenopackets[1].biosamples",
+											"    var patient1 = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    phenopacketFuncs.biosampleCheck(biosample1, patient1)",
+											"    phenopacketFuncs.variantCheck(biosample1.variants[0], patient1)",
+											"    phenopacketFuncs.phenotypeCheck(biosample1.phenotypicFeatures[0], \"patient1\")",
+											"    ",
+											"    pm.expect(biosample2).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -116,6 +245,22 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Test - Genes\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    phenopacketFuncs.geneCheck(phenopackets[0].genes[0], pm.collectionVariables.get(\"patient1\"))",
+											"    pm.expect(phenopackets[1].genes).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -139,6 +284,26 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - Variants\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    variant = phenopackets[0].variants[0]",
+											"    patientId = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    phenopacketFuncs.variantCheck(variant, patientId)",
+											"    pm.expect(phenopackets[1].variants).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -162,6 +327,25 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_7",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - Diseases\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    disease = phenopackets[0].diseases[0]",
+											"    phenopacketFuncs.diseaseCheck(disease, pm.collectionVariables.get(\"patient1\"))",
+											"",
+											"    pm.expect(phenopackets[1].diseases).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -185,6 +369,35 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_8",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - HTS\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    var hts1 = phenopackets[0].htsFiles[0]",
+											"    var hts2 = phenopackets[1].htsFiles",
+											"",
+											"    phenopacketFuncs.htsCheck(hts1, pm.collectionVariables.get(\"patient1\"))",
+											"    pm.expect(hts2).to.eql(null)",
+											"});",
+											"",
+											"pm.test(\"Phenopacket Property Check - Metadata\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopackets = phenopacketFuncs.getPhenopackets(jsonData)",
+											"    var metadata1 = phenopackets[0].metaData",
+											"    var metadata2 = phenopackets[1].metaData",
+											"",
+											"    phenopacketFuncs.metadataCheck(metadata1, pm.collectionVariables.get(\"patient1\"))",
+											"    phenopacketFuncs.metadataCheck(metadata2, pm.collectionVariables.get(\"patient2\"))",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -208,6 +421,41 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_9",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - Test 9\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopacket = phenopacketFuncs.getPhenopackets(jsonData)[0]",
+											"    var phenoapcketId = pm.collectionVariables.get(\"phenopacket2\")",
+											"    var patientId = pm.collectionVariables.get(\"patient2\")",
+											"",
+											"    pm.expect(phenopacket.id).to.eql(phenoapcketId)",
+											"    pm.expect(phenopacket.subject.id).to.eql(patientId)",
+											"    pm.expect(phenopacket.subject.karyotypicSex).to.eql(\"UNKNOWN_KARYOTYPE\")",
+											"    utils.timestampCheck(phenopacket.subject.created)",
+											"    utils.timestampCheck(phenopacket.subject.updated)",
+											"    phenopacketFuncs.metadataCheck(phenopacket.metaData, patientId)",
+											"",
+											"    for (const [field, value] of Object.entries(phenopacket.subject)) {",
+											"        if ((field != \"id\") && (field != \"karyotypicSex\") && (field != \"created\") && (field != \"updated\")) {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"",
+											"    for (const [field, value] of Object.entries(phenopacket)) {",
+											"        if ((field != \"id\") && (field != \"subject\") && (field != \"metaData\")) {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -231,6 +479,51 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_success_10",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Phenopacket Property Check - Test 10\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var phenopacket1 = phenopacketFuncs.getPhenopackets(jsonData)[0]",
+											"    var phenoapacketId1 = pm.collectionVariables.get(\"phenopacket1\")",
+											"    var patientId1 = pm.collectionVariables.get(\"patient1\")",
+											"    var phenopacket2 = phenopacketFuncs.getPhenopackets(jsonData)[1]",
+											"    var phenoapacketId2 = pm.collectionVariables.get(\"phenopacket2\")",
+											"    var patientId2 = pm.collectionVariables.get(\"patient2\")",
+											"",
+											"    pm.expect(phenopacket1.id).to.eql(phenoapacketId1)",
+											"    phenopacketFuncs.subjectCheck(phenopacket1.subject, patientId1, \"patient1\")",
+											"    phenopacketFuncs.phenotypeCheck(phenopacket1.phenotypicFeatures[0], \"patient1\")",
+											"    phenopacketFuncs.biosampleCheck(phenopacket1.biosamples[0], patientId1)",
+											"    phenopacketFuncs.geneCheck(phenopacket1.genes[0], patientId1)",
+											"    phenopacketFuncs.variantCheck(phenopacket1.variants[0], patientId1)",
+											"    phenopacketFuncs.diseaseCheck(phenopacket1.diseases[0], patientId1)",
+											"    phenopacketFuncs.htsCheck(phenopacket1.htsFiles[0], patientId1)",
+											"    phenopacketFuncs.metadataCheck(phenopacket1.metaData, patientId1)",
+											"",
+											"    pm.expect(phenopacket2.id).to.eql(phenoapacketId2)",
+											"    pm.expect(phenopacket2.subject.id).to.eql(patientId2)",
+											"    phenopacketFuncs.metadataCheck(phenopacket2.metaData, patientId2)",
+											"",
+											"    for (const [field, value] of Object.entries(phenopacket2.subject)) {",
+											"        if (field != \"id\") {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"",
+											"    for (const [field, value] of Object.entries(phenopacket2)) {",
+											"        if ((field != \"id\") && (field != \"subject\") && (field != \"metaData\")) {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -254,6 +547,23 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - Genetic Specimens\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientID = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    mcodeFuncs.geneticSpecimensCheck(mcode.geneticSpecimens[0], patientID)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -277,6 +587,23 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - genomicRegionsStudied\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    mcodeFuncs.genomicRegionsStudiedCheck(mcode.genomicRegionsStudied[0], patientId)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -300,6 +627,27 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - genomicsReport\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var genomicsReport = mcode.genomicsReports[0]",
+											"    var patientId = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    mcodeFuncs.genomicsReportSpecimenCheck(genomicsReport.geneticSpecimen[0], patientId)",
+											"    mcodeFuncs.geneticVariantCheck(genomicsReport.geneticVariant, patientId)",
+											"    mcodeFuncs.genomicRegionsStudiedCheck(genomicsReport.genomicRegionStudied, patientId + \"_GR\")",
+											"    mcodeFuncs.genomicsReportsCheck(genomicsReport, patientId)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -323,6 +671,25 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - LabsVital\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    mcodeFuncs.labsVitalCheck(mcode.labsVital[0], patientId)",
+											"    mcodeFuncs.labsVitalCheck(mcode.labsVital[1], patientId)",
+											"    mcodeFuncs.labsVitalCheck(mcode.labsVital[2], patientId)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -346,6 +713,24 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId = pm.collectionVariables.get(\"patient1\")",
+											"    ",
+											"    mcodeFuncs.cancerConditionTNMCheck(mcode.cancerConditions[0].tnmStaging[0], patientId)",
+											"    mcodeFuncs.cancerConditionsCheck(mcode.cancerConditions[0], patientId)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -369,6 +754,23 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - TNM\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    mcodeFuncs.TNMCheck(mcode.TNMStaging[0], patientId)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -392,6 +794,24 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_7",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId = pm.collectionVariables.get(\"patient1\")",
+											"",
+											"    mcodeFuncs.cancerRelatedProceduresCheck(mcode.cancerRelatedProcedures[0], patientId)",
+											"    mcodeFuncs.medicationStatementsCheck(mcode.medicationStatements[0], patientId)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -415,6 +835,40 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_8",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - mCODEpackets\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId1 = pm.collectionVariables.get(\"patient1\")",
+											"    var patientId2 = pm.collectionVariables.get(\"patient2\")",
+											"    var mcodepacket1 = mcode.mcodePackets[0]",
+											"    var mcodepacket2 = mcode.mcodePackets[1]",
+											"",
+											"    mcodeFuncs.mcodepacketCheck(mcodepacket1, patientId1)",
+											"    pm.expect(mcodepacket2.id).to.eql(patientId2 + \"_MCODE\")",
+											"    pm.expect(mcodepacket2.subject.id).to.eql(patientId2)",
+											"",
+											"    for (const [field, value] of Object.entries(mcodepacket2.subject)) {",
+											"        if (field != \"id\") {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"",
+											"    for (const [field, value] of Object.entries(mcodepacket2.subject)) {",
+											"        if ((field != \"id\") && (field != \"subject\")) {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -438,6 +892,24 @@
 						},
 						{
 							"name": "test_katsu_mcodepacket_success_9",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"mCODE Property Check - mcodepacket with ID\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var mcode = mcodeFuncs.getMCode(jsonData)",
+											"    var patientId1 = pm.collectionVariables.get(\"patient1\")",
+											"    var mcodepacket1 = mcode.mcodePackets[0]",
+											"",
+											"    mcodeFuncs.mcodepacketCheck(mcodepacket1, patientId1)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -484,13 +956,35 @@
 						},
 						{
 							"name": "test_katsu_variant_success_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Variant Property Check\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var variant1 = phenopacketFuncs.getPhenopackets(jsonData)[0].candigServerVariants[0]",
+											"    var variant2 = phenopacketFuncs.getPhenopackets(jsonData)[1].candigServerVariants[0]",
+											"",
+											"    candigFuncs.basicVariantSearch(variant1)",
+											"    candigFuncs.basicVariantSearch(variant2)",
+											"    candigFuncs.deepVariantSearch1(variant1)",
+											"    candigFuncs.deepVariantSearch2(variant2)",
+											"    candigFuncs.attributesSearch(variant1)",
+											"    candigFuncs.attributesSearch(variant2)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query test_katsu_variant_success_1($variantStart1: String, $variantEnd1: String, $variantRef1: String) {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets {\n                candigServerVariants(input: {\n                    start: $variantStart1,\n                    end: $variantEnd1,\n                    referenceName: $variantRef1\n                }) {\n                    id\n                    variantSetId\n                    names\n                    referenceName\n                    start\n                    end\n                    referenceBases\n                    alternateBases\n                    filtersApplied\n                    filtersPassed\n                    attributes\n                    getKatsuIndividuals {... subjectFields}\n                }\n            }\n        }\n    }\n}\n\n# Fragments stored as collection variables\n{{subjectFields}}\n{{biosampleFields}}\n{{variantFields}}\n{{phenotypicFields}}",
+										"query": "query test_katsu_variant_success_1($variantStart1: String, $variantEnd1: String, $variantRef1: String) {\n    katsuDataModels {\n        phenopacketDataModels {\n            phenopackets {\n                candigServerVariants(input: {\n                    start: $variantStart1,\n                    end: $variantEnd1,\n                    referenceName: $variantRef1\n                }) {\n                    id\n                    variantSetId\n                    names\n                    referenceName\n                    start\n                    end\n                    referenceBases\n                    alternateBases\n                    filtersApplied\n                    filtersPassed\n                    attributes\n                }\n            }\n        }\n    }\n}",
 										"variables": "{\n    \"variantStart1\": \"{{variantStart1}}\",\n    \"variantEnd1\": \"{{variantEnd1}}\",\n    \"variantRef1\": \"{{variantRef1}}\"\n}"
 									}
 								},
@@ -532,6 +1026,26 @@
 					"item": [
 						{
 							"name": "test_katsu_phenopacket_error_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Full Katsu Error Check - Invalid IDs\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(1)",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(4)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(13)",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"katsuDataModels\")",
+											"    pm.expect(jsonData.errors[0].path[1]).to.eql(\"phenopacketDataModels\")",
+											"    pm.expect(jsonData.errors[0].path[2]).to.eql(\"phenopackets\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -555,6 +1069,33 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_error_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Full Katsu Error Check - Scalar Subfields\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(4)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Field 'id' must not have a selection since type 'ID!' has no subfields.\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(5)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(20)",
+											"    pm.expect(jsonData.errors[1].message).to.eql(\"Field 'table' must not have a selection since type 'String' has no subfields.\")",
+											"    pm.expect(jsonData.errors[1].locations[0].line).to.eql(6)",
+											"    pm.expect(jsonData.errors[1].locations[0].column).to.eql(23)",
+											"    pm.expect(jsonData.errors[2].message).to.eql(\"Field 'created' must not have a selection since type 'String' has no subfields.\")",
+											"    pm.expect(jsonData.errors[2].locations[0].line).to.eql(7)",
+											"    pm.expect(jsonData.errors[2].locations[0].column).to.eql(25)",
+											"    pm.expect(jsonData.errors[3].message).to.eql(\"Field 'updated' must not have a selection since type 'String' has no subfields.\")",
+											"    pm.expect(jsonData.errors[3].locations[0].line).to.eql(8)",
+											"    pm.expect(jsonData.errors[3].locations[0].column).to.eql(25)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -578,6 +1119,45 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_error_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Full Katsu Error Check - Vector Fields\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(8)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Field 'subject' of type 'Individual' must have a selection of subfields. Did you mean 'subject { ... }'?\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(5)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[1].message).to.eql(\"Field 'phenotypicFeatures' of type '[PhenotypicFeature!]' must have a selection of subfields. Did you mean 'phenotypicFeatures { ... }'?\")",
+											"    pm.expect(jsonData.errors[1].locations[0].line).to.eql(6)",
+											"    pm.expect(jsonData.errors[1].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[2].message).to.eql(\"Field 'biosamples' of type '[Biosample!]' must have a selection of subfields. Did you mean 'biosamples { ... }'?\")",
+											"    pm.expect(jsonData.errors[2].locations[0].line).to.eql(7)",
+											"    pm.expect(jsonData.errors[2].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[3].message).to.eql(\"Field 'genes' of type '[Gene!]' must have a selection of subfields. Did you mean 'genes { ... }'?\")",
+											"    pm.expect(jsonData.errors[3].locations[0].line).to.eql(8)",
+											"    pm.expect(jsonData.errors[3].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[4].message).to.eql(\"Field 'variants' of type '[Variant!]' must have a selection of subfields. Did you mean 'variants { ... }'?\")",
+											"    pm.expect(jsonData.errors[4].locations[0].line).to.eql(9)",
+											"    pm.expect(jsonData.errors[4].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[5].message).to.eql(\"Field 'diseases' of type '[Disease!]' must have a selection of subfields. Did you mean 'diseases { ... }'?\")",
+											"    pm.expect(jsonData.errors[5].locations[0].line).to.eql(10)",
+											"    pm.expect(jsonData.errors[5].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[6].message).to.eql(\"Field 'htsFiles' of type '[HtsFile!]' must have a selection of subfields. Did you mean 'htsFiles { ... }'?\")",
+											"    pm.expect(jsonData.errors[6].locations[0].line).to.eql(11)",
+											"    pm.expect(jsonData.errors[6].locations[0].column).to.eql(17)",
+											"    pm.expect(jsonData.errors[7].message).to.eql(\"Field 'metaData' of type 'MetaData' must have a selection of subfields. Did you mean 'metaData { ... }'?\")",
+											"    pm.expect(jsonData.errors[7].locations[0].line).to.eql(12)",
+											"    pm.expect(jsonData.errors[7].locations[0].column).to.eql(17)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -601,6 +1181,24 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_error_4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Full Katsu Error Check - Field Non-Existent\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(1)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Cannot query field 'noExist' on type 'Phenopacket'.\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(5)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(17)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -624,6 +1222,26 @@
 						},
 						{
 							"name": "test_katsu_phenopacket_error_5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Full Katsu Error Check - Invalid Page\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null);",
+											"    pm.expect(jsonData.errors.length).to.eql(1)",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(4)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(13)",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"katsuDataModels\")",
+											"    pm.expect(jsonData.errors[0].path[1]).to.eql(\"phenopacketDataModels\")",
+											"    pm.expect(jsonData.errors[0].path[2]).to.eql(\"phenopackets\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -667,6 +1285,26 @@
 						}
 					]
 				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -677,6 +1315,26 @@
 					"item": [
 						{
 							"name": "test_candig_success_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variants Search - Basics\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var variant1 = candigFuncs.getCanDIGVariants(jsonData)[0]",
+											"    var variant2 = candigFuncs.getCanDIGVariants(jsonData)[1]",
+											"",
+											"    candigFuncs.basicVariantSearch(variant1)",
+											"    candigFuncs.basicVariantSearch(variant2)",
+											"    candigFuncs.deepVariantSearch1(variant1)",
+											"    candigFuncs.deepVariantSearch2(variant2)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -700,6 +1358,24 @@
 						},
 						{
 							"name": "test_candig_success_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variants Search - Attributes\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var variant1 = candigFuncs.getCanDIGVariants(jsonData)[0]",
+											"    var variant2 = candigFuncs.getCanDIGVariants(jsonData)[1]",
+											"",
+											"    candigFuncs.attributesSearch(variant1)",
+											"    candigFuncs.attributesSearch(variant2)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -723,6 +1399,36 @@
 						},
 						{
 							"name": "test_candig_success_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variants Search - Katsu Individuals\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var variant1 = candigFuncs.getCanDIGVariants(jsonData)[0]",
+											"    var variant2 = candigFuncs.getCanDIGVariants(jsonData)[1]",
+											"    var patientId1 = pm.collectionVariables.get(\"patient1\")",
+											"    var patientId2 = pm.collectionVariables.get(\"patient2\")",
+											"",
+											"    phenopacketFuncs.subjectCheck(variant1.getKatsuIndividuals, patientId1, \"patient1\")",
+											"    pm.expect(variant1.getKatsuIndividuals.id).to.eql(patientId1)",
+											"    pm.expect(variant1.getKatsuIndividuals.phenopackets[0].id).to.eql(patientId1 + \"_PHENOPACKET\")",
+											"    pm.expect(variant1.getKatsuIndividuals.biosamples[0].id).to.eql(patientId1 + \"_BIO\")",
+											"    pm.expect(variant2.getKatsuIndividuals.id).to.eql(patientId2)",
+											"",
+											"    for (const [field, value] of Object.entries(variant2.getKatsuIndividuals)) {",
+											"        console.log(value)",
+											"        if ((field != \"id\") && (field != \"karyotypicSex\") && (field != \"created\") && (field != \"updated\")) {",
+											"            pm.expect(value).to.eql(null)",
+											"        }",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -746,6 +1452,21 @@
 						},
 						{
 							"name": "test_candig_success_4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variants Search - Search by Dataset ID, Variant & Patient\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var variantId2 = pm.collectionVariables.get(\"variantId2\")",
+											"    pm.expect(jsonData.data.candigServerVariants[0].id).to.eql(variantId2);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -769,6 +1490,20 @@
 						},
 						{
 							"name": "test_candig_success_5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variants Search - Invalid Patient ID\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.candigServerVariants.length).to.eql(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -792,6 +1527,24 @@
 						},
 						{
 							"name": "test_candig_success_6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Server Variants - All Variant Sets Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var variantId1 = pm.collectionVariables.get(\"variantId1\")",
+											"    var variantId2 = pm.collectionVariables.get(\"variantId2\")",
+											"",
+											"    pm.expect(jsonData.data.candigServerVariants[0].id).to.eql(variantId1);",
+											"    pm.expect(jsonData.data.candigServerVariants[1].id).to.eql(variantId2)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -840,6 +1593,26 @@
 					"item": [
 						{
 							"name": "test_candig_error_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variant Search - Missing Input Error\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(1)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"candig_server_variants() missing 1 required positional argument: 'input'\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(5)",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"candigServerVariants\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -863,6 +1636,24 @@
 						},
 						{
 							"name": "test_candig_error_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variant Search - Missing Variant Error\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null);",
+											"    pm.expect(jsonData.errors.length).to.eql(1);",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2);",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(5);",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"candigServerVariants\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -886,6 +1677,24 @@
 						},
 						{
 							"name": "test_candig_error_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variant Search - Bad Dataset ID\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null);",
+											"    pm.expect(jsonData.errors.length).to.eql(1);",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2);",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(5);",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"candigServerVariants\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -909,6 +1718,24 @@
 						},
 						{
 							"name": "test_candig_error_4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"CanDIG Variant Search - Missing Dataset ID & Patient Error\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data).to.eql(null);",
+											"    pm.expect(jsonData.errors.length).to.eql(1);",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2);",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(5);",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"candigServerVariants\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -962,6 +1789,21 @@
 					"item": [
 						{
 							"name": "test_beacon_success_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Basics\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.beaconQuery.beaconId).to.eql(\"com.candig.graphql\");",
+											"    pm.expect(jsonData.data.beaconQuery.apiVersion).to.eql(\"1.0.0\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -985,6 +1827,21 @@
 						},
 						{
 							"name": "test_beacon_success_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Existence & Error Check\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.data.beaconQuery.exists).to.eql(true);",
+											"    pm.expect(jsonData.data.beaconQuery.error).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1008,6 +1865,26 @@
 						},
 						{
 							"name": "test_beacon_success_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Returned Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var request = jsonData.data.beaconQuery.alleleRequest",
+											"    pm.expect(request.referenceName).to.eql(pm.collectionVariables.get(\"variantRef1\"));",
+											"    pm.expect(request.referenceBases).to.eql(pm.collectionVariables.get(\"variantBase1\"));",
+											"    pm.expect(request.alternateBases).to.eql(pm.collectionVariables.get(\"variantAlt1\"));",
+											"    pm.expect(request.start).to.eql(parseInt(pm.collectionVariables.get(\"variantStart1\")));",
+											"    pm.expect(request.end).to.eql(parseInt(pm.collectionVariables.get(\"variantEnd1\")));",
+											"    pm.expect(request.datasetIds).to.eql(null);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1031,6 +1908,30 @@
 						},
 						{
 							"name": "test_beacon_success_4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Individuals Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var individuals = jsonData.data.beaconQuery.individualsPresent",
+											"    var patientId1 = pm.collectionVariables.get(\"patient1\")",
+											"    var patientId2 = pm.collectionVariables.get(\"patient2\")",
+											"",
+											"    pm.expect(individuals.length).to.eql(2)",
+											"    pm.expect(individuals[0].personalInfo.id).to.eql(patientId1)",
+											"    pm.expect(individuals[1].personalInfo.id).to.eql(patientId2)",
+											"    pm.expect(individuals[0].mcodepackets.id).to.eql(patientId1 + \"_MCODE\")",
+											"    pm.expect(individuals[1].mcodepackets.id).to.eql(patientId2 + \"_MCODE\")",
+											"    pm.expect(individuals[0].phenopackets.id).to.eql(patientId1 + \"_PHENOPACKET\")",
+											"    pm.expect(individuals[1].phenopackets.id).to.eql(patientId2 + \"_PHENOPACKET\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1054,6 +1955,44 @@
 						},
 						{
 							"name": "test_beacon_success_5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Full Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var individuals = jsonData.data.beaconQuery.individualsPresent",
+											"    var patientId1 = pm.collectionVariables.get(\"patient1\")",
+											"    var patientId2 = pm.collectionVariables.get(\"patient2\")",
+											"    var request = jsonData.data.beaconQuery.alleleRequest",
+											"",
+											"    pm.expect(jsonData.data.beaconQuery.beaconId).to.eql(\"com.candig.graphql\");",
+											"    pm.expect(jsonData.data.beaconQuery.apiVersion).to.eql(\"1.0.0\")",
+											"",
+											"    pm.expect(jsonData.data.beaconQuery.exists).to.eql(true);",
+											"    pm.expect(jsonData.data.beaconQuery.error).to.eql(null)",
+											"",
+											"    pm.expect(request.referenceName).to.eql(pm.collectionVariables.get(\"variantRef1\"));",
+											"    pm.expect(request.referenceBases).to.eql(pm.collectionVariables.get(\"variantBase1\"));",
+											"    pm.expect(request.alternateBases).to.eql(pm.collectionVariables.get(\"variantAlt1\"));",
+											"    pm.expect(request.start).to.eql(parseInt(pm.collectionVariables.get(\"variantStart1\")));",
+											"    pm.expect(request.end).to.eql(parseInt(pm.collectionVariables.get(\"variantEnd1\")));",
+											"    pm.expect(request.datasetIds).to.eql(null);",
+											"",
+											"    pm.expect(individuals.length).to.eql(2)",
+											"    pm.expect(individuals[0].personalInfo.id).to.eql(patientId1)",
+											"    pm.expect(individuals[1].personalInfo.id).to.eql(patientId2)",
+											"    pm.expect(individuals[0].mcodepackets.id).to.eql(patientId1 + \"_MCODE\")",
+											"    pm.expect(individuals[1].mcodepackets.id).to.eql(patientId2 + \"_MCODE\")",
+											"    pm.expect(individuals[0].phenopackets.id).to.eql(patientId1 + \"_PHENOPACKET\")",
+											"    pm.expect(individuals[1].phenopackets.id).to.eql(patientId2 + \"_PHENOPACKET\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1077,6 +2016,22 @@
 						},
 						{
 							"name": "test_beacon_success_6",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - No Datasets Searched Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data.beaconQuery.exists).to.eql(false);",
+											"    pm.expect(jsonData.data.beaconQuery.error).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1100,6 +2055,22 @@
 						},
 						{
 							"name": "test_beacon_success_7",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - No Such Dataset Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data.beaconQuery.exists).to.eql(false);",
+											"    pm.expect(jsonData.data.beaconQuery.error).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1123,6 +2094,22 @@
 						},
 						{
 							"name": "test_beacon_success_8",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Correct Dataset Entered Query\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data.beaconQuery.exists).to.eql(true);",
+											"    pm.expect(jsonData.data.beaconQuery.error).to.eql(null)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1171,6 +2158,26 @@
 					"item": [
 						{
 							"name": "test_beacon_error_1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Missing Input Error\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(1)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"beaconQuery() missing 1 required positional argument: 'input'\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(5)",
+											"    pm.expect(jsonData.errors[0].path[0]).to.eql(\"beaconQuery\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1194,6 +2201,37 @@
 						},
 						{
 							"name": "test_beacon_error_2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Missing Input Fields Error\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(5)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Field 'BeaconAlleleRequest.referenceName' of required type 'String!' was not provided.\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(24)",
+											"    pm.expect(jsonData.errors[1].message).to.eql(\"Field 'BeaconAlleleRequest.referenceBases' of required type 'String!' was not provided.\")",
+											"    pm.expect(jsonData.errors[1].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[1].locations[0].column).to.eql(24)",
+											"    pm.expect(jsonData.errors[2].message).to.eql(\"Field 'BeaconAlleleRequest.start' of required type 'Int!' was not provided.\")",
+											"    pm.expect(jsonData.errors[2].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[2].locations[0].column).to.eql(24)",
+											"    pm.expect(jsonData.errors[3].message).to.eql(\"Field 'BeaconAlleleRequest.end' of required type 'Int!' was not provided.\")",
+											"    pm.expect(jsonData.errors[3].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[3].locations[0].column).to.eql(24)",
+											"    pm.expect(jsonData.errors[4].message).to.eql(\"Field 'BeaconAlleleRequest.alternateBases' of required type 'String!' was not provided.\")",
+											"    pm.expect(jsonData.errors[4].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[4].locations[0].column).to.eql(24)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1217,6 +2255,25 @@
 						},
 						{
 							"name": "test_beacon_error_3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Beacon Search - Missing Input Fields Error\", function () {",
+											"    var jsonData = pm.response.json();",
+											"",
+											"    pm.expect(jsonData.data).to.eql(null)",
+											"    pm.expect(jsonData.errors.length).to.eql(1)",
+											"    pm.expect(jsonData.errors[0].message).to.eql(\"Field 'beaconQuery' of type 'BeaconAlleleResponse!' must have a selection of subfields. Did you mean 'beaconQuery { ... }'?\")",
+											"    pm.expect(jsonData.errors[0].locations[0].line).to.eql(2)",
+											"    pm.expect(jsonData.errors[0].locations[0].column).to.eql(5)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1269,7 +2326,443 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					""
+					"utils = {",
+					"    timestampCheck: function(timestamp) {",
+					"        pm.expect(timestamp).to.eql(\"2022-03-10T13:40\")",
+					"    }",
+					"}",
+					"",
+					"phenopacketFuncs = {",
+					"    getPhenopackets: function(jsonData) {",
+					"        return jsonData.data.katsuDataModels.phenopacketDataModels.phenopackets;",
+					"    },",
+					"    subjectCheck: function (subject, patientId, patientKey) {",
+					"        var originalId = pm.collectionVariables.get(patientKey)",
+					"        var datasetId = pm.collectionVariables.get(\"datasetId1\")",
+					"",
+					"        pm.expect(patientId).to.eql(originalId);",
+					"        pm.expect(subject.alternateIds[0]).to.eql(\"38422\");",
+					"        pm.expect(subject.dateOfBirth).to.eql(\"1984-06-21\");",
+					"        pm.expect(subject.age.age).to.eql(\"P33Y2M26D\")",
+					"        pm.expect(subject.sex).to.eql(\"MALE\")",
+					"        pm.expect(subject.karyotypicSex).to.eql(\"UNKNOWN_KARYOTYPE\")",
+					"        pm.expect(subject.taxonomy.id).to.eql(patientId + \"_TAXONOMY\")",
+					"        pm.expect(subject.taxonomy.label).to.eql(\"NCBITaxon:9606\")",
+					"        pm.expect(subject.active).to.eql(true)",
+					"        pm.expect(subject.deceased).to.eql(true)",
+					"        pm.expect(subject.comorbidCondition.code.id).to.eql(patientId + \"_CC_C\")",
+					"        pm.expect(subject.comorbidCondition.code.label).to.eql(\"Comorbid Condition for \" + patientId)",
+					"        pm.expect(subject.comorbidCondition.clinicalStatus.id).to.eql(patientId + \"_CC_CS\")",
+					"        pm.expect(subject.comorbidCondition.clinicalStatus.label).to.eql(\"Critical\")",
+					"        pm.expect(subject.ecogPerformanceStatus).to.eql(null)",
+					"        pm.expect(subject.karnofsky).to.eql(null)",
+					"        pm.expect(subject.race).to.eql(\"Black/African American\")",
+					"        pm.expect(subject.ethnicity).to.eql(\"Chinese\")",
+					"        pm.expect(subject.extraProperties.name).to.eql(patientId)",
+					"        pm.expect(subject.extraProperties.dataset_id).to.eql(datasetId)",
+					"        pm.expect(Object.keys(subject.extraProperties).length).to.eql(14)",
+					"        utils.timestampCheck(subject.created)",
+					"        utils.timestampCheck(subject.updated)",
+					"    },",
+					"    phenotypeCheck: function (phenotypicFeature, patientId) {",
+					"        var patient = pm.collectionVariables.get(patientId)",
+					"",
+					"        pm.expect(phenotypicFeature.id).to.eql(patient + \"_PF\");",
+					"        pm.expect(phenotypicFeature.description).to.eql(\"Phenotypic Features for \" + patient)",
+					"        pm.expect(phenotypicFeature.type.id).to.eql(patient + \"_PF_TYPE\")",
+					"        pm.expect(phenotypicFeature.type.label).to.eql(\"Phenotypic Features for \" + patient)",
+					"        pm.expect(phenotypicFeature.negated).to.eql(false)",
+					"        pm.expect(phenotypicFeature.severity.id).to.eql(patient + \"_PF_SEVERITY\")",
+					"        pm.expect(phenotypicFeature.severity.label).to.eql(\"LOW\")",
+					"        pm.expect(phenotypicFeature.onset.id).to.eql(patient + \"_PF_ONSET\")",
+					"        pm.expect(phenotypicFeature.onset.label).to.eql(\"EARLY\")",
+					"        pm.expect(phenotypicFeature.modifier[0].id).to.eql(patient + \"_PF_MODIFIER\")",
+					"        pm.expect(phenotypicFeature.modifier[0].label).to.eql(patient + \" Modifier\")",
+					"        pm.expect(phenotypicFeature.evidence.evidenceCode.id).to.eql(patient + \"_PF_EVIDENCE_EVIDENCE_CODE\")",
+					"        pm.expect(phenotypicFeature.evidence.evidenceCode.label).to.eql(\"EVIDENCE CODE: 575\")",
+					"        pm.expect(phenotypicFeature.evidence.reference.id).to.eql(patient + \"_PF_EVIDENCE_REFERENCE\")",
+					"        pm.expect(phenotypicFeature.evidence.reference.description).to.eql(\"Reference Description - \" + patient)",
+					"        pm.expect(phenotypicFeature.biosample).to.eql(patient + \"_BIO\")",
+					"        pm.expect(phenotypicFeature.phenopacket).to.eql(patient + \"_PHENOPACKET\")",
+					"        pm.expect(phenotypicFeature.extraProperties).to.eql(null)",
+					"        utils.timestampCheck(phenotypicFeature.created)",
+					"        utils.timestampCheck(phenotypicFeature.updated)",
+					"    },",
+					"    variantCheck: function(variant, patientId) {",
+					"        pm.expect(variant.id).to.eql(\"1\")",
+					"        pm.expect(variant.allele).to.eql(null)",
+					"        pm.expect(variant.alleleType).to.eql(\"hgvsAllele\")",
+					"        pm.expect(variant.hgvsAllele.id).to.eql(patientId + \"_VARIANTS_ALLELE\")",
+					"        pm.expect(variant.hgvsAllele.alt).to.eql(\"G\")",
+					"        pm.expect(variant.hgvsAllele.chr).to.eql(\"14\")",
+					"        pm.expect(variant.hgvsAllele.pos).to.eql(2946661)",
+					"        pm.expect(variant.hgvsAllele.ref).to.eql(\"T\")",
+					"        pm.expect(variant.hgvsAllele.hgvs).to.eql(\"Allele Variant for \" + patientId)",
+					"        pm.expect(variant.zygosity.id).to.eql(patientId + \"_ALLELE_ZYGOSITY\")",
+					"        pm.expect(variant.zygosity.label).to.eql(\"Allele Zygosity for given variant\")",
+					"        utils.timestampCheck(variant.created)",
+					"        utils.timestampCheck(variant.updated)",
+					"    },",
+					"    biosampleCheck: function(biosample, patientId) {",
+					"        pm.expect(biosample.id).to.eql(patientId + \"_BIO\");",
+					"        pm.expect(biosample.individual).to.eql(patientId);",
+					"        pm.expect(biosample.description).to.eql(\"Biosample for \" + patientId + \". Test Data used for GraphQL Testing\")",
+					"        pm.expect(biosample.sampledTissue.id).to.eql(patientId + \"_BIO_TISSUE\")",
+					"        pm.expect(biosample.sampledTissue.label).to.eql(\"TISSUE_C\")",
+					"        pm.expect(biosample.taxonomy.id).to.eql(patientId + \"_BIO_TAXONOMY\")",
+					"        pm.expect(biosample.taxonomy.label).to.eql(\"NCBITaxon:9606\")",
+					"        pm.expect(biosample.individualAgeAtCollection.age).to.eql(\"P47Y11M12D\")",
+					"        pm.expect(biosample.histologicalDiagnosis.id).to.eql(patientId + \"_BIO_HIST\")",
+					"        pm.expect(biosample.histologicalDiagnosis.label).to.eql(\"NCIT:C38757\")",
+					"        pm.expect(biosample.tumorProgression.id).to.eql(patientId + \"_BIO_TUMOR\")",
+					"        pm.expect(biosample.tumorProgression.label).to.eql(\"primary\")",
+					"        pm.expect(biosample.tumorGrade.id).to.eql(patientId + \"_BIO_GRADE\")",
+					"        pm.expect(biosample.tumorGrade.label).to.eql(\"NCIT:C28079\")",
+					"        pm.expect(biosample.diagnosticMarkers[0].id).to.eql(patientId + \"_BIO_DM\")",
+					"        pm.expect(biosample.diagnosticMarkers[0].label).to.eql(\"NCIT:C131711\")",
+					"        pm.expect(biosample.procedure.code.id).to.eql(\"PATIENT_91250_BIO_CODE\")",
+					"        pm.expect(biosample.procedure.code.label).to.eql(\"PROC_4\")",
+					"        pm.expect(biosample.procedure.bodySite.id).to.eql(patientId + \"_BIO_SITE\")",
+					"        pm.expect(biosample.procedure.bodySite.label).to.eql(\"SITE NUMBER: 3\")",
+					"        pm.expect(biosample.htsFiles[0]).to.eql(patientId + \"_HTS\")",
+					"        pm.expect(biosample.isControlSample).to.eql(false)",
+					"        pm.expect(biosample.extraProperties.A).to.eql(\"B\")",
+					"        utils.timestampCheck(biosample.procedure.created)",
+					"        utils.timestampCheck(biosample.procedure.updated)",
+					"        utils.timestampCheck(biosample.created)",
+					"        utils.timestampCheck(biosample.updated)",
+					"    },",
+					"    geneCheck: function(gene, patientId) {",
+					"        pm.expect(gene.id).to.eql(patientId + \"_GENES\");",
+					"        pm.expect(gene.alternateIds[0]).to.equal(pm.collectionVariables.get(\"id1\"))",
+					"        pm.expect(gene.symbol).to.equal(\"KACK\")",
+					"        utils.timestampCheck(gene.created)",
+					"        utils.timestampCheck(gene.updated)",
+					"    },",
+					"    diseaseCheck: function(disease, patientId) {",
+					"        pm.expect(disease.id).to.eql(\"1\")",
+					"        pm.expect(disease.term.id).to.eql(patientId + \"_DISEASES_TERM\")",
+					"        pm.expect(disease.term.label).to.eql(\"DISEASE_TERM_3\")",
+					"        pm.expect(disease.diseaseStage[0].id).to.eql(patientId + \"_DISEASES_STAGE\")",
+					"        pm.expect(disease.diseaseStage[0].label).to.eql(\"STAGE_4\")",
+					"        pm.expect(disease.tnmFinding[0].id).to.eql(patientId + \"_TNM\")",
+					"        pm.expect(disease.tnmFinding[0].label).to.eql(\"TUMOUR_STAGE_2\")",
+					"        pm.expect(disease.onset.age).eql(\"P21Y6M25D\")",
+					"        utils.timestampCheck(disease.created)",
+					"        utils.timestampCheck(disease.updated)",
+					"    },",
+					"    htsCheck: function(hts, patientId) {",
+					"        pm.expect(hts.uri).to.eql(patientId + \"_HTS\")",
+					"        pm.expect(hts.description).to.eql(\"HTS Files for Variant Data\")",
+					"        pm.expect(hts.htsFormat).to.eql(\"FASTA\")",
+					"        pm.expect(hts.genomeAssembly).to.eql(\"hg19a\")",
+					"        pm.expect(hts.individualToSampleIdentifiers.PATIENT_91250).to.eql(patientId + \"_BIO\")",
+					"        pm.expect(hts.extraProperties.A).to.eql(\"B\")",
+					"        utils.timestampCheck(hts.created)",
+					"        utils.timestampCheck(hts.updated)",
+					"    },",
+					"    metadataCheck: function(metadata, patientId) {",
+					"        pm.expect(metadata.id).to.eql(patientId + \"_METADATA\")",
+					"        pm.expect(metadata.createdBy).to.eql(\"GraphQLTester\")",
+					"        pm.expect(metadata.submittedBy).to.eql(\"GraphQLTester\")",
+					"        pm.expect(metadata.resources[0].id).to.eql(patientId + \"_METADATA_RES\")",
+					"        pm.expect(metadata.resources[0].name).to.eql(patientId + \"_RESOURCE\")",
+					"        pm.expect(metadata.resources[0].namespacePrefix).to.eql(\"RES\")",
+					"        pm.expect(metadata.resources[0].url).to.eql(\"http://localhost:8000\")",
+					"        pm.expect(metadata.resources[0].version).to.eql(\"v1.0.0\")",
+					"        pm.expect(metadata.resources[0].iriPrefix).to.eql(\"PREFIX\")",
+					"        pm.expect(metadata.resources[0].extraProperties.A).to.eql(\"B\")",
+					"        pm.expect(metadata.updates[0].updatedBy).to.eql(\"GraphQLTester\")",
+					"        pm.expect(metadata.updates[0].comment).to.eql(\"No Comment\")",
+					"        pm.expect(metadata.phenopacketSchemaVersion).to.eql(\"v1.0.0\")",
+					"        pm.expect(metadata.externalReferences[0].id).to.eql(\"GRAPHQL_TESTER_METADATA_REFERENCE\")",
+					"        pm.expect(metadata.externalReferences[0].description).to.eql(\"Testable External Ref for Metadata\")",
+					"        pm.expect(metadata.extraProperties.A).to.eql(\"B\")",
+					"        utils.timestampCheck(metadata.created)",
+					"        utils.timestampCheck(metadata.updated)",
+					"        utils.timestampCheck(metadata.resources[0].created)",
+					"        utils.timestampCheck(metadata.resources[0].updated)",
+					"        utils.timestampCheck(metadata.updates[0].timestamp)",
+					"    }",
+					"};",
+					"",
+					"mcodeFuncs = {",
+					"    getMCode: function(jsonData) {",
+					"        return jsonData.data.katsuDataModels.mcodeDataModels",
+					"    },",
+					"    geneticSpecimensCheck: function(geneticSpecimen, patientId) {",
+					"        pm.expect(geneticSpecimen.id).to.eql(patientId + \"_GS\")",
+					"        pm.expect(geneticSpecimen.specimenType.id).to.eql(patientId + \"_GS_ST\")",
+					"        pm.expect(geneticSpecimen.specimenType.label).to.eql(\"ST for GS\")",
+					"        pm.expect(geneticSpecimen.collectionBody.id).to.eql(patientId + \"_GS_CB\")",
+					"        pm.expect(geneticSpecimen.collectionBody.label).to.eql(\"CB for GS\")",
+					"        pm.expect(geneticSpecimen.laterality.id).to.eql(patientId + \"_GS_LATERALITY\")",
+					"        pm.expect(geneticSpecimen.laterality.label).to.eql(\"Laterality for GS\")",
+					"        pm.expect(geneticSpecimen.extraProperties.A).to.eql(\"B\")",
+					"        utils.timestampCheck(geneticSpecimen.created)",
+					"        utils.timestampCheck(geneticSpecimen.updated)",
+					"    },",
+					"    genomicRegionsStudiedCheck: function(genomicRegionStudied, patientId) {",
+					"        pm.expect(genomicRegionStudied.id).to.eql(patientId + \"_GRS\")",
+					"        pm.expect(genomicRegionStudied.dnaRangesExamined[0].id).to.eql(patientId + \"_GRS_DRE\")",
+					"        pm.expect(genomicRegionStudied.dnaRangesExamined[0].label).to.eql(\"Mock DNA Ranges\")",
+					"        pm.expect(genomicRegionStudied.dnaRegionDescription[0]).to.eql(\"Mock Description\")",
+					"        pm.expect(genomicRegionStudied.geneMutation[0].id).to.eql(patientId + \"_GRS_GM\")",
+					"        pm.expect(genomicRegionStudied.geneMutation[0].label).to.eql(\"Mock Mutation\")",
+					"        pm.expect(genomicRegionStudied.geneStudied[0].id).to.eql(patientId + \"_GRS_GS\")",
+					"        pm.expect(genomicRegionStudied.geneStudied[0].label).to.eql(\"Mock Study\")",
+					"        pm.expect(genomicRegionStudied.genomicReferenceSequenceId.start).to.eql(\"1\")",
+					"        pm.expect(genomicRegionStudied.genomicReferenceSequenceId.end).to.eql(\"1000\")",
+					"        pm.expect(genomicRegionStudied.genomicRegionCoordinateSystem.id).to.eql(patientId + \"_GRS_GRCS\")",
+					"        pm.expect(genomicRegionStudied.genomicRegionCoordinateSystem.label).to.eql(\"Mock System\")",
+					"        pm.expect(genomicRegionStudied.extraProperties.Mock_1).to.eql(\"Mock_1 Response\")",
+					"        pm.expect(genomicRegionStudied.extraProperties.Mock_2).to.eql(\"Mock_2 Response\")",
+					"        utils.timestampCheck(genomicRegionStudied.created)",
+					"        utils.timestampCheck(genomicRegionStudied.updated)",
+					"    },",
+					"    genomicsReportsCheck: function(genomicsReport, patientId) {",
+					"        pm.expect(genomicsReport.id).to.eql(patientId + \"_GR\")",
+					"        pm.expect(genomicsReport.code.id).to.eql(patientId + \"_GR_CODE\")",
+					"        pm.expect(genomicsReport.code.label).to.eql(\"Mock GR Response\")",
+					"        pm.expect(genomicsReport.performingOrganizationName).to.eql(\"CanDIG\")",
+					"        pm.expect(genomicsReport.extraProperties.Mock_1).to.eql(\"Mock_1 Response\")",
+					"        pm.expect(genomicsReport.extraProperties.Mock_2).to.eql(\"Mock_2 Response\")",
+					"        utils.timestampCheck(genomicsReport.created)",
+					"        utils.timestampCheck(genomicsReport.updated)",
+					"        utils.timestampCheck(genomicsReport.issued)",
+					"    },",
+					"    geneticVariantCheck: function(geneticVariant, patientId) {",
+					"        pm.expect(geneticVariant.id).to.eql(patientId + \"_GR_GV\")",
+					"        pm.expect(geneticVariant.dataValue.id).to.eql(patientId + \"_GR_GV_DV\")",
+					"        pm.expect(geneticVariant.dataValue.label).to.eql(\"Mock GR Data Value\")",
+					"        pm.expect(geneticVariant.method.id).to.eql(patientId + \"_GR_GV_METHOD\")",
+					"        pm.expect(geneticVariant.method.label).to.eql(\"Mock GR Method\")",
+					"        pm.expect(geneticVariant.aminoAcidChange.id).to.eql(patientId + \"_GR_GV_AMINO\")",
+					"        pm.expect(geneticVariant.aminoAcidChange.label).to.eql(\"Mock Amino Change\")",
+					"        pm.expect(geneticVariant.aminoAcidChangeType.id).to.eql(patientId + \"_GR_GV_AMINO_TYPE\")",
+					"        pm.expect(geneticVariant.aminoAcidChangeType.label).to.eql(\"Mock Amino Change Type\")",
+					"        pm.expect(geneticVariant.cytogeneticLocation.id).to.eql(patientId + \"_GR_GV_CL\")",
+					"        pm.expect(geneticVariant.cytogeneticLocation.label).to.eql(\"Mock Location\")",
+					"        pm.expect(geneticVariant.cytogeneticNomenclature.id).to.eql(patientId + \"_GR_GV_CN\")",
+					"        pm.expect(geneticVariant.cytogeneticNomenclature.label).to.eql(\"Mock Nomenclature\")",
+					"        pm.expect(geneticVariant.geneStudied[0].id).to.eql(patientId + \"_GR_GV_GS\")",
+					"        pm.expect(geneticVariant.geneStudied[0].alternateIds[0]).to.eql(\"91250\")",
+					"        pm.expect(geneticVariant.geneStudied[0].symbol).to.eql(\"A\")",
+					"        pm.expect(geneticVariant.geneStudied[0].extraProperties.Mock_1).to.eql(\"Mock_1 Response\")",
+					"        pm.expect(geneticVariant.geneStudied[0].extraProperties.Mock_2).to.eql(\"Mock_2 Response\")",
+					"        pm.expect(geneticVariant.genomicDnaChange.id).to.eql(patientId + \"_GR_GV_GDC\")",
+					"        pm.expect(geneticVariant.genomicDnaChange.label).to.eql(\"Mock DNA Change\")",
+					"        pm.expect(geneticVariant.genomicSourceClass.id).to.eql(patientId + \"_GR_GV_GSC\")",
+					"        pm.expect(geneticVariant.genomicSourceClass.label).to.eql(\"Mock Source Class\")",
+					"        pm.expect(geneticVariant.variationCode[0].id).to.eql(patientId + \"_GR_GV_VC\")",
+					"        pm.expect(geneticVariant.variationCode[0].label).to.eql(\"Mock Variation Code\")",
+					"    },",
+					"    genomicsReportSpecimenCheck: function(genomcsReportSpecimen, patientId) {",
+					"        pm.expect(genomcsReportSpecimen.id).to.eql(patientId + \"_GR_GS\")",
+					"        pm.expect(genomcsReportSpecimen.specimenType.id).to.eql(patientId + \"_GR_GS_ST\")",
+					"        pm.expect(genomcsReportSpecimen.specimenType.label).to.eql(\"Mock GR Specimen\")",
+					"        pm.expect(genomcsReportSpecimen.collectionBody.id).to.eql(patientId + \"_GR_GS_CB\")",
+					"        pm.expect(genomcsReportSpecimen.collectionBody.label).to.eql(\"Mock GR Collection\")",
+					"        pm.expect(genomcsReportSpecimen.laterality.id).to.eql(patientId + \"_GR_GS_LATERALITY\")",
+					"        pm.expect(genomcsReportSpecimen.laterality.label).to.eql(\"Mock GR Laterality\")",
+					"        pm.expect(genomcsReportSpecimen.extraProperties.Mock_1).to.eql(\"Mock_1 Response\")",
+					"        pm.expect(genomcsReportSpecimen.extraProperties.Mock_2).to.eql(\"Mock_2 Response\")",
+					"    },",
+					"    labsVitalCheck: function(labsVital, patientId) {",
+					"        let vital_id = labsVital.id",
+					"        ",
+					"        if (vital_id == patientId + \"_LV\") {",
+					"            pm.expect(labsVital.id).to.eql(patientId + \"_LV\")",
+					"            pm.expect(labsVital.tumorMarkerCode.id).to.eql(patientId + \"_LV_TMC\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.id).to.eql(patientId + \"_LV_TMDV_1\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.label).to.eql(\"Marker Code V2\")",
+					"        } else if (vital_id == patientId + \"_LV_2\") {",
+					"            pm.expect(labsVital.id).to.eql(patientId +  \"_LV_2\")",
+					"            pm.expect(labsVital.tumorMarkerCode.id).to.eql(patientId + \"_LV_2_TMC\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.value).to.eql(1.0)",
+					"            pm.expect(labsVital.tumorMarkerDataValue.comparator).to.eql(\"=\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.unit).to.eql(\"cm\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.system).to.eql(\"CanDIG\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.code).to.eql(\"Test\")",
+					"        } else {",
+					"            pm.expect(labsVital.id).to.eql(patientId +  \"_LV_3\")",
+					"            pm.expect(labsVital.tumorMarkerCode.id).to.eql(patientId + \"_LV_3_TMC\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.numerator.value).to.eql(5.0)",
+					"            pm.expect(labsVital.tumorMarkerDataValue.numerator.comparator).to.eql(\"=\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.numerator.unit).to.eql(\"cm\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.numerator.system).to.eql(\"CanDIG\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.numerator.code).to.eql(\"Test\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.denominator.value).to.eql(12.0)",
+					"            pm.expect(labsVital.tumorMarkerDataValue.denominator.comparator).to.eql(\"=\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.denominator.unit).to.eql(\"cm\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.denominator.system).to.eql(\"CanDIG\")",
+					"            pm.expect(labsVital.tumorMarkerDataValue.denominator.code).to.eql(\"Test\")",
+					"        }",
+					"",
+					"        pm.expect(labsVital.individual).to.eql(patientId)",
+					"        pm.expect(labsVital.tumorMarkerCode.label).to.eql(\"Marker Code V2\")",
+					"        pm.expect(labsVital.extraProperties[\"Mock 1\"]).to.eql(\"Mock 1\")",
+					"        pm.expect(labsVital.extraProperties[\"Mock 2\"]).to.eql(\"Mock 2\")",
+					"        utils.timestampCheck(labsVital.created)",
+					"        utils.timestampCheck(labsVital.updated)",
+					"    },",
+					"    cancerConditionsCheck: function(cancerCondition, patientId) {",
+					"        pm.expect(cancerCondition.id).to.eql(patientId + \"_CC\")",
+					"        pm.expect(cancerCondition.conditionType).to.eql(\"primary\")",
+					"        pm.expect(cancerCondition.bodySite[0].id).to.eql(patientId + \"_CC_SITE\")",
+					"        pm.expect(cancerCondition.bodySite[0].label).to.eql(\"Site for CC\")",
+					"        pm.expect(cancerCondition.laterality.id).to.eql(patientId + \"_CC_LATERALITY\")",
+					"        pm.expect(cancerCondition.laterality.label).to.eql(\"Laterality for CC\")",
+					"        pm.expect(cancerCondition.clinicalStatus.id).to.eql(patientId + \"_CC_CS\")",
+					"        pm.expect(cancerCondition.clinicalStatus.label).to.eql(\"Status for CC\")",
+					"        pm.expect(cancerCondition.code.id).to.eql(patientId + \"_CC_CODE\")",
+					"        pm.expect(cancerCondition.code.label).to.eql(\"Code for CC\")",
+					"        pm.expect(cancerCondition.histologyMorphologyBehavior.id).to.eql(patientId + \"_CC_HMB\")",
+					"        pm.expect(cancerCondition.histologyMorphologyBehavior.label).to.eql(\"HMB for CC\")",
+					"        pm.expect(cancerCondition.verificationStatus.id).to.eql(patientId + \"_CC_VS\")",
+					"        pm.expect(cancerCondition.verificationStatus.label).to.eql(\"VS for CC\")",
+					"        utils.timestampCheck(cancerCondition.dateOfDiagnosis)",
+					"    },",
+					"    cancerConditionTNMCheck: function(tnm, patientId) {",
+					"        pm.expect(tnm.id).to.eql(patientId + \"_CC_TNM\")",
+					"        pm.expect(tnm.tnmType).to.eql(\"clinical\")",
+					"        pm.expect(tnm.stageGroup.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.stageGroup.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.stageGroup.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.stageGroup.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.primaryTumorCategory.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.primaryTumorCategory.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.primaryTumorCategory.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.primaryTumorCategory.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.regionalNodesCategory.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.regionalNodesCategory.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.regionalNodesCategory.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.regionalNodesCategory.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.distantMetastasesCategory.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.distantMetastasesCategory.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.distantMetastasesCategory.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.distantMetastasesCategory.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.extraProperties[\"Mock 1\"]).to.eql(\"Mock 1\")",
+					"        pm.expect(tnm.extraProperties[\"Mock 2\"]).to.eql(\"Mock 2\")",
+					"        pm.expect(tnm.cancerCondition).to.eql(\"Cancer Condition\")",
+					"        utils.timestampCheck(tnm.created)",
+					"        utils.timestampCheck(tnm.updated)",
+					"    },",
+					"    TNMCheck: function(tnm, patientId) {",
+					"        pm.expect(tnm.id).to.eql(patientId + \"_TNM\")",
+					"        pm.expect(tnm.tnmType).to.eql(\"clinical\")",
+					"        pm.expect(tnm.stageGroup.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.stageGroup.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.stageGroup.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.stageGroup.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.primaryTumorCategory.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.primaryTumorCategory.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.primaryTumorCategory.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.primaryTumorCategory.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.regionalNodesCategory.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.regionalNodesCategory.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.regionalNodesCategory.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.regionalNodesCategory.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.distantMetastasesCategory.dataValue.id).to.eql(patientId + \"_CC_DV\")",
+					"        pm.expect(tnm.distantMetastasesCategory.dataValue.label).to.eql(\"Data Value for TNM\")",
+					"        pm.expect(tnm.distantMetastasesCategory.stagingSystem.id).to.eql(patientId + \"_CC_SS\")",
+					"        pm.expect(tnm.distantMetastasesCategory.stagingSystem.label).to.eql(\"SS for CC\")",
+					"        pm.expect(tnm.extraProperties[\"Mock 1\"]).to.eql(\"Mock 1\")",
+					"        pm.expect(tnm.extraProperties[\"Mock 2\"]).to.eql(\"Mock 2\")",
+					"        pm.expect(tnm.cancerCondition).to.eql(\"Cancer Condition\")",
+					"        utils.timestampCheck(tnm.created)",
+					"        utils.timestampCheck(tnm.updated)",
+					"    },",
+					"    cancerRelatedProceduresCheck: function(crp, patientId) {",
+					"        pm.expect(crp.id).to.eql(patientId + \"_CRP\")",
+					"        pm.expect(crp.procedureType).to.eql(\"surgical\")",
+					"        pm.expect(crp.code.id).to.eql(patientId + \"_CRP_CODE\")",
+					"        pm.expect(crp.code.label).to.eql(\"Code for CRP\")",
+					"        pm.expect(crp.bodySite[0].id).to.eql(patientId + \"_CRP_SITE\")",
+					"        pm.expect(crp.bodySite[0].label).to.eql(\"Site for CRP\")",
+					"        pm.expect(crp.laterality.id).to.eql(patientId + \"_CRP_LATERALITY\")",
+					"        pm.expect(crp.laterality.label).to.eql(\"Laterality for CRP\")",
+					"        pm.expect(crp.treatmentIntent.id).to.eql(patientId + \"_CRP_TI\")",
+					"        pm.expect(crp.treatmentIntent.label).to.eql(\"TI for CRP\")",
+					"        pm.expect(crp.reasonCode.id).to.eql(patientId + \"_CRP_RC\")",
+					"        pm.expect(crp.reasonCode.label).to.eql(\"RC for CRP\")",
+					"        pm.expect(crp.reasonReference[0]).to.eql(\"PATIENT_91250_CC\")",
+					"        pm.expect(crp.extraProperties.A).to.eql(\"B\")",
+					"        utils.timestampCheck(crp.created)",
+					"        utils.timestampCheck(crp.updated)",
+					"    },",
+					"    medicationStatementsCheck: function(statement, patientId) {",
+					"        pm.expect(statement.id).to.eql(patientId + \"_MS\")",
+					"        pm.expect(statement.medicationCode.id).to.eql(patientId + \"_MS_MC\")",
+					"        pm.expect(statement.medicationCode.label).to.eql(\"MC for MS\")",
+					"        pm.expect(statement.terminationReason[0].id).to.eql(patientId + \"_MS_TR\")",
+					"        pm.expect(statement.terminationReason[0].label).to.eql(\"TR for MS\")",
+					"        pm.expect(statement.treatmentIntent.id).to.eql(patientId + \"_MS_TI\")",
+					"        pm.expect(statement.treatmentIntent.label).to.eql(\"TI for MS\")",
+					"        pm.expect(statement.extraProperties.A).to.eql(\"B\")",
+					"        utils.timestampCheck(statement.startDate)",
+					"        utils.timestampCheck(statement.endDate)",
+					"        utils.timestampCheck(statement.created)",
+					"        utils.timestampCheck(statement.updated)",
+					"    },",
+					"    mcodepacketCheck: function(mcode, patientId) {",
+					"        pm.expect(mcode.id).to.eql(patientId + \"_MCODE\")",
+					"        pm.expect(mcode.table).to.eql(\"GraphQLTestDataset_mcodepacket\")",
+					"        pm.expect(mcode.extraProperties.height).to.eql(\"179cm\")",
+					"        pm.expect(mcode.extraProperties.weight).to.eql(\"47kg\")",
+					"        pm.expect(mcode.cancerDiseaseStatus.id).to.eql(patientId + \"_MCODE_STATUS\")",
+					"        pm.expect(mcode.cancerDiseaseStatus.label).to.eql(\"Patient's condition improved\")",
+					"        pm.expect(mcode.subject.id).to.eql(patientId)",
+					"        pm.expect(mcode.genomicsReport.id).to.eql(patientId + \"_GR\")",
+					"        pm.expect(mcode.cancerCondition[0].id).to.eql(patientId + \"_CC\")",
+					"        pm.expect(mcode.medicationStatement[0].id).to.eql(patientId + \"_MS\")",
+					"        pm.expect(mcode.cancerRelatedProcedures[0].id).to.eql(patientId + \"_CRP\")",
+					"        pm.expect(mcode.subject.phenopackets[0].id).to.eql(patientId + \"_PHENOPACKET\")",
+					"        pm.expect(mcode.subject.biosamples[0].id).to.eql(patientId + \"_BIO\")",
+					"    }",
+					"}",
+					"",
+					"candigFuncs = {",
+					"    getCanDIGVariants: function(jsonData) {",
+					"        return jsonData.data.candigServerVariants",
+					"    },",
+					"    basicVariantSearch: function(variant) {",
+					"        pm.expect(variant.names[0]).to.eql(\"rs4311830\")",
+					"        pm.expect(variant.referenceName).to.eql(\"1\")",
+					"        pm.expect(variant.start).to.eql(\"712870\")",
+					"        pm.expect(variant.end).to.eql(\"712871\")",
+					"        pm.expect(variant.referenceBases).to.eql(\"T\")",
+					"        pm.expect(variant.alternateBases[0]).to.eql(\"C\")",
+					"        pm.expect(variant.filtersApplied).to.eql(null)",
+					"        pm.expect(variant.filtersPassed).to.eql(null)",
+					"    },",
+					"    attributesSearch: function(variant) {",
+					"        pm.expect(variant.attributes.attr.COMMON.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.KGPROD.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.VP.values[0].stringValue).to.eql(\"0x050000080005100016000100\")",
+					"        pm.expect(variant.attributes.attr.KGPhase1.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.ASP.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.RSPOS.values[0].int32Value).to.eql(712871)",
+					"        pm.expect(variant.attributes.attr.VC.values[0].stringValue).to.eql(\"SNV\")",
+					"        pm.expect(variant.attributes.attr.INT.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.SAO.values[0].int32Value).to.eql(0)",
+					"        pm.expect(variant.attributes.attr.OTHERKG.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.dbSNPBuildID.values[0].int32Value).to.eql(111)",
+					"        pm.expect(variant.attributes.attr.RS.values[0].int32Value).to.eql(4311830)",
+					"        pm.expect(variant.attributes.attr.SSR.values[0].int32Value).to.eql(0)",
+					"        pm.expect(variant.attributes.attr.WGT.values[0].int32Value).to.eql(1)",
+					"        pm.expect(variant.attributes.attr.CAF.values[0].stringValue).to.eql(\"[0.9669\")",
+					"        pm.expect(variant.attributes.attr.CAF.values[1].stringValue).to.eql(\"0.03306]\")",
+					"    },",
+					"    deepVariantSearch1: function(variant) {",
+					"        pm.expect(variant.id).to.eql(pm.collectionVariables.get(\"variantId1\"))",
+					"        pm.expect(variant.variantSetId).to.eql(pm.collectionVariables.get(\"variantSetId1\"))",
+					"    },",
+					"    deepVariantSearch2: function(variant) {",
+					"        pm.expect(variant.id).to.eql(pm.collectionVariables.get(\"variantId2\"))",
+					"        pm.expect(variant.variantSetId).to.eql(pm.collectionVariables.get(\"variantSetId2\"))",
+					"    }",
+					"}"
 				]
 			}
 		},
@@ -1449,6 +2942,36 @@
 		{
 			"key": "datasetId1",
 			"value": "WyJ0ZXN0MzAwIl0",
+			"type": "string"
+		},
+		{
+			"key": "id1",
+			"value": "91250",
+			"type": "string"
+		},
+		{
+			"key": "id2",
+			"value": "30718",
+			"type": "string"
+		},
+		{
+			"key": "variantSetId1",
+			"value": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSJd",
+			"type": "string"
+		},
+		{
+			"key": "variantSetId2",
+			"value": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzMwNzE4X1NBTVBMRV81ODAxNCJd",
+			"type": "string"
+		},
+		{
+			"key": "variantId2",
+			"value": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzMwNzE4X1NBTVBMRV81ODAxNCIsIjEiLCI3MTI4NzAiLCI5ZTVlMGMzNjc4NmJjYmNkYmUxNjFlYmUzOGUwZGQ3NCJd",
+			"type": "string"
+		},
+		{
+			"key": "variantId1",
+			"value": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIjEiLCI3MTI4NzAiLCI5ZTVlMGMzNjc4NmJjYmNkYmUxNjFlYmUzOGUwZGQ3NCJd",
 			"type": "string"
 		}
 	]

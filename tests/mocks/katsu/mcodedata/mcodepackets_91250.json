@@ -1,6 +1,6 @@
 {
   "id": "PATIENT_91250_MCODE",
-  "date_of_death": "2019-09-02T00:00:00Z",
+  "date_of_death": "2022-03-10T13:40",
   "cancer_disease_status": {
     "id": "PATIENT_91250_MCODE_STATUS",
     "label": "Patient's condition improved"
@@ -9,8 +9,8 @@
     "height": "179cm",
     "weight": "47kg"
   },
-  "created": "2022-03-10T15:04:51.371434Z",
-  "updated": "2022-03-10T15:04:51.371479Z",
+  "created": "2022-03-10T13:40",
+  "updated": "2022-03-10T13:40",
   "subject": {
     "id": "PATIENT_91250",
     "biosamples": [
@@ -48,8 +48,8 @@
                 "label": "EVIDENCE CODE: 575"
               }
             },
-            "created": "2022-03-10T15:04:50.891638Z",
-            "updated": "2022-03-10T15:04:50.891674Z",
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40",
             "phenopacket": "PATIENT_91250_PHENOPACKET"
           }
         ],
@@ -62,8 +62,8 @@
             "id": "PATIENT_91250_BIO_SITE",
             "label": "SITE NUMBER: 3"
           },
-          "created": "2022-03-10T15:04:50.252297Z",
-          "updated": "2022-03-10T15:04:50.252331Z"
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40"
         },
         "description": "Biosample for PATIENT_91250. Test Data used for GraphQL Testing",
         "sampled_tissue": {
@@ -95,8 +95,8 @@
             "label": "NCIT:C131711"
           }
         ],
-        "created": "2022-03-10T15:04:50.259406Z",
-        "updated": "2022-03-10T15:04:50.259431Z"
+        "created": "2022-03-10T13:40",
+        "updated": "2022-03-10T13:40"
       }
     ],
     "phenopackets": [
@@ -134,15 +134,15 @@
                 "label": "EVIDENCE CODE: 575"
               }
             },
-            "created": "2022-03-10T15:04:50.891638Z",
-            "updated": "2022-03-10T15:04:50.891674Z",
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40",
             "phenopacket": "PATIENT_91250_PHENOPACKET"
           }
         ],
-        "created": "2022-03-10T15:04:50.704637Z",
-        "updated": "2022-03-10T15:04:50.704671Z",
+        "created": "2022-03-10T13:40",
+        "updated": "2022-03-10T13:40",
         "meta_data": {
-          "created": "2022-03-10T10:04:49Z",
+          "created": "2022-03-10T13:40",
           "created_by": "GraphQLTester",
           "submitted_by": "GraphQLTester",
           "phenopacket_schema_version": "v1.0.0",
@@ -152,7 +152,7 @@
               "description": "Testable External Ref for Metadata"
             }
           ],
-          "updated": "2022-03-10T15:04:49.180617Z"
+          "updated": "2022-03-10T13:40"
         },
         "table": "GraphQLTestDataset_phenopacket",
         "biosamples": [
@@ -190,8 +190,8 @@
                     "label": "EVIDENCE CODE: 575"
                   }
                 },
-                "created": "2022-03-10T15:04:50.891638Z",
-                "updated": "2022-03-10T15:04:50.891674Z",
+                "created": "2022-03-10T13:40",
+                "updated": "2022-03-10T13:40",
                 "phenopacket": "PATIENT_91250_PHENOPACKET"
               }
             ],
@@ -204,8 +204,8 @@
                 "id": "PATIENT_91250_BIO_SITE",
                 "label": "SITE NUMBER: 3"
               },
-              "created": "2022-03-10T15:04:50.252297Z",
-              "updated": "2022-03-10T15:04:50.252331Z"
+              "created": "2022-03-10T13:40",
+              "updated": "2022-03-10T13:40"
             },
             "description": "Biosample for PATIENT_91250. Test Data used for GraphQL Testing",
             "sampled_tissue": {
@@ -237,8 +237,8 @@
                 "label": "NCIT:C131711"
               }
             ],
-            "created": "2022-03-10T15:04:50.259406Z",
-            "updated": "2022-03-10T15:04:50.259431Z"
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40"
           }
         ],
         "genes": [
@@ -246,8 +246,8 @@
             "id": "PATIENT_91250_GENES",
             "alternate_ids": ["91250"],
             "symbol": "KACK",
-            "created": "2022-03-10T15:04:50.482337Z",
-            "updated": "2022-03-10T15:04:50.482370Z"
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40"
           }
         ],
         "variants": [
@@ -258,8 +258,8 @@
               "id": "PATIENT_91250_ALLELE_ZYGOSITY",
               "label": "Allele Zygosity for given variant"
             },
-            "created": "2022-03-10T15:04:50.580935Z",
-            "updated": "2022-03-10T15:04:50.580971Z",
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40",
             "hgvsAllele": {
               "id": "PATIENT_91250_VARIANTS_ALLELE",
               "alt": "G",
@@ -292,8 +292,8 @@
                 "label": "TUMOUR_STAGE_2"
               }
             ],
-            "created": "2022-03-10T15:04:50.383273Z",
-            "updated": "2022-03-10T15:04:50.383303Z"
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40"
           }
         ],
         "hts_files": []
@@ -340,14 +340,14 @@
       "family_history_of_predisposition_syndrome": "n/a",
       "other_genetic_condition_or_significant_comorbidity": "n/a"
     },
-    "created": "2022-03-10T15:04:48.944697Z",
-    "updated": "2022-03-10T15:04:48.944729Z"
+    "created": "2022-03-10T13:40",
+    "updated": "2022-03-10T13:40"
   },
   "table": "GraphQLTestDataset_mcodepacket",
   "cancer_condition": [
     {
       "id": "PATIENT_91250_CC",
-      "condition_type": "secondary",
+      "condition_type": "primary",
       "body_site": [
         {
           "id": "PATIENT_91250_CC_SITE",
@@ -366,7 +366,7 @@
         "id": "PATIENT_91250_CC_CODE",
         "label": "Esophageal Cancer"
       },
-      "date_of_diagnosis": "2014-07-26T00:00:00Z",
+      "date_of_diagnosis": "2022-03-10T13:40",
       "verification_status": {
         "id": "PATIENT_91250_VERIFICATION_STATUS",
         "label": "unconfirmed"
@@ -377,8 +377,8 @@
         "dose_unit": "mg",
         "dose_frequency": "4x"
       },
-      "created": "2022-03-10T15:04:51.106885Z",
-      "updated": "2022-03-10T15:04:51.106904Z"
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40"
     }
   ],
   "cancer_related_procedures": [
@@ -413,8 +413,8 @@
         "dose_unit": "mg",
         "dose_frequency": "1x"
       },
-      "created": "2022-03-10T15:04:51.215931Z",
-      "updated": "2022-03-10T15:04:51.215963Z",
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40",
       "reason_reference": ["PATIENT_91250_CC"]
     }
   ],
@@ -435,16 +435,16 @@
         "id": "PATIENT_91250_MS_INTENT",
         "label": "TUMOUR REDUCTION"
       },
-      "start_date": "2014-05-26T00:00:00Z",
-      "end_date": "2015-12-19T00:00:00Z",
+      "start_date": "2022-03-10T13:40",
+      "end_date": "2022-03-10T13:40",
       "extra_properties": {
         "dose": "20",
         "route": "ORAL",
         "dose_unit": "mg",
         "dose_frequency": "2x"
       },
-      "created": "2022-03-10T15:04:51.005685Z",
-      "updated": "2022-03-10T15:04:51.005704Z"
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40"
     }
   ],
   "genomics_report": {
@@ -480,8 +480,8 @@
           "id": "PATIENT_91250_GR_GV_GS",
           "alternate_ids": ["91250"],
           "symbol": "A",
-          "created": "2022-03-09T14:21",
-          "updated": "2022-03-09T14:21",
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40",
           "extra_properties": {
             "Mock_1": "Mock_1 Response",
             "Mock_2": "Mock_2 Response"
@@ -537,14 +537,14 @@
         "Mock_2": "Mock_2 Response"
       }
     },
-    "created": "2022-03-09T14:21",
-    "updated": "2022-03-09T14:21",
+    "created": "2022-03-10T13:40",
+    "updated": "2022-03-10T13:40",
     "code": {
       "id": "PATIENT_91250_GR_CODE",
       "label": "Mock GR Response"
     },
     "performing_organization_name": "CanDIG",
-    "issued": "2022-03-09T15:40",
+    "issued": "2022-03-10T13:40",
     "extra_properties": {
       "Mock_1": "Mock_1 Response",
       "Mock_2": "Mock_2 Response"
