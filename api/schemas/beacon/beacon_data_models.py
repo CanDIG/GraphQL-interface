@@ -226,8 +226,9 @@ class BeaconAlleleResponse:
     
     ''' get_request_info(): Get input specs requested by the user'''
     def get_request_info(self) -> Tuple[int, int, str, str, str, Optional[List[str]]]: 
+        datasets = tuple(self.alleleRequest.datasetIds) if self.alleleRequest.datasetIds is not None else None
         return self.alleleRequest.start, self.alleleRequest.end, self.alleleRequest.referenceName, \
-            self.alleleRequest.referenceBases, self.alleleRequest.alternateBases, self.alleleRequest.datasetIds
+            self.alleleRequest.referenceBases, self.alleleRequest.alternateBases, datasets
     
     '''get_individuals(): Get BeaconIndividuals matching input specs'''
     async def get_individuals(self, info) -> List[BeaconIndividual]:
@@ -295,7 +296,8 @@ async def get_beacon_alleles(param):
 
 '''collect_input_fields(input): Collect cleaned input data from user request'''
 def collect_input_fields(input: BeaconAlleleRequest) -> Tuple[str, str, str, str, str, Optional[List[str]]]:
-    return str(input.start), str(input.end), input.referenceName, input.referenceBases, input.alternateBases, input.datasetIds
+    datasets = tuple(input.datasetIds) if input.datasetIds is not None else None
+    return str(input.start), str(input.end), input.referenceName, input.referenceBases, input.alternateBases, datasets
 
 
 ''' variant_matches(variant, start, end, name, base, alt_base): Check if the variant matches given input fields'''

@@ -1,4 +1,3 @@
-
 from api.interfaces.input import Input
 from api.schemas.utils import generic_filter
 from typing import Optional
@@ -13,7 +12,7 @@ class PhenopacketExternalReferenceInputType(Input):
 @strawberry.type
 class PhenopacketExternalReference:
     id: str
-    description: str
+    description: Optional[str] = None
 
     @staticmethod
     def deserialize(json):

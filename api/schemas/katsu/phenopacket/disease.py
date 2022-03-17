@@ -36,11 +36,11 @@ class Disease:
         onset = json.get("onset")
         if onset != None:
             if onset.get("age") != None:
-                ret.onset = Age(onset.get("age"))
+                set_field(json, ret, "onset", Age)
             elif onset.get("id") != None:
-                ret.onset = Ontology(**onset)
+                set_field(json, ret, "onset", Ontology)
             else:
-                ret.onset = AgeRange(**onset)
+                set_field(json, ret, "onset", AgeRange)
         
         for (field_name, type) in [("disease_stage", Ontology),("tnm_finding", Ontology)]:
             set_field_list(json, ret, field_name, type)

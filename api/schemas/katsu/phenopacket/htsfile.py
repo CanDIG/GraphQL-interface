@@ -14,13 +14,13 @@ class HtsFileInputType(Input):
 @strawberry.type
 class HtsFile:
     uri: str
-    description: str
     hts_format: str
     genome_assembly: str
-    individual_to_sample_identifiers: JSONScalar
-    extra_properties: JSONScalar
-    created: str
-    updated: str
+    description: Optional[str] = None
+    individual_to_sample_identifiers: Optional[JSONScalar] = None
+    extra_properties: Optional[JSONScalar] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
 
     @staticmethod
     def deserialize(json):

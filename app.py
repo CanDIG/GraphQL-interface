@@ -5,14 +5,12 @@ from api.query import Query
 from starlette.responses import Response
 from starlette.websockets import WebSocket
 import strawberry
-from api.schemas.katsu.phenopacket.phenopacket import Phenopacket
-from typing import Optional, Union, Any
+from typing import Optional, Union
 from strawberry.asgi import GraphQL as BaseGraphQL
 from strawberry.dataloader import DataLoader
 from starlette.requests import Request
 from api.schema import schema
 from fastapi import FastAPI
-import sys
 
 class MyGraphQL(BaseGraphQL):
     async def get_context(

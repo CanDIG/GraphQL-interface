@@ -1,4 +1,5 @@
 from api.interfaces.input import Input
+from api.schemas.json_formats.phenopacket_evidence import PhenopacketEvidence, PhenopacketEvidenceInputType
 from api.schemas.utils import generic_filter, set_extra_properties, set_field, set_field_list
 from typing import List, Optional
 import strawberry
@@ -14,7 +15,7 @@ class PhenotypicFeatureInputType(Input):
     severity: Optional[OntologyInputType] = None
     modifier: Optional[List[OntologyInputType]] = None
     onset: Optional[OntologyInputType] = None
-    evidence: Optional[OntologyInputType] = None
+    evidence: Optional[PhenopacketEvidenceInputType] = None
     biosample: Optional[str] = None
     phenopacket: Optional[str] = None
     
@@ -28,7 +29,7 @@ class PhenotypicFeature:
     severity: Optional[Ontology] = None
     modifier: Optional[List[Ontology]] = None
     onset: Optional[Ontology] = None
-    evidence: Optional[Ontology] = None
+    evidence: Optional[PhenopacketEvidence] = None
     biosample: Optional[str] = None
     phenopacket: Optional[str] = None
     extra_properties: Optional[JSONScalar] = None
@@ -40,7 +41,7 @@ class PhenotypicFeature:
         ret = PhenotypicFeature(**json)
 
         for (field_name ,type) in [("type", Ontology), ("severity", Ontology), \
-                                ("onset", Ontology), ("evidence", Ontology)]:
+                                ("onset", Ontology), ("evidence", PhenopacketEvidence)]:
             set_field(json, ret, field_name, type)
 
         set_field_list(json, ret, "modifier", Ontology)

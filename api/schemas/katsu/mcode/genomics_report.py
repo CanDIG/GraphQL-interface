@@ -35,8 +35,7 @@ class GenomicsReport:
         ret = GenomicsReport(**json)
 
         for (field_name, type) in [
-            ("code", Ontology), ("performing_orgization_name", Ontology), 
-            ("genetic_variant", CancerGeneticVariant), ("genomic_region_studied", GenomicRegionStudied)]:
+            ("code", Ontology), ("genetic_variant", CancerGeneticVariant), ("genomic_region_studied", GenomicRegionStudied)]:
             set_field(json, ret, field_name, type)
         set_field_list(json, ret, "genetic_specimen", GeneticSpecimen)
         set_extra_properties(json, ret)
