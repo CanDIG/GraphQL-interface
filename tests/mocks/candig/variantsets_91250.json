@@ -1,0 +1,396 @@
+{
+  "status": {
+    "Known peers": 1,
+    "Queried peers": 1,
+    "Successful communications": 1,
+    "Valid response": true
+  },
+  "results": {
+    "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSJd",
+    "name": "PATIENT_91250_SAMPLE_81515",
+    "datasetId": "WyJ0ZXN0MzAwIl0",
+    "referenceSetId": "WyJoZzE5YSJd",
+    "patientId": "PATIENT_91250",
+    "sampleId": "PATIENT_91250_SAMPLE_81515",
+    "metadata": [
+      {
+        "key": "version",
+        "value": "VCFv4.0",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOnZlcnNpb24iXQ",
+        "type": "String",
+        "number": "1"
+      },
+      {
+        "key": "INFO.RS",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUlMiXQ",
+        "type": "Integer",
+        "number": "1",
+        "description": "dbSNP ID (i.e. rs number)"
+      },
+      {
+        "key": "INFO.RSPOS",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUlNQT1MiXQ",
+        "type": "Integer",
+        "number": "1",
+        "description": "Chr position reported in dbSNP"
+      },
+      {
+        "key": "INFO.RV",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUlYiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "RS orientation is reversed"
+      },
+      {
+        "key": "INFO.VP",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uVlAiXQ",
+        "type": "String",
+        "number": "1",
+        "description": "Variation Property.  Documentation is at ftp://ftp.ncbi.nlm.nih.gov/snp/specs/dbSNP_BitField_latest.pdf"
+      },
+      {
+        "key": "INFO.GENEINFO",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uR0VORUlORk8iXQ",
+        "type": "String",
+        "number": "1",
+        "description": "Pairs each of gene symbol:gene id.  The gene symbol and id are delimited by a colon (:) and each pair is delimited by a vertical bar (|)"
+      },
+      {
+        "key": "INFO.dbSNPBuildID",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uZGJTTlBCdWlsZElEIl0",
+        "type": "Integer",
+        "number": "1",
+        "description": "First dbSNP Build for RS"
+      },
+      {
+        "key": "INFO.SAO",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uU0FPIl0",
+        "type": "Integer",
+        "number": "1",
+        "description": "Variant Allele Origin: 0 - unspecified, 1 - Germline, 2 - Somatic, 3 - Both"
+      },
+      {
+        "key": "INFO.SSR",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uU1NSIl0",
+        "type": "Integer",
+        "number": "1",
+        "description": "Variant Suspect Reason Codes (may be more than one value added together) 0 - unspecified, 1 - Paralog, 2 - byEST, 4 - oldAlign, 8 - Para_EST, 16 - 1kg_failed, 1024 - other"
+      },
+      {
+        "key": "INFO.WGT",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uV0dUIl0",
+        "type": "Integer",
+        "number": "1",
+        "description": "Weight, 00 - unmapped, 1 - weight 1, 2 - weight 2, 3 - weight 3 or more"
+      },
+      {
+        "key": "INFO.VC",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uVkMiXQ",
+        "type": "String",
+        "number": "1",
+        "description": "Variation Class"
+      },
+      {
+        "key": "INFO.PM",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUE0iXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "Variant is Precious(Clinical,Pubmed Cited)"
+      },
+      {
+        "key": "INFO.TPA",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uVFBBIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Provisional Third Party Annotation(TPA) (currently rs from PHARMGKB who will give phenotype data)"
+      },
+      {
+        "key": "INFO.PMC",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUE1DIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Links exist to PubMed Central article"
+      },
+      {
+        "key": "INFO.S3D",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUzNEIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has 3D structure - SNP3D table"
+      },
+      {
+        "key": "INFO.SLO",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uU0xPIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has SubmitterLinkOut - From SNP->SubSNP->Batch.link_out"
+      },
+      {
+        "key": "INFO.NSF",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTlNGIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has non-synonymous frameshift A coding region variation where one allele in the set changes all downstream amino acids. FxnClass = 44"
+      },
+      {
+        "key": "INFO.NSM",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTlNNIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has non-synonymous missense A coding region variation where one allele in the set changes protein peptide. FxnClass = 42"
+      },
+      {
+        "key": "INFO.NSN",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTlNOIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has non-synonymous nonsense A coding region variation where one allele in the set changes to STOP codon (TER). FxnClass = 41"
+      },
+      {
+        "key": "INFO.REF",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUkVGIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has reference A coding region variation where one allele in the set is identical to the reference sequence. FxnCode = 8"
+      },
+      {
+        "key": "INFO.SYN",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uU1lOIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has synonymous A coding region variation where one allele in the set does not change the encoded amino acid. FxnCode = 3"
+      },
+      {
+        "key": "INFO.U3",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uVTMiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "In 3' UTR Location is in an untranslated region (UTR). FxnCode = 53"
+      },
+      {
+        "key": "INFO.U5",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uVTUiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "In 5' UTR Location is in an untranslated region (UTR). FxnCode = 55"
+      },
+      {
+        "key": "INFO.ASS",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uQVNTIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "In acceptor splice site FxnCode = 73"
+      },
+      {
+        "key": "INFO.DSS",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uRFNTIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "In donor splice-site FxnCode = 75"
+      },
+      {
+        "key": "INFO.INT",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uSU5UIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "In Intron FxnCode = 6"
+      },
+      {
+        "key": "INFO.R3",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUjMiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "In 3' gene region FxnCode = 13"
+      },
+      {
+        "key": "INFO.R5",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUjUiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "In 5' gene region FxnCode = 15"
+      },
+      {
+        "key": "INFO.OTH",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uT1RIIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has other variant with exactly the same set of mapped positions on NCBI refernce assembly."
+      },
+      {
+        "key": "INFO.CFL",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uQ0ZMIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has Assembly conflict. This is for weight 1 and 2 variant that maps to different chromosomes on different assemblies."
+      },
+      {
+        "key": "INFO.ASP",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uQVNQIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Is Assembly specific. This is set if the variant only maps to one assembly"
+      },
+      {
+        "key": "INFO.MUT",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTVVUIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Is mutation (journal citation, explicit fact): a low frequency variation that is cited in journal and other reputable sources"
+      },
+      {
+        "key": "INFO.VLD",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uVkxEIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Is Validated.  This bit is set if the variant has 2+ minor allele count based on frequency or genotype data."
+      },
+      {
+        "key": "INFO.G5A",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uRzVBIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": ">5% minor allele frequency in each and all populations"
+      },
+      {
+        "key": "INFO.G5",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uRzUiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": ">5% minor allele frequency in 1+ populations"
+      },
+      {
+        "key": "INFO.HD",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uSEQiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "Marker is on high density genotyping kit (50K density or greater).  The variant may have phenotype associations present in dbGaP."
+      },
+      {
+        "key": "INFO.GNO",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uR05PIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Genotypes available. The variant has individual genotype (in SubInd table)."
+      },
+      {
+        "key": "INFO.KGValidated",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uS0dWYWxpZGF0ZWQiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "1000 Genome validated"
+      },
+      {
+        "key": "INFO.KGPhase1",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uS0dQaGFzZTEiXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "1000 Genome phase 1 (incl. June Interim phase 1)"
+      },
+      {
+        "key": "INFO.KGPilot123",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uS0dQaWxvdDEyMyJd",
+        "type": "Flag",
+        "number": "0",
+        "description": "1000 Genome discovery all pilots 2010(1,2,3)"
+      },
+      {
+        "key": "INFO.KGPROD",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uS0dQUk9EIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has 1000 Genome submission"
+      },
+      {
+        "key": "INFO.OTHERKG",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uT1RIRVJLRyJd",
+        "type": "Flag",
+        "number": "0",
+        "description": "non-1000 Genome submission"
+      },
+      {
+        "key": "INFO.PH3",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uUEgzIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "HAP_MAP Phase 3 genotyped: filtered, non-redundant"
+      },
+      {
+        "key": "INFO.CDA",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uQ0RBIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Variation is interrogated in a clinical diagnostic assay"
+      },
+      {
+        "key": "INFO.LSD",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTFNEIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Submitted from a locus-specific database"
+      },
+      {
+        "key": "INFO.MTP",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTVRQIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Microattribution/third-party annotation(TPA:GWAS,PAGE)"
+      },
+      {
+        "key": "INFO.OM",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uT00iXQ",
+        "type": "Flag",
+        "number": "0",
+        "description": "Has OMIM/OMIA"
+      },
+      {
+        "key": "INFO.NOC",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTk9DIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Contig allele not present in variant allele list. The reference sequence allele at the mapped position is not present in the variant allele list, adjusted for orientation."
+      },
+      {
+        "key": "INFO.WTD",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uV1REIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Is Withdrawn by submitter If one member ss is withdrawn by submitter, then this bit is set.  If all member ss' are withdrawn, then the rs is deleted to SNPHistory"
+      },
+      {
+        "key": "INFO.NOV",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uTk9WIl0",
+        "type": "Flag",
+        "number": "0",
+        "description": "Rs cluster has non-overlapping allele sets. True when rs set has more than 2 alleles from different submissions and these sets share no alleles in common."
+      },
+      {
+        "key": "INFO.CAF",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uQ0FGIl0",
+        "type": "String",
+        "number": ".",
+        "description": "An ordered, comma delimited list of allele frequencies based on 1000Genomes, starting with the reference allele followed by alternate alleles as ordered in the ALT column. Where a 1000Genomes alternate allele is not in the dbSNPs alternate allele set, the allele is added to the ALT column.  The minor allele is the second largest value in the list, and was previuosly reported in VCF as the GMAF.  This is the GMAF reported on the RefSNP and EntrezSNP pages and VariationReporter"
+      },
+      {
+        "key": "INFO.COMMON",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOklORk8uQ09NTU9OIl0",
+        "type": "Integer",
+        "number": "1",
+        "description": "RS is a common SNP.  A common SNP is one that has at least one 1000Genomes population with a minor allele of frequency >= 1% and for which 2 or more founders contribute to that minor allele frequency."
+      },
+      {
+        "key": "FILTER.PASS",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOkZJTFRFUi5QQVNTIl0",
+        "type": "String",
+        "number": "1",
+        "description": "All filters passed"
+      },
+      {
+        "key": "FILTER.NC",
+        "id": "WyJ0ZXN0MzAwIiwidnMiLCJQQVRJRU5UXzkxMjUwX1NBTVBMRV84MTUxNSIsIm1ldGFkYXRhOkZJTFRFUi5OQyJd",
+        "type": "String",
+        "number": "1",
+        "description": "Inconsistent Genotype Submission For At Least One Sample"
+      }
+    ]
+  }
+}

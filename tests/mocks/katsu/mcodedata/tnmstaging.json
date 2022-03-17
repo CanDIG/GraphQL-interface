@@ -1,0 +1,58 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": "PATIENT_91250_TNM",
+      "tnm_type": "clinical",
+      "stage_group": {
+        "data_value": {
+          "id": "PATIENT_91250_CC_DV",
+          "label": "Data Value for TNM"
+        },
+        "staging_system": {
+          "id": "PATIENT_91250_CC_SS",
+          "label": "SS for CC"
+        }
+      },
+      "primary_tumor_category": {
+        "data_value": {
+          "id": "PATIENT_91250_CC_DV",
+          "label": "Data Value for TNM"
+        },
+        "staging_system": {
+          "id": "PATIENT_91250_CC_SS",
+          "label": "SS for CC"
+        }
+      },
+      "regional_nodes_category": {
+        "data_value": {
+          "id": "PATIENT_91250_CC_DV",
+          "label": "Data Value for TNM"
+        },
+        "staging_system": {
+          "id": "PATIENT_91250_CC_SS",
+          "label": "SS for CC"
+        }
+      },
+      "distant_metastases_category": {
+        "data_value": {
+          "id": "PATIENT_91250_CC_DV",
+          "label": "Data Value for TNM"
+        },
+        "staging_system": {
+          "id": "PATIENT_91250_CC_SS",
+          "label": "SS for CC"
+        }
+      },
+      "cancer_condition": "Cancer Condition",
+      "extra_properties": {
+        "Mock 1": "Mock 1",
+        "Mock 2": "Mock 2"
+      },
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40"
+    }
+  ]
+}

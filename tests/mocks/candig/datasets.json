@@ -1,0 +1,18 @@
+{
+  "status": {
+    "Known peers": 1,
+    "Queried peers": 1,
+    "Successful communications": 1,
+    "Valid response": true
+  },
+  "results": {
+    "datasets": [
+      {
+        "id": "WyJ0ZXN0MzAwIl0",
+        "name": "test300",
+        "description": "METADATA SERVER"
+      }
+    ],
+    "total": 1
+  }
+}

@@ -12,17 +12,17 @@ import aiohttp
 import asyncio
 
 '''
-    print_result(patient_id, response): Passed in a string, patient_id as well 
+    print_result(patient_id, response, type): Passed in two strings, patient_id  & type, as well 
         as a JSON response object, response, and prints output as to whether 
         the resource was successfully added to Katsu or not
 '''
-def print_result(patient_id: str, response: Dict[str, Any]) -> NoReturn:
+def print_result(patient_id: str, response: Dict[str, Any], type: str) -> NoReturn:
     if response.get('id') is None:
-        print(f'Failed to Add mCODE packet to Katsu API for {patient_id}. Response: {response}')
+        print(f'Failed to add {type} to Katsu API for {patient_id}. Response: {response}')
     elif id_exists(response):
-        print(f'{patient_id} already added to Katsu. Response: {response}')
+        print(f'{patient_id}\'s {type} already added to Katsu. Response: {response}')
     else:
-        print(f'Successfully added {patient_id}')
+        print(f'Successfully added {patient_id}\'s {type}')
 
 '''
     id_exists(statement): Passed in a JSON response, statement, and returns a 
@@ -44,21 +44,21 @@ async def update_mcode(patient_id: str, session: aiohttp.ClientSession, table_id
     if id_exists(medication_statement):
         medication_statement = await get_medication_statement(session, patient_id)
     medication_id = medication_statement.get('id')
-    
-    procedures = await post_cancer_related_procedures(session, patient_id)
-    if id_exists(procedures):
-        procedures = await get_cancer_related_procedures(session, patient_id)
-    procedures_id = procedures.get('id')
 
     cancer_condition = await post_cancer_condition(session, patient_id)
     if id_exists(cancer_condition):
         cancer_condition = await get_cancer_condition(session, patient_id)
     cancer_condition_id = cancer_condition.get('id')
+    
+    procedures = await post_cancer_related_procedures(session, patient_id, cancer_condition_id)
+    if id_exists(procedures):
+        procedures = await get_cancer_related_procedures(session, patient_id)
+    procedures_id = procedures.get('id')
 
     mcode = generate_mcodepacket(patient_id, medication_id, procedures_id, cancer_condition_id, table_id)
     response_json = await post_katsu(session, mcode, 'mcodepackets')
     
-    print_result(patient_id, response_json)
+    print_result(patient_id, response_json, 'mcodepacket')
 
 '''
     update_phenopackets(patient_id, session, table_id, metadata_id): Passed in several strings
@@ -85,7 +85,9 @@ async def update_phenopackets(patient_id: str, session: aiohttp.ClientSession, t
     my_phenopacket = generate_phenopacket(patient_id, metadata_id, table_id, biosample_id, genes_id, variant_id, disease_id)
     
     response_json = await post_katsu(session, my_phenopacket, 'phenopackets')
-    print_result(patient_id, response_json)
+
+    await post_features(session, patient_id)
+    print_result(patient_id, response_json, 'phenopacket')
 
 '''
     add_to_katsu(): Transfers patient_info from the CanDIG-V1 server to Katsu, and

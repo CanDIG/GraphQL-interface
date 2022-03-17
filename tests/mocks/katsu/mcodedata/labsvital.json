@@ -1,0 +1,76 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": "PATIENT_91250_LV",
+      "tumor_marker_code": {
+        "id": "PATIENT_91250_LV_TMC",
+        "label": "Marker Code V2"
+      },
+      "tumor_marker_data_value": {
+        "id": "PATIENT_91250_LV_TMDV_1",
+        "label": "Marker Code V2"
+      },
+      "extra_properties": {
+        "Mock 1": "Mock 1",
+        "Mock 2": "Mock 2"
+      },
+      "created": "2022-03-09T14:21",
+      "updated": "2022-03-09T14:21",
+      "individual": "PATIENT_91250"
+    },
+    {
+      "id": "PATIENT_91250_LV_2",
+      "tumor_marker_code": {
+        "id": "PATIENT_91250_LV_2_TMC",
+        "label": "Marker Code V2"
+      },
+      "tumor_marker_data_value": {
+        "value": 1,
+        "comparator": "=",
+        "unit": "cm",
+        "system": "CanDIG",
+        "code": "Test"
+      },
+      "extra_properties": {
+        "Mock 1": "Mock 1",
+        "Mock 2": "Mock 2"
+      },
+      "created": "2022-03-09T14:21",
+      "updated": "2022-03-09T14:21",
+      "individual": "PATIENT_91250"
+    },
+    {
+      "id": "PATIENT_91250_LV_3",
+      "tumor_marker_code": {
+        "id": "PATIENT_91250_LV_3_TMC",
+        "label": "Marker Code V2"
+      },
+      "tumor_marker_data_value": {
+        "numerator": {
+          "value": 5,
+          "comparator": "=",
+          "unit": "cm",
+          "system": "CanDIG",
+          "code": "Test"
+        },
+        "denominator": {
+          "value": 12,
+          "comparator": "=",
+          "unit": "cm",
+          "system": "CanDIG",
+          "code": "Test"
+        }
+      },
+      "extra_properties": {
+        "Mock 1": "Mock 1",
+        "Mock 2": "Mock 2"
+      },
+      "created": "2022-03-09T14:21",
+      "updated": "2022-03-09T14:21",
+      "individual": "PATIENT_91250"
+    }
+  ]
+}

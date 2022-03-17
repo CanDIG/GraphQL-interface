@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  graphql:
+    build:
+      context: $PWD
+      args:
+        GRAPHQL_PYTHON_VERSION: "3.8"
+    image: graphql:v1.0.0
+    container_name: graphql
+    ports:
+      - "7999:7999"
+    environment:
+      - GRAPHQL_KATSU_API=http://candig-katsu-mock:5000/katsu
+      - GRAPHQL_CANDIG_SERVER=http://candig-katsu-mock:5000/candig
+      - GRAPHQL_BEACON_ID=com.candig.graphql
+      - GRAPHQL_KATSU_TOKEN_KEY=authorization
+      - GRAPHQL_CANDIG_TOKEN_KEY=authorization
+  candig-katsu-mock:
+    build:
+      context: $PWD/tests
+      args:
+        GRAPHQL_PYTHON_VERSION: "3.8"
+    image: candig-katsu-mock:v1.0.0
+    container_name: candig-katsu-mock
+    ports:
+      - "5000:5000"

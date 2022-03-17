@@ -1,0 +1,31 @@
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": "PATIENT_91250_MS",
+      "medication_code": {
+        "id": "PATIENT_91250_MS_MC",
+        "label": "MC for MS"
+      },
+      "termination_reason": [
+        {
+          "id": "PATIENT_91250_MS_TR",
+          "label": "TR for MS"
+        }
+      ],
+      "treatment_intent": {
+        "id": "PATIENT_91250_MS_TI",
+        "label": "TI for MS"
+      },
+      "start_date": "2022-03-10T13:40",
+      "end_date": "2022-03-10T13:40",
+      "extra_properties": {
+        "A": "B"
+      },
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40"
+    }
+  ]
+}

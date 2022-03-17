@@ -27,6 +27,10 @@ DEFAULT_CONDITIONS = ['Neoplasm of Prostate', 'Malignant Neoplasm of Beast', 'Ma
 
 DEFAULT_STATUSES = ['Patient\'s condition improved', 'Patient\'s condition worsened']
 
+DEFAULT_SEVERITIES = ['CRITICAL', 'MODERATE', 'LOW']
+
+DEFAULT_ONSETS = ['EARLY', 'LATE', 'REGULAR']
+
 DEFAULT_DATASET = {
         "title": "DEFAULT",
         "data_use": {
