@@ -6,4 +6,4 @@
 
 ## Purpose
 
-Proof-of-concept service built to display GraphQL integration with CanDIGv2 stack. For information on how to build the service locally, go to the [docs folder's README](docs/README.md). If you are building via the CanDIGv2 stack, follow the instructions present in the CanDIGv2 repo documentation.
+A proof-of-concept service built to display the integration of a GraphQL endpoint with the CanDIGv2 stack. For information on how to build the service locally, go to the [docs folder's README](docs/README.md). If you are building this via the CanDIGv2 stack, follow the instructions present in the CanDIGv2 repo documentation.
