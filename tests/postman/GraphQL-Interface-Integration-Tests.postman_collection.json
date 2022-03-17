@@ -1418,7 +1418,6 @@
 											"    pm.expect(variant2.getKatsuIndividuals.id).to.eql(patientId2)",
 											"",
 											"    for (const [field, value] of Object.entries(variant2.getKatsuIndividuals)) {",
-											"        console.log(value)",
 											"        if ((field != \"id\") && (field != \"karyotypicSex\") && (field != \"created\") && (field != \"updated\")) {",
 											"            pm.expect(value).to.eql(null)",
 											"        }",
