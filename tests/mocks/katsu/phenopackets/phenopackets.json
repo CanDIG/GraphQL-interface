@@ -32,14 +32,14 @@
               "label": "EVIDENCE CODE: 575"
             }
           },
-          "created": "2022-03-10T15:04:50.891638Z",
-          "updated": "2022-03-10T15:04:50.891674Z",
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40",
           "phenopacket": "PATIENT_91250_PHENOPACKET",
           "biosample": "PATIENT_91250_BIO"
         }
       ],
-      "created": "2022-03-10T15:04:50.704637Z",
-      "updated": "2022-03-10T15:04:50.704671Z",
+      "created": "2022-03-10T13:40",
+      "updated": "2022-03-10T13:40",
       "subject": {
         "id": "PATIENT_91250",
         "alternate_ids": ["38422"],
@@ -81,12 +81,12 @@
           "family_history_of_predisposition_syndrome": "n/a",
           "other_genetic_condition_or_significant_comorbidity": "n/a"
         },
-        "created": "2022-03-10T15:04:48.944697Z",
-        "updated": "2022-03-10T15:04:48.944729Z"
+        "created": "2022-03-10T13:40",
+        "updated": "2022-03-10T13:40"
       },
       "meta_data": {
         "id": "PATIENT_91250_METADATA",
-        "created": "2022-03-10T10:04:49Z",
+        "created": "2022-03-10T13:40",
         "created_by": "GraphQLTester",
         "submitted_by": "GraphQLTester",
         "resources": [
@@ -100,8 +100,8 @@
             "extra_properties": {
               "A": "B"
             },
-            "updated": "2022-03-10T15:04:49.180617Z",
-            "created": "2022-03-10T15:04:49.180617Z"
+            "updated": "2022-03-10T13:40",
+            "created": "2022-03-10T13:40"
           }
         ],
         "updates": [
@@ -118,7 +118,7 @@
             "description": "Testable External Ref for Metadata"
           }
         ],
-        "updated": "2022-03-10T15:04:49.180617Z",
+        "updated": "2022-03-10T13:40",
         "extra_properties": {
           "A": "B"
         }
@@ -154,8 +154,8 @@
                   "label": "EVIDENCE CODE: 575"
                 }
               },
-              "created": "2022-03-10T15:04:50.891638Z",
-              "updated": "2022-03-10T15:04:50.891674Z",
+              "created": "2022-03-10T13:40",
+              "updated": "2022-03-10T13:40",
               "phenopacket": "PATIENT_91250_PHENOPACKET",
               "biosample": "PATIENT_91250_BIO"
             }
@@ -166,8 +166,8 @@
               "id": "PATIENT_91250_BIO_SITE",
               "label": "SITE NUMBER: 3"
             },
-            "created": "2022-03-10T15:04:50.252297Z",
-            "updated": "2022-03-10T15:04:50.252331Z"
+            "created": "2022-03-10T13:40",
+            "updated": "2022-03-10T13:40"
           },
           "individual": "PATIENT_91250",
           "description": "Biosample for PATIENT_91250. Test Data used for GraphQL Testing",
@@ -195,8 +195,8 @@
           "diagnostic_markers": [
             { "id": "PATIENT_91250_BIO_DM", "label": "NCIT:C131711" }
           ],
-          "created": "2022-03-10T15:04:50.259406Z",
-          "updated": "2022-03-10T15:04:50.259431Z",
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40",
           "hts_files": ["PATIENT_91250_HTS"],
           "variants": [
             {
@@ -206,8 +206,8 @@
                 "id": "PATIENT_91250_ALLELE_ZYGOSITY",
                 "label": "Allele Zygosity for given variant"
               },
-              "created": "2022-03-10T15:04:50.580935Z",
-              "updated": "2022-03-10T15:04:50.580971Z",
+              "created": "2022-03-10T13:40",
+              "updated": "2022-03-10T13:40",
               "hgvsAllele": {
                 "id": "PATIENT_91250_VARIANTS_ALLELE",
                 "alt": "G",
@@ -229,8 +229,8 @@
           "id": "PATIENT_91250_GENES",
           "alternate_ids": ["91250"],
           "symbol": "KACK",
-          "created": "2022-03-10T15:04:50.482337Z",
-          "updated": "2022-03-10T15:04:50.482370Z"
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40"
         }
       ],
       "variants": [
@@ -241,8 +241,8 @@
             "id": "PATIENT_91250_ALLELE_ZYGOSITY",
             "label": "Allele Zygosity for given variant"
           },
-          "created": "2022-03-10T15:04:50.580935Z",
-          "updated": "2022-03-10T15:04:50.580971Z",
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40",
           "hgvsAllele": {
             "id": "PATIENT_91250_VARIANTS_ALLELE",
             "alt": "G",
@@ -267,8 +267,8 @@
           "tnm_finding": [
             { "id": "PATIENT_91250_TNM", "label": "TUMOUR_STAGE_2" }
           ],
-          "created": "2022-03-10T15:04:50.383273Z",
-          "updated": "2022-03-10T15:04:50.383303Z"
+          "created": "2022-03-10T13:40",
+          "updated": "2022-03-10T13:40"
         }
       ],
       "hts_files": [
@@ -292,7 +292,7 @@
       "id": "PATIENT_30718_PHENOPACKET",
       "meta_data": {
         "id": "PATIENT_30718_METADATA",
-        "created": "2022-03-10T10:04:49Z",
+        "created": "2022-03-10T13:40",
         "created_by": "GraphQLTester",
         "submitted_by": "GraphQLTester",
         "resources": [
@@ -306,8 +306,8 @@
             "extra_properties": {
               "A": "B"
             },
-            "updated": "2022-03-10T15:04:49.180617Z",
-            "created": "2022-03-10T15:04:49.180617Z"
+            "updated": "2022-03-10T13:40",
+            "created": "2022-03-10T13:40"
           }
         ],
         "updates": [
@@ -324,7 +324,7 @@
             "description": "Testable External Ref for Metadata"
           }
         ],
-        "updated": "2022-03-10T15:04:49.180617Z",
+        "updated": "2022-03-10T13:40",
         "extra_properties": {
           "A": "B"
         }

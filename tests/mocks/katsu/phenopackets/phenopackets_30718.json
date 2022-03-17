@@ -2,7 +2,7 @@
   "id": "PATIENT_30718_PHENOPACKET",
   "meta_data": {
     "id": "PATIENT_30718_METADATA",
-    "created": "2022-03-10T10:04:49Z",
+    "created": "2022-03-10T13:40",
     "created_by": "GraphQLTester",
     "submitted_by": "GraphQLTester",
     "resources": [
@@ -16,8 +16,8 @@
         "extra_properties": {
           "A": "B"
         },
-        "updated": "2022-03-10T15:04:49.180617Z",
-        "created": "2022-03-10T15:04:49.180617Z"
+        "updated": "2022-03-10T13:40",
+        "created": "2022-03-10T13:40"
       }
     ],
     "updates": [
@@ -34,7 +34,7 @@
         "description": "Testable External Ref for Metadata"
       }
     ],
-    "updated": "2022-03-10T15:04:49.180617Z",
+    "updated": "2022-03-10T13:40",
     "extra_properties": {
       "A": "B"
     }
@@ -42,7 +42,7 @@
   "subject": {
     "id": "PATIENT_30718",
     "karyotypic_sex": "UNKNOWN_KARYOTYPE",
-    "created": "2022-03-10T13:09:09.422313Z",
-    "updated": "2022-03-10T13:09:09.422338Z"
+    "created": "2022-03-10T13:40",
+    "updated": "2022-03-10T13:40"
   }
 }
