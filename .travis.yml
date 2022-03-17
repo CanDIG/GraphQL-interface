@@ -1,0 +1,30 @@
+language: node_js
+
+node_js:
+  - node
+
+cache: 
+  directories:
+    - ~/build/CanDIG/GraphQL-interface/node_modules
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+services:
+  - docker
+
+before_install:
+  - npm root
+  - docker --version
+
+install:
+  docker-compose -f tests/docker-compose.yaml up --detach
+
+before_script:
+  - npm install newman
+  ~/build/CanDIG/GraphQL-interface/node_modules/.bin/newman --version
+
+script:
+  - ~/build/CanDIG/GraphQL-interface/node_modules/.bin/newman run ./tests/postman/GraphQL-Interface-Integration-Tests.postman_collection.json -e ./tests/postman/GraphQL-Integration-Testing.postman_environment.json
