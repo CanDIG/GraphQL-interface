@@ -1472,7 +1472,7 @@
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query test_candig_success_4($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String, $patient: ID) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef,\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"query": "query test_candig_success_4($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String, $patient: ID!) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef,\n            katsuIndividual: {\n                ids: [$patient]\n            }\n        }) {\n        id\n    }\n}",
 										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"datasetId\": \"{{datasetId1}}\",\n    \"patient\": \"{{patient2}}\"\n}"
 									}
 								},
@@ -1509,7 +1509,7 @@
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query test_candig_success_5($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String, $patient: ID){\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"query": "query test_candig_success_5($variantStart: String, $variantEnd: String, $variantRef: String, $datasetId: String, $patient: ID!){\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef\n            katsuIndividual: {\n                ids: [$patient]\n            }\n        }) {\n        id\n    }\n}",
 										"variables": "{\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"datasetId\": \"{{datasetId1}}\",\n    \"patient\": \"None\"\n}"
 									}
 								},
@@ -1659,7 +1659,7 @@
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query test_candig_error_2($datasetId: String, $patient: ID) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"query": "query test_candig_error_2($datasetId: String, $patient: ID!) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            katsuIndividual: {\n                ids: [$patient]\n            }\n        }) {\n        id\n    }\n}",
 										"variables": "{\n    \"datasetId\": \"{{datasetId1}}\",\n    \"patient\": \"{{patient2}}\"\n}"
 									}
 								},
@@ -1700,7 +1700,7 @@
 								"body": {
 									"mode": "graphql",
 									"graphql": {
-										"query": "query test_candig_error_3($datasetId: String, $variantStart: String, $variantEnd: String, $variantRef: String, $patient: ID) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef,\n            katsuIndividual: {\n                ids: $patient\n            }\n        }) {\n        id\n    }\n}",
+										"query": "query test_candig_error_3($datasetId: String, $variantStart: String, $variantEnd: String, $variantRef: String, $patient: ID!) {\n    candigServerVariants(\n        datasetId: $datasetId, \n        input: {\n            start: $variantStart,\n            end: $variantEnd,\n            referenceName: $variantRef,\n            katsuIndividual: {\n                ids: [$patient]\n            }\n        }) {\n        id\n    }\n}",
 										"variables": "{\n    \"datasetId\": \"Wrong\",\n    \"variantStart\": \"{{variantStart1}}\",\n    \"variantEnd\": \"{{variantEnd1}}\",\n    \"variantRef\": \"{{variantRef1}}\",\n    \"patient\": \"{{patient2}}\"\n}"
 									}
 								},

@@ -23,7 +23,7 @@ class MCodePacketInputType(Input):
     medication_statement: Optional[List[MedicationStatementInputType]] = None
     date_of_death: Optional[str] = None
     cancer_disease_status: Optional[OntologyInputType] = None
-    tanle: Optional[str] = None
+    table: Optional[str] = None
 
 
 @strawberry.type

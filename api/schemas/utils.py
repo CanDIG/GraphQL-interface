@@ -167,7 +167,7 @@ def generic_filter(instance, input):
         attr_input_value = input.__getattribute__(attr)
         if attr_input_value != None:
             if attr == "ids" and "alternate_ids" in instance.__dir__():
-                if not any(id == instance.id or id in instance.alternate_ids for id in attr):
+                if not any(id == instance.id or id in instance.alternate_ids for id in attr_input_value):
                     return False
                 continue
             if attr == "ids":
