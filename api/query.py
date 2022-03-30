@@ -20,8 +20,13 @@ class Query:
     async def candig_server_variants(self, info, input: Optional[CandigServerVariantInput], dataset_name: Optional[str] = None, dataset_id: Optional[str] = None) -> List[CandigServerVariant]:
         dataset_ids = (dataset_id,) if dataset_id is not None else None
         patient = input.katsu_individual if input is not None  else None
-        patient_id = patient.ids if patient is not None else None
-        return await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(dataset_ids, input, patient_id, info))
+        patient_ids = patient.ids if patient is not None else [None]
+
+        ret = []
+        for patient_id in patient_ids:
+            ret.extend(await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(dataset_ids, input, patient_id, info)))
+        
+        return ret
 
     @strawberry.field
     async def aggregate(self, info) -> AggregateQuery:

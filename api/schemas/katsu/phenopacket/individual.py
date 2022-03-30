@@ -10,7 +10,7 @@ from api.schemas.katsu.phenopacket.biosample import Biosample
 
 @strawberry.input
 class IndividualInputType(Input):
-    ids: Optional[strawberry.ID] = None
+    ids: Optional[List[strawberry.ID]] = None
     date_of_birth: Optional[str] = None
     sex: Optional[str] = None
     karyotypic_sex: Optional[str] = None
