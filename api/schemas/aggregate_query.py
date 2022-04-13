@@ -1,7 +1,7 @@
 from dataclasses import field
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.interfaces.input import Input
-from api.schemas.utils import generic_resolver_helper
+from api.schemas.utils import generic_resolver
 from api.schemas.katsu.phenopacket.variant import VariantInputType
 from api.schemas.katsu.phenopacket.resource import ResourceInputType
 from api.schemas.katsu.phenopacket.procedure import ProcedureInputType
@@ -20,6 +20,32 @@ from typing import List, Optional
 import strawberry
 from sklearn import preprocessing, model_selection, linear_model
 import pandas as pd
+
+DEFAULT_LOGREG_RESPONSE = {
+    "init_params": {
+        "C": None,
+        "class_weight": None,
+        "dual": None,
+        "fit_intercept": None,
+        "intercept_scaling": None,
+        "l1_ratio": None,
+        "max_iter": None,
+        "multi_class": None,
+        "n_jobs": None,
+        "penalty": None,
+        "random_state": None,
+        "solver": None,
+        "tol": None,
+        "verbose": None,
+        "warm_start": None
+    },
+    "model_params": {
+        "coef_": None,
+        "intercept_": None,
+        "classes_": None,
+        "n_iter_": None
+    }
+}
 
 @strawberry.input
 class AggregateQueryFilter(Input):
@@ -60,18 +86,19 @@ class MachineLearningQuery:
     async def logistic_regression(self, info, aggregate_filter: AggregateQueryFilter = None, dependent_variables: AggregateQueryColumns = None) -> JSONScalar:
         res = []
         if aggregate_filter.phenopacket_filter != None:
-            res = await generic_resolver_helper(info, "phenopackets_loader", aggregate_filter.phenopacket_filter.ids)
+            res = await generic_resolver_helper(info, "phenopackets_loader", aggregate_filter.phenopacket_filter.ids, None)
         if dependent_variables.__getattribute__("phenopacket") != None:
             named_columns = dependent_variables.phenopacket.column_names + dependent_variables.phenopacket.subject.column_names + ["filter"]
             df = pd.DataFrame(columns = named_columns)
             for phenopacket in res.output:
+                phenopacket = Phenopacket.deserialize(phenopacket)
                 new_row = dict()
                 for name in dependent_variables.phenopacket.column_names:
                     new_row[name] = phenopacket.__getattribute__(name)
                 for name in dependent_variables.phenopacket.subject.column_names:
                     new_row[name] = phenopacket.subject.__getattribute__(name)
                 new_row["filter"] = Phenopacket.filter(phenopacket, aggregate_filter.phenopacket_filter)
-                df = df.append(new_row, ignore_index=True)
+                df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
             df = df.apply(preprocessing.LabelEncoder().fit_transform)
             y = df['filter'].copy()
             X = df.drop(['filter'], axis = 1)
@@ -79,6 +106,9 @@ class MachineLearningQuery:
             model = linear_model.LogisticRegression()
             model.fit(X_train, y_train)
             return logistic_regression_to_dict(model)
+        
+        # No other response could be formed
+        return DEFAULT_LOGREG_RESPONSE
 
 def logistic_regression_to_dict(lrmodel):
     data = {}
@@ -97,12 +127,20 @@ class AggregateQuery:
     @strawberry.field
     async def count(self, info, aggregate_filter: AggregateQueryFilter = None) -> int:
         if aggregate_filter.phenopacket_filter != None:
-            filtered_res = await generic_resolver_helper(info, "phenopacket_loader", aggregate_filter.phenopacket_filter, Phenopacket)
+            filtered_res = await generic_resolver(info, "phenopackets_loader", aggregate_filter.phenopacket_filter, Phenopacket)
             return len(filtered_res)
+        
+        # No other response could be formed
+        return 0
 
     @strawberry.field
     async def ratio(self, info, aggregate_filter: AggregateQueryFilter = None) -> float:
         if aggregate_filter.phenopacket_filter != None:
-            filtered_res = await generic_resolver_helper(info, "phenopacket_loader", aggregate_filter.phenopacket_filter, Phenopacket)
-        all_res = await generic_resolver_helper(info, "phenopacket_loader", None, Phenopacket)
-        return len(filtered_res)/len(all_res)
+            filtered_res = await generic_resolver(info, "phenopackets_loader", aggregate_filter.phenopacket_filter, Phenopacket)
+            all_res = await generic_resolver(info, "phenopackets_loader", None, Phenopacket)
+
+            if len(all_res) != 0:
+                return len(filtered_res)/len(all_res)
+
+        # No other response could be formed
+        return 0.0
