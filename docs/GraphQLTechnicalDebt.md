@@ -10,9 +10,13 @@ This may involve writing the requests using an async HTTP library, like aiohttp 
 
 We also may wish to improve the async functionality of the GraphQL interface by rebuilding many of the functions in a style consistent with asynchronous python, to take full advantage of what it offers (eg. using `async for` to complete loops instead of the regular `for` loops in an async function).
 
+**Under Development**: [`technical-debt-async-requests`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-async-requests)
+
 ## Making .dockerignore Robust
 
 The root `.dockerignore` file currently ignores the documentation and testing folders, however, we should also add some of the .gitignore file endings to it so that the creation of a Docker container doesn't include excess files & folders from the host, like a `venv` or `__pycache__`.
+
+**Under Development**: [`technical-debt-improve-dockerignore`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-improve-dockerignore)
 
 ## Troubleshooting Aggregate Queries
 
