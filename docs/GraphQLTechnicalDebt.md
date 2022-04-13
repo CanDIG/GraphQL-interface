@@ -55,3 +55,8 @@ Not all of the requirements currently listed in the `requirements.txt` file are 
 ## Connecting GraphQL interface to Data Backend
 
 A long-term goal for our GraphQL interface should be to connect it to its own data services to improve its performance.
+
+<hr/>
+
+## Improvements
+When adding any technical improvements that are listed in this file as technical debts, create a new branch called `technical-debt-<FEATURE_NAME>` and create a PR to merge the new branch into the `technical-debt` branch, from where we can merge the changes into `master`.
