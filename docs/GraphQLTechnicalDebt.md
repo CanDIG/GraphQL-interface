@@ -1,10 +1,10 @@
 # Technical Debt
 
-While the GraphQL interface is quite stable and serviceable in its current format, there are still several imrpovements that could be made to improve its use.
+While the GraphQL interface is quite stable and serviceable in its current format, there are still several improvements that could be made to improve its use.
 
 ## Async GraphQL Interface
 
-Currently, part of the reason the GraphQL interface is so slow is because it needs to call the Katsu and CanDIG variants service APIs. While we can't do anything to speed up these microservices, we can try to improve the speed of the GraphQL interface by implementing Async requests.
+Currently, part of the reason the GraphQL interface is so slow is that it needs to call the Katsu and CanDIG variants service APIs. While we can't do anything to speed up these microservices, we can try to improve the speed of the GraphQL interface by implementing Async requests.
 
 This may involve writing the requests using an async HTTP library, like aiohttp to perform the needed requests. It may also be beneficial to split the large katsu calls into smaller calls so that the async implementation may be more efficient.
 
@@ -38,15 +38,15 @@ all_mcode_data = await generic_resolver(info, "mcode_packets_loader", MCodePacke
 
 There are several branches that exist within the GraphQL interface repo. Some of these are old and out of date. We may need to delete these, or at least bring them up to date with the current default `master` branch.
 
-We may need to delete the `main` branch if we are going to contnue using the `master` branch as our default branch.
+We may need to delete the `main` branch if we are going to continue using the `master` branch as our default branch.
 
 ## Clean up utils.py file
 
-The current `utils.py` is laid out in a way that can get complex to traverse. It may be worth splitting up into several files (eg. one for default values, like `POST_SEARCH_BODY`, and another simply for requests, and another simply for filtering, etc.).
+The current `utils.py` is laid out in a way that can get complex to traverse. It may be worth splitting up into several files (eg. one for default values, like `POST_SEARCH_BODY`, another simply for requests, and another simply for filtering, etc.).
 
 ## Update Documentation
 
-The documentation for this repo has not been meaningfully updated since the creation of the Beacon endpoint, and so we may need to update it to incorporate recent changes.
+The documentation for this repo has not been meaningfully updated since the creation of the Beacon endpoint, so we may need to update it to incorporate recent changes.
 
 ## Updating Requirements
 
@@ -54,4 +54,4 @@ Not all of the requirements currently listed in the `requirements.txt` file are 
 
 ## Connecting GraphQL interface to Data Backend
 
-A long term goal for our GraphQL interface should be to connect it to its own data services to improve its performance.
+A long-term goal for our GraphQL interface should be to connect it to its own data services to improve its performance.
