@@ -30,7 +30,7 @@ async def get_candig_server_variants(param):
             for dataset_id in dataloader_input.dataset_ids:
                 body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset_id, patient_id = dataloader_input.patient_id)
                 try:
-                    results = post_candig_server_response("search", token, body)["results"]["variants"]
+                    results = (await post_candig_server_response("search", token, body))["results"]["variants"]
                 except Exception as e:
                     print(f'get_candig_server_variants: variant.py - An error was received from the CanDIG Variant Service within the dataset: {dataset_id} - {e}')
                     got_error = True
@@ -44,11 +44,11 @@ async def get_candig_server_variants(param):
             ret.append(res_variants)
         else:
             res_variants = []
-            datasets_response = post_candig_server_response("datasets/search", token) # We search here instead of outside the for loop since different users may have access to different datasets
+            datasets_response = await post_candig_server_response("datasets/search", token) # We search here instead of outside the for loop since different users may have access to different datasets
             for dataset in datasets_response["results"]["datasets"]:
                 if dataloader_input.patient_id == None:
                     try:
-                        results = post_candig_server_response("variants/search", token, body=get_post_variant_search_body(dataset["id"], dataloader_input.input))["results"]["variants"]
+                        results = (await post_candig_server_response("variants/search", token, body=get_post_variant_search_body(dataset["id"], dataloader_input.input)))["results"]["variants"]
                     except Exception as e:
                         print(f'get_candig_server_variants: variant.py - An error was received from the CanDIG Variant Service within the dataset: {dataset.get("id")} - {e}')
                         got_error = True
@@ -58,7 +58,7 @@ async def get_candig_server_variants(param):
                 else:
                     body = get_post_search_body(input = dataloader_input.input, dataset_id = dataset["id"], patient_id = dataloader_input.patient_id)
                     try:
-                        results = post_candig_server_response("search", token, body)["results"]["variants"]
+                        results = (await post_candig_server_response("search", token, body))["results"]["variants"]
                     except Exception as e:
                         print(f'get_candig_server_variants: variant.py - An error was received from the CanDIG Variant Service within the dataset: {dataset.get("id")} - {e}')
                         got_error = True
@@ -101,7 +101,7 @@ class CandigServerVariant:
     @strawberry.field
     async def get_katsu_individuals(self, info) -> Optional[Individual]:
         token = get_katsu_token(info)
-        patient_id = self.get_patient_id(info)
+        patient_id = await self.get_patient_id(info)
         res = await info.context["individuals_loader"].load(DataLoaderInput(token, [patient_id]))
         ind = None
         for x in res.output:
@@ -111,9 +111,9 @@ class CandigServerVariant:
             return Individual.deserialize(ind)
         return None
 
-    def get_patient_id(self, info):
+    async def get_patient_id(self, info):
         token = get_candig_token(info)
-        variant_set = get_candig_server_response(f"variantsets/{self.variantSetId}", token)
+        variant_set = await get_candig_server_response(f"variantsets/{self.variantSetId}", token)
         return variant_set["results"]["patientId"]
 
 class CandigServerVariantDataLoaderInput:
