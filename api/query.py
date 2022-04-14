@@ -1,5 +1,5 @@
 from api.schemas.katsu.katsu_data_models import KatsuDataModels
-from api.schemas.aggregate_query import AggregateQuery
+from api.schemas.aggregate.aggregate_query import AggregateQuery
 from api.schemas.beacon.beacon_data_models import BeaconAlleleDataLoaderInput, BeaconAlleleRequest, BeaconAlleleResponse
 from api.schemas.candig_server.variant import CandigServerVariant, CandigServerVariantDataLoaderInput, CandigServerVariantInput
 from typing import List, Optional
