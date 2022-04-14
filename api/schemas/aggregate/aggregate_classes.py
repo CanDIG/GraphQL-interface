@@ -7,32 +7,6 @@ from typing import List, Optional
 from dataclasses import field
 import strawberry
 
-DEFAULT_LOGREG_RESPONSE = {
-    "init_params": {
-        "C": None,
-        "class_weight": None,
-        "dual": None,
-        "fit_intercept": None,
-        "intercept_scaling": None,
-        "l1_ratio": None,
-        "max_iter": None,
-        "multi_class": None,
-        "n_jobs": None,
-        "penalty": None,
-        "random_state": None,
-        "solver": None,
-        "tol": None,
-        "verbose": None,
-        "warm_start": None
-    },
-    "model_params": {
-        "coef_": None,
-        "intercept_": None,
-        "classes_": None,
-        "n_iter_": None
-    }
-}
-
 @strawberry.input
 class AggregateQueryFilter(Input):
     phenopacket_filter: Optional[PhenopacketInputType] = None
@@ -51,6 +25,8 @@ class IndividualQueryColumns(Input):
 class PhenopacketQueryColumns(Input):
     column_names: Optional[List[str]] = field(default_factory=list)
     subject: Optional[IndividualQueryColumns] = None
+    phenotypic_features: Optional[IndividualQueryColumns] = None
+    biosamples: Optional[IndividualQueryColumns] = None
 
 
 @strawberry.input
