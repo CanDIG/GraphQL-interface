@@ -21,6 +21,7 @@ class Query:
         dataset_ids = (dataset_id,) if dataset_id is not None else None
         patient = input.katsu_individual if input is not None  else None
         patient_ids = patient.ids if patient is not None else [None]
+        patient_ids = [None] if patient_ids is None else patient_ids
 
         ret = []
         for patient_id in patient_ids:

@@ -1,7 +1,7 @@
 from dataclasses import field
 from api.schemas.scalars.json_scalar import JSONScalar
 from api.interfaces.input import Input
-from api.schemas.utils import generic_resolver
+from api.schemas.utils import generic_resolver, candig_filter
 from api.schemas.katsu.phenopacket.variant import VariantInputType
 from api.schemas.katsu.phenopacket.resource import ResourceInputType
 from api.schemas.katsu.phenopacket.procedure import ProcedureInputType
@@ -16,6 +16,9 @@ from api.schemas.katsu.phenopacket.gene import GeneInputType
 from api.schemas.katsu.phenopacket.disease import DiseaseInputType
 from api.schemas.katsu.phenopacket.diagnosis import DiagnosisInputType
 from api.schemas.katsu.phenopacket.biosample import BiosampleInputObjectType
+from api.schemas.katsu.mcode.mcode_packet import MCodePacketInputType, MCodePacket
+from api.schemas.candig_server.variant import CandigServerVariantInput, CandigServerVariant, CandigServerVariantDataLoaderInput
+from api.schemas.beacon.beacon_data_models import BeaconAlleleRequest, BeaconAlleleResponse
 from typing import List, Optional
 import strawberry
 from sklearn import preprocessing, model_selection, linear_model
@@ -49,20 +52,11 @@ DEFAULT_LOGREG_RESPONSE = {
 
 @strawberry.input
 class AggregateQueryFilter(Input):
-    biosample_filter: Optional[BiosampleInputObjectType] = None
-    diagnosis_filter: Optional[DiagnosisInputType] = None
-    disease_filter: Optional[DiseaseInputType] = None
-    gene_filter: Optional[GeneInputType] = None
-    genomic_interpretation_filter: Optional[GenomicInterpretationInputType] = None
-    hts_file_filter: Optional[HtsFileInputType] = None
-    individual_filter: Optional[IndividualInputType] = None
-    interpretation_filter: Optional[InterpretationInputType] = None
-    meta_data_filter: Optional[MetaDataInputType] = None
     phenopacket_filter: Optional[PhenopacketInputType] = None
-    phenotypic_feature_filter: Optional[PhenotypicFeatureInputType] = None
-    procedure_filter: Optional[ProcedureInputType] = None
-    resource_filter: Optional[ResourceInputType] = None
-    variant_filter: Optional[VariantInputType] = None
+    mcodepacket_filter: Optional[MCodePacketInputType] = None
+    variant_filter: Optional[CandigServerVariantInput] = None
+    # beacon_filter: Optional[BeaconAlleleRequest] = None 
+        # TODO: Add Features related to this when we fully integrate v2 spec
 
 @strawberry.input
 class IndividualQueryColumns(Input):
@@ -129,6 +123,31 @@ class AggregateQuery:
         if aggregate_filter.phenopacket_filter != None:
             filtered_res = await generic_resolver(info, "phenopackets_loader", aggregate_filter.phenopacket_filter, Phenopacket)
             return len(filtered_res)
+        elif aggregate_filter.mcodepacket_filter != None:
+            filtered_res = await generic_resolver(info, "mcode_packets_loader", aggregate_filter.mcodepacket_filter, MCodePacket)
+            return len(filtered_res)
+        elif aggregate_filter.variant_filter != None:
+            patient = aggregate_filter.variant_filter.katsu_individual
+            patient_ids = patient.ids if patient is not None else [None]
+            patient_ids = [None] if patient_ids is None else patient_ids
+
+            ret = []
+            for patient_id in patient_ids:
+                ret.extend(await info.context["candig_server_variants_loader"].load(CandigServerVariantDataLoaderInput(None, aggregate_filter.variant_filter, patient_id, info)))
+            
+            individuals = []
+            for variant in ret:
+                if str(type(variant.get_katsu_individuals)) == "<class 'method'>":
+                    individuals.append(await variant.get_katsu_individuals(info))
+                else:
+                    individuals.append(variant.get_katsu_individuals)
+            
+            for i in range(len(ret)):
+                ret[i].get_katsu_individuals = individuals[i]
+            
+            ret = [variant for variant in ret if candig_filter(variant, aggregate_filter.variant_filter)]
+            
+            return len(ret)
         
         # No other response could be formed
         return 0
@@ -136,11 +155,31 @@ class AggregateQuery:
     @strawberry.field
     async def ratio(self, info, aggregate_filter: AggregateQueryFilter = None) -> float:
         if aggregate_filter.phenopacket_filter != None:
-            filtered_res = await generic_resolver(info, "phenopackets_loader", aggregate_filter.phenopacket_filter, Phenopacket)
-            all_res = await generic_resolver(info, "phenopackets_loader", None, Phenopacket)
+            filtered_len = await self.count(info, aggregate_filter)
+            total_len = await self.count(info, AggregateQueryFilter(phenopacket_filter=PhenopacketInputType()))
 
-            if len(all_res) != 0:
-                return len(filtered_res)/len(all_res)
+            if total_len != 0:
+                return filtered_len / total_len
+        elif aggregate_filter.mcodepacket_filter != None:
+            filtered_len = await self.count(info, aggregate_filter)
+            total_len = await self.count(info, AggregateQueryFilter(mcodepacket_filter=MCodePacketInputType()))
+
+            if total_len != 0:
+                return filtered_len / total_len
+        elif aggregate_filter.variant_filter != None:
+            filtered_len = await self.count(info, aggregate_filter)
+            total_len = await self.count(
+                info, AggregateQueryFilter(
+                    variant_filter=CandigServerVariantInput(
+                        start=aggregate_filter.variant_filter.start, 
+                        end=aggregate_filter.variant_filter.end, 
+                        referenceName=aggregate_filter.variant_filter.referenceName
+                    )
+                )
+            )
+
+            if total_len != 0:
+                return filtered_len / total_len
 
         # No other response could be formed
         return 0.0
