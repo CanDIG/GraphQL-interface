@@ -20,7 +20,9 @@ The root `.dockerignore` file currently ignores the documentation and testing fo
 
 ## Troubleshooting Aggregate Queries
 
-The Aggregate Queries section is broken in its current implementation.
+The Aggregate Queries section is broken in its current implementation. We may also want to implement more ML methods beyond just Logistic Regression, and allow for more filters than just Phenopacket Filters.
+
+**Under Development**: [`technical-debt-fix-aggregate`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-fix-aggregate)
 
 ## Improving Beacon Resolver Function
 
@@ -52,6 +54,43 @@ The current `utils.py` is laid out in a way that can get complex to traverse. It
 
 The documentation for this repo has not been meaningfully updated since the creation of the Beacon endpoint, so we may need to update it to incorporate recent changes.
 
+We also need to improve the external-facing documentation for our GraphQL interface, to allow greater ease of use for any developers using the API. The Beacon service's external-facing documentation is fully implemented, but the CanDIG variants, Katsu and Aggregate Queries all need additional external-facing documentation. We can implement it through the method described by the [strawberry documentation](https://strawberry.rocks/docs/types/input-types#api).
+
+This is done by adding a `description` parameter to the `strawberry.<option>` decorator (or the corresponding default value). An example is shown below.
+
+```python
+# Original Resolver Function Definition
+@strawberry.field
+async def katsu_data_models(self, info) -> KatsuDataModels:
+    return KatsuDataModels()
+
+# Updated Resolver Function Definition
+@strawberry.field(description="Add Description Here")
+async def katsu_data_models(self, info) -> KatsuDataModels:
+    return KatsuDataModels()
+
+# Original Class Definition
+@strawberry.type
+class Gene:
+    id: Optional[strawberry.ID] = None
+    alternate_ids: Optional[List[strawberry.ID]] = None
+    symbol: Optional[str] = None
+    created: Optional[str] = None
+    updated: Optional[str] = None
+    extra_properties: Optional[JSONScalar] = None
+    ...
+
+# Updated Class Definition
+@strawberry.type(description="Add Description Here")
+class Gene:
+    id: Optional[strawberry.ID] = strawberry.field(default=None, description="Add Description Here")
+    alternate_ids: Optional[List[strawberry.ID]] = strawberry.field(default=None, description="Add Description Here")
+    symbol: Optional[str] = strawberry.field(default=None, description="Add Description Here")
+    created: Optional[str] = strawberry.field(default=None, description="Add Description Here")
+    updated: Optional[str] = strawberry.field(default=None, description="Add Description Here")
+    extra_properties: Optional[JSONScalar] = strawberry.field(default=None, description="Add Description Here")
+```
+
 ## Updating Requirements
 
 Not all of the requirements currently listed in the `requirements.txt` file are necessary for the GraphQL interface. Some, like `aiofiles`, are used simply for the scripts present in the documentation, and thus can be removed. Ensure that the documentation scripts have this change noted down.
@@ -63,4 +102,5 @@ A long-term goal for our GraphQL interface should be to connect it to its own da
 <hr/>
 
 ## Improvements
+
 When adding any technical improvements that are listed in this file as technical debts, create a new branch called `technical-debt-<FEATURE_NAME>` and create a PR to merge the new branch into the `technical-debt` branch, from where we can merge the changes into `master`.
