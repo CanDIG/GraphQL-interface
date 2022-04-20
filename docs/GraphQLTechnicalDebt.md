@@ -42,7 +42,7 @@ all_mcode_data = await generic_resolver(info, "mcode_packets_loader", MCodePacke
 
 We may also wish to add some [Beacon V1](https://github.com/ga4gh-beacon/specification/blob/master/beacon.md/#query-endpoint) functionality that was dropped from the initial implementation. Once the Beacon V2 spec is released, we might also want to modify our Beacon Schema to include it.
 
-**Under Development**: [`technical-debt-beacon-improvements](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-beacon-improvements)
+**Under Development**: [`technical-debt-beacon-improvements`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-beacon-improvements)
 
 ## Clean up Repo Branches
 
