@@ -196,7 +196,7 @@ async def generic_resolver_helper(info, loader_name, ids, page_number):
 
 def filter_results(res, input, cast_type):
     if input:
-        return [p for p in res if cast_type.filter(p, input)]
+        return [p for p in res if cast_type.filter(p, input)] 
     else:
         return res
 

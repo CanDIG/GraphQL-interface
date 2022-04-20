@@ -240,27 +240,18 @@ class BeaconAlleleResponse:
             if variant_matches(variant, str(start), str(end), name, base, alt_base):
                 try:
                     individual = await variant.get_katsu_individuals(info)
-                    matching_mcode = await generic_resolver(
-                        info, 
-                        "mcode_packets_loader", 
-                        MCodePacketInputType(subject=IndividualInputType(ids=[individual.id])), 
-                        MCodePacket
-                    )
-
+                    mcode_filter = MCodePacketInputType(subject=IndividualInputType(ids=[individual.id]))
+                    phenopacket_filter = PhenopacketInputType(subject=IndividualInputType(ids=[individual.id]))
+                    matching_mcode = await generic_resolver(info, "mcode_packets_loader", mcode_filter, MCodePacket)
+                    matching_phenopacket = await generic_resolver(info, "phenopackets_loader", phenopacket_filter, Phenopacket)
+                    
                     if type(matching_mcode) is not list:
                         matching_mcode = [None]
-                    
-                    matching_mcode = matching_mcode[0] if len(matching_mcode) > 0 else None
-
-                    matching_phenopacket = await generic_resolver(
-                        info, 
-                        "phenopackets_loader", 
-                        PhenopacketInputType(subject=IndividualInputType(ids=[individual.id])), 
-                        Phenopacket)
                     
                     if type(matching_phenopacket) is not list:
                         matching_phenopacket = [None]
                     
+                    matching_mcode = matching_mcode[0] if len(matching_mcode) > 0 else None
                     matching_phenopacket = matching_phenopacket[0] if len(matching_phenopacket) > 0 else None
 
                     individuals_list.append(BeaconIndividual(individual, matching_mcode, matching_phenopacket))
