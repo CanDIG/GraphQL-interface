@@ -15,6 +15,10 @@ The [following page](GraphQLDataCollection.md) is a guide to collecting and inst
 
 The [following page](GraphQLSampleQueries.md) is a guide to the types of queries one can perform with GraphQL, and specifically the queries one can perform on this GraphQL endpoint. It discusses query building and shows example queries for testing purposes.
 
+## GraphQL Technical Debt
+
+The [following page](GraphQLTechnicalDebt.md) stores information on the current Technical Debt of the GraphQL interface.
+
 ## Helper Files
 
 The [following directory](helpers/) contains the modules required for data ingestion into both the Katsu and CanDIG servers. It also has a docker-compose file with which one can setup the entire service with a simple `docker-compose up` command.

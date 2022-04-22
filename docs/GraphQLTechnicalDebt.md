@@ -38,6 +38,12 @@ We may also wish to add some [Beacon V1](https://github.com/ga4gh-beacon/specifi
 
 **Under Development**: [`technical-debt-beacon-improvements`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-beacon-improvements)
 
+## Updating Requirements
+
+Not all of the requirements currently listed in the `requirements.txt` file are necessary for the GraphQL interface. Some, like `aiofiles`, are used simply for the scripts present in the documentation, and thus can be removed. Ensure that the documentation scripts have this change noted down.
+
+**Under Development**: [`technical-debt-fix-dependencies`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-fix-dependencies)
+
 ## Clean up Repo Branches
 
 There are several branches that exist within the GraphQL interface repo. Some of these are old and out of date. We may need to delete these, or at least bring them up to date with the current default `master` branch.
@@ -88,10 +94,6 @@ class Gene:
     updated: Optional[str] = strawberry.field(default=None, description="Add Description Here")
     extra_properties: Optional[JSONScalar] = strawberry.field(default=None, description="Add Description Here")
 ```
-
-## Updating Requirements
-
-Not all of the requirements currently listed in the `requirements.txt` file are necessary for the GraphQL interface. Some, like `aiofiles`, are used simply for the scripts present in the documentation, and thus can be removed. Ensure that the documentation scripts have this change noted down.
 
 ## Connecting GraphQL interface to Data Backend
 
