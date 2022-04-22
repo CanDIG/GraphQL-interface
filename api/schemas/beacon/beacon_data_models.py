@@ -1,10 +1,10 @@
 from api.schemas.candig_server.variant import CandigServerVariantInput, \
     CandigServerVariantDataLoaderInput, get_candig_server_variants, CandigServerVariant
 from typing import List, Optional, Tuple, Union
-from api.schemas.katsu.mcode.mcode_packet import MCodePacket
-from api.schemas.katsu.phenopacket.phenopacket import Phenopacket
+from api.schemas.katsu.mcode.mcode_packet import MCodePacket, MCodePacketInputType
+from api.schemas.katsu.phenopacket.phenopacket import Phenopacket, PhenopacketInputType
 from api.schemas.utils import generic_resolver
-from api.schemas.katsu.phenopacket.individual import Individual
+from api.schemas.katsu.phenopacket.individual import Individual, IndividualInputType
 import api.settings
 from strawberry.dataloader import DataLoader
 import strawberry
@@ -234,39 +234,32 @@ class BeaconAlleleResponse:
     async def get_individuals(self, info) -> List[BeaconIndividual]:
         individuals_list = []
         start, end, name, base, alt_base, _ = self.get_request_info()
-        all_mcode_data = await generic_resolver(info, "mcode_packets_loader", None, MCodePacket) 
-        all_phenotype_data = await generic_resolver(info, "phenopackets_loader", None, Phenopacket)
         variants = await self.get_variants(info)
 
         for variant in variants:
             if variant_matches(variant, str(start), str(end), name, base, alt_base):
                 try:
                     individual = await variant.get_katsu_individuals(info)
-                    matching_mcode = self.find_packet(all_mcode_data, individual.id)
-                    matching_phenopacket = self.find_packet(all_phenotype_data, individual.id)
+                    mcode_filter = MCodePacketInputType(subject=IndividualInputType(ids=[individual.id]))
+                    phenopacket_filter = PhenopacketInputType(subject=IndividualInputType(ids=[individual.id]))
+                    matching_mcode = await generic_resolver(info, "mcode_packets_loader", mcode_filter, MCodePacket)
+                    matching_phenopacket = await generic_resolver(info, "phenopackets_loader", phenopacket_filter, Phenopacket)
+                    
+                    if type(matching_mcode) is not list:
+                        matching_mcode = [None]
+                    
+                    if type(matching_phenopacket) is not list:
+                        matching_phenopacket = [None]
+                    
+                    matching_mcode = matching_mcode[0] if len(matching_mcode) > 0 else None
+                    matching_phenopacket = matching_phenopacket[0] if len(matching_phenopacket) > 0 else None
+
                     individuals_list.append(BeaconIndividual(individual, matching_mcode, matching_phenopacket))
                 except Exception as e:
                     print(f'get_individuals: BeaconAlleleResponse: beacon_data_models.py - Error in getting patients with the specified variant --- Error: {e}')
                     pass
         
         return individuals_list
-    
-    ''' find_packet(packets, patient_id): Find mCODE/phenopacket that matches patient id'''
-    def find_packet(self, packets: Union[List[MCodePacket], List[Phenopacket]], patient_id: str) -> Optional[Union[MCodePacket, Phenopacket]]:
-        packets = sorted(packets, key=lambda packet: packet.subject.id)
-        return self.binary_search_packets(packets, patient_id, 0, len(packets) - 1)
-    
-    ''' binary_search_packets(packets, patient_id, start, end): Search for packet with matching patient id'''
-    def binary_search_packets(self, packets: Union[List[MCodePacket], List[Phenopacket]], patient_id: str, start: int, end: int) -> Optional[Union[MCodePacket, Phenopacket]]:
-        if end < start: return None
-        
-        mid_index = (start + end) // 2
-        middle = packets[mid_index]
-        middle_id = middle.subject.id
-
-        if middle_id == patient_id: return middle
-        elif middle_id < patient_id: return self.binary_search_packets(packets, patient_id, mid_index + 1, end)
-        elif middle_id > patient_id: return self.binary_search_packets(packets, patient_id, start, mid_index - 1)
 
 
 ''' get_beacon_alleles(param): Beacon V1 DataLoader function to get BeaconAlleleResponse objects from requests, in batches'''
