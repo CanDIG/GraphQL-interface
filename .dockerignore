@@ -2,8 +2,14 @@
 config/
 docs/
 tests/
+venv/
 
 # Unneeded miscellaneous items
-__pycache__
+**/__pycache__
+**/.git
+**/.vscode
+.gitignore
+.travis.yml
 README.md
 example.env
+LICENSE
