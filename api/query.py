@@ -1,5 +1,5 @@
 from api.schemas.katsu.katsu_data_models import KatsuDataModels
-from api.schemas.aggregate_query import AggregateQuery
+from api.schemas.aggregate.aggregate_query import AggregateQuery
 from api.schemas.beacon.beacon_data_models import BeaconAlleleDataLoaderInput, BeaconAlleleRequest, BeaconAlleleResponse
 from api.schemas.candig_server.variant import CandigServerVariant, CandigServerVariantDataLoaderInput, CandigServerVariantInput
 from typing import List, Optional
@@ -21,6 +21,7 @@ class Query:
         dataset_ids = (dataset_id,) if dataset_id is not None else None
         patient = input.katsu_individual if input is not None  else None
         patient_ids = patient.ids if patient is not None else [None]
+        patient_ids = [None] if patient_ids is None else patient_ids
 
         ret = []
         for patient_id in patient_ids:

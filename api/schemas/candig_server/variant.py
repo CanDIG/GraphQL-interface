@@ -81,7 +81,7 @@ class CandigServerVariantInput:
     katsu_individual: Optional[IndividualInputType] = None
 
     def __eq__(self, o: object) -> bool:
-        return self.start == o.start and self.end == o.end and self.referenceName == o.referenceName
+        return (type(self) is type(o)) and self.start == o.start and self.end == o.end and self.referenceName == o.referenceName
 
 
 @strawberry.type

@@ -25,7 +25,7 @@ class BeaconAlleleDataLoaderInput:
         self.info = info
     
     def __eq__(self, o: object) -> bool:
-        return isinstance(o, BeaconAlleleDataLoaderInput) and self.input == o.input
+        return (type(o) is type(self)) and self.input == o.input
     
     def __hash__(self) -> int:
         return hash((

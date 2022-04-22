@@ -159,6 +159,38 @@ def set_JSON_scalar(json, obj, field_name):
     if field != None:
         obj.__setattr__(field_name, JSONScalar(field))
 
+def candig_filter(instance, input):
+    if input == None:
+        return True
+    
+    for attr in input.__annotations__:
+        attr_input_value = input.__getattribute__(attr)
+        if attr_input_value != None:
+            if "__module__" in attr_input_value.__dir__():
+                if attr_input_value.__module__.startswith("api.schemas"):
+                    if attr == "katsu_individual":
+                        attr_instance_value = instance.__getattribute__("get_katsu_individuals")
+                    else:
+                        attr_instance_value = instance.__getattribute__(attr)
+                    
+                    if attr_instance_value: 
+                        if not generic_filter(attr_instance_value, attr_input_value):
+                            return False
+                    else:
+                        return False
+
+            else:
+                if (attr == "start") or (attr == "end"):
+                    if attr == "start":
+                        if attr_input_value > instance.__getattribute__(attr):
+                            return False
+                    elif attr == "end":
+                        if attr_input_value < instance.__getattribute__(attr):
+                            return False
+                elif attr_input_value != instance.__getattribute__(attr):
+                    return False
+    return True
+
 def generic_filter(instance, input):
     if input == None:
         return True
