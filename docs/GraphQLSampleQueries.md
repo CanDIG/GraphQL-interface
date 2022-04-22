@@ -273,7 +273,7 @@ Note that you will need to have a `virtualenv` called `venv` already installed a
 python3 -m venv venv
 source venv/bin/activate
 cd GraphQL-interface
-pip install wheel pandas sklearn
+pip install aiofiles==0.8.0
 pip install -r requirements.txt
 cd ..
 deactivate
