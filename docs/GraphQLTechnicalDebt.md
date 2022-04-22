@@ -12,12 +12,6 @@ We also may wish to improve the async functionality of the GraphQL interface by 
 
 **Under Development**: [`technical-debt-async-requests`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-async-requests)
 
-## Making .dockerignore Robust
-
-The root `.dockerignore` file currently ignores the documentation and testing folders, however, we should also add some of the .gitignore file endings to it so that the creation of a Docker container doesn't include excess files & folders from the host, like a `venv` or `__pycache__`.
-
-**Under Development**: [`technical-debt-improve-dockerignore`](https://github.com/CanDIG/GraphQL-interface/tree/technical-debt-improve-dockerignore)
-
 ## Troubleshooting Aggregate Queries
 
 The Aggregate Queries section is broken in its current implementation. We may also want to implement more ML methods beyond just Logistic Regression, and allow for more filters than just Phenopacket Filters.
