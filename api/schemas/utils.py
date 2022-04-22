@@ -6,6 +6,7 @@ from api.schemas.scalars.json_scalar import JSONScalar
 import requests
 from typing import List, NamedTuple
 from graphql import GraphQLError
+import aiohttp
 
 POST_SEARCH_BODY = {
     "datasetId": "-1",
@@ -72,35 +73,53 @@ def _json_object_hook(d):
 def json2obj(data):
     return json.loads(data, object_hook=_json_object_hook)
 
-def get_katsu_response(endpoint, token):
-    response = requests.get(f'{api.settings.GRAPHQL_KATSU_API}/{endpoint}', headers={api.settings.GRAPHQL_KATSU_TOKEN_KEY : f"{token}"})
+async def get_katsu_response(endpoint, token):
+    url = f'{api.settings.GRAPHQL_KATSU_API}/{endpoint}'
+    headers = {api.settings.GRAPHQL_KATSU_TOKEN_KEY : f"{token}"}
 
-    if response.status_code != 200:
-        response_text = response.text.replace("\n", " ")
-        print(f'NON-200 response from Katsu! - {response.status_code} --- Response: {response_text}')
-        raise GraphQLError("NON-200 response from Katsu!")
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.get(url) as response:
+            if response.status != 200:
+                response_text = (await response.text()).replace("\n", " ")
+                print(f'NON-200 response from Katsu! - {response.status} --- Response: {response_text}')
+                raise GraphQLError("NON-200 response from Katsu!")
 
-    return response.json()
-
-def get_candig_server_response(endpoint, token):
-    response = requests.get(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
-
-    if response.status_code != 200:
-        response_text = response.text.replace("\n", " ")
-        print(f'NON-200 response from Candig Server! - {response.status_code} --- Response: {response_text}')
-        raise GraphQLError("NON-200 response from Candig Server!")
-
-    return response.json()
-
-def post_candig_server_response(endpoint, token, body = None):
-    response = requests.post(f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}', json = body, headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"})
+            to_return = await response.json()
+        await session.close()
     
-    if response.status_code != 200:
-        response_text = response.text.replace("\n", " ")
-        print(f'NON-200 response from Candig Server! - {response.status_code} --- Response: {response_text}')
-        raise GraphQLError("NON-200 response from Candig Server!")
+    return to_return
 
-    return response.json()
+async def get_candig_server_response(endpoint, token):
+    url = f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}'
+    headers = {api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"}
+
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.get(url) as response:
+            if response.status != 200:
+                response_text = (await response.text()).replace("\n", " ")
+                print(f'NON-200 response from Candig Server! - {response.status} --- Response: {response_text}')
+                raise GraphQLError("NON-200 response from Candig Server!")
+            
+            to_return = await response.json()
+        await session.close()
+
+    return to_return
+
+async def post_candig_server_response(endpoint, token, body = None):
+    url = f'{api.settings.GRAPHQL_CANDIG_SERVER}/{endpoint}'
+    headers = headers={api.settings.GRAPHQL_CANDIG_TOKEN_KEY: f"{token}"}
+
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post(url, json=body) as response:
+            if response.status != 200:
+                response_text = (await response.text()).replace("\n", " ")
+                print(f'NON-200 response from Candig Server! - {response.status} --- Response: {response_text}')
+                raise GraphQLError("NON-200 response from Candig Server!")
+            
+            to_return = await response.json()
+        await session.close()
+        
+    return to_return
 
 def get_katsu_token(info):
     return info.context["request"].headers.get(api.settings.GRAPHQL_KATSU_TOKEN_KEY) if info.context["request"].headers.get(api.settings.GRAPHQL_KATSU_TOKEN_KEY) else ""
@@ -223,12 +242,12 @@ def generic_load_fn(enpoint_name):
             # no id was specified
             if len(dataloader_input.ids) == 0:
                 url = f"{enpoint_name}?page_size=10000&page={dataloader_input.page_number}"
-                response = get_katsu_response(url, token)    
+                response = await get_katsu_response(url, token)    
                 return [DataLoaderOutput(response["results"])]
             # Ids were specified
             else:
                 for id in dataloader_input.ids:
-                    obj_arr.append(get_katsu_response(f"{enpoint_name}/{id}", token))
+                    obj_arr.append(await get_katsu_response(f"{enpoint_name}/{id}", token))
             ret.append(DataLoaderOutput(obj_arr))
         return ret
     return load_fn
