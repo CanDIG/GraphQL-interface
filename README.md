@@ -1,3 +1,5 @@
+This repo is no longer under active development
+
 # GraphQL-interface
 
 ## Status
